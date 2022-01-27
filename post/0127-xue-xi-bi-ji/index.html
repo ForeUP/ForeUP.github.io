@@ -78,7 +78,7 @@
         
         <li class="nav-item">
           <div class="gridea-search-container">
-            <form id="gridea-search-form" style="position: relative" data-update="1643286393298"
+            <form id="gridea-search-form" style="position: relative" data-update="1643287116509"
               action="/search/index.html">
               <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
               <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -128,7 +128,7 @@
         
         <li class="nav-item">
           <div class="gridea-search-container">
-            <form id="gridea-search-form" style="position: relative" data-update="1643286393298"
+            <form id="gridea-search-form" style="position: relative" data-update="1643287116509"
               action="/search/index.html">
               <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
               <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -172,92 +172,95 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <p>咋没东西呢？<br>
-/*<!DOCTYPE html></p>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>学过的语法记录</title>
-</head>
-<body>
-<script type="">
-	/*onchange	HTML 元素已被改变
+          <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;学过的语法记录&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type=&quot;&quot;&gt;
+    /*onchange	HTML 元素已被改变
     onclick	用户点击了 HTML 元素
     onmouseover	用户把鼠标移动到 HTML 元素上
     onmouseout	用户把鼠标移开 HTML 元素
     onkeydown	用户按下键盘按键
     onload	浏览器已经完成页面加载*/
-<pre><code>concat()
-indexOf()
-lastIndexOf()
-/*搜索字符串*/
-search()
-slice()
-substring()
-substr()
---------------
-replace()
-toUpperCase()
-toLowerCase()
-mystring.trim()
---------------
-提取字符串
-charAt() //返回字母
-charCodeAt() // 返回编码值
-str[0];   // str = &quot;HELLO WORLD&quot;，返回 H；
 
-text.match(/ain/g)    // 返回数组 [ain,ain,ain]
-text.match(/ain/gi)    // 返回数组 [ain,AIN,ain,ain]
-string.includes(searchvalue, start) //start 起始位置可选
-text.includes(&quot;world&quot;)    // 返回 true
-string.startsWith(searchvalue, start)
-text.startsWith(&quot;Hello&quot;)   // 字符串以Hello开头，返回 true
-text.endsWith(&quot;Doe&quot;, 5)    // 返回 true
-let text = &quot;Bill Gates&quot;;
-text.endsWith(&quot;Gates&quot;,10); //指定长度后必须严格和长度一致，9或11均为 false
-/*模板字面量*/
-let text = `He's often called &quot;Johnny&quot;`;  //反引号允许多行字符串
-let text =
-`The quick the    
-lazy dog`;
-let firstName = &quot;John&quot;;
-text = `Welcome ${firstName}!`;  //字符串插值（string interpolation）,变量和表达式插入字符串
-total = `Total: ${(price * (1 + VAT)).toFixed(3)}`; //price=10，VAT=0.25,；
-let html = `&lt;h2&gt;${header}&lt;/h2&gt;&lt;ul&gt;`; //HTML模板，具体例子太长；
-isNaN(x);               // 返回 true，因为 x 不是数；
-typeof Infinity;     //返回number，是超出计算的数字；
-0x;         //解释为16进制；
-number.toString(16);     // 返回 80，toString()以字符串形式输出为指定进制，默认10；
-x.toExponential(2);   //（）内为小数点后位数；
-mynum.toFixed(num); //num确定保留以四舍五入保留几位小数；
-toPrecision()      返回字符串值，指定长度的'数字'
-new Number(500);    //不要用new定义对象，JS中对象无法进行比较；
-valueOf()     //以数值返回数值
-Number()
-parseInt()
-parseFloat()
-MAX_VALUE ; MIN_VALUE; 对变量、表达式或值使用数字属性，将返回 undefined;
-----/数组方法/----
-Array.foreach()  //遍历数组
-fruits.push(&quot;Lemon&quot;);    // 向 fruits 添加一个新元素 (Lemon)，返回字符串长度，使用高索引添加会增加“洞/undefined”
-pop()    //从数组中弹出元素，返回弹出的值；
-shift()   //从首部移出元素
-unshift()   //从首部增加元素
-delete fruits[0];   // 把 fruits 中的首个元素改为 undefined,尽量不用
-myarray.toString()     //把数组转换为数组值（逗号分隔）的字符串
-myarray.join()      //可以规定结合成为字符串的分割符
-fruits.splice(2, 0, &quot;Lemon&quot;, &quot;Kiwi&quot;);   //第二个参数（0）定义应删除多少元素,返回一个包含已删除项的数组
-fruits.splice(0, 1);     // 删除 fruits 中的第一个元素
-fruits.slice()    //用fruits的某个片段切出新数组,不删除改变fruits，start位置(,end位置)；
-fruits.sort()    //方法是最强大的数组方法之一,按字母排序；
-points.sort(function(a, b){return a - b});  //数字小-&gt;大排序；
-points.sort(function(a, b){return 0.5 - Math.random()});   //随机排序数组；
-Math.max(1, 2, 3); Math.min(1, 2, 3);
-cars.sort(function(a, b){return a.year - b.year});  //排序有属性数组；
+    concat()
+    indexOf()
+    lastIndexOf()
+    /*搜索字符串*/
+    search()
+    slice()
+    substring()
+    substr()
+    --------------
+    replace()
+    toUpperCase()
+    toLowerCase()
+    mystring.trim()
+    --------------
+    提取字符串
+    charAt() //返回字母
+    charCodeAt() // 返回编码值
+    str[0];   // str = &quot;HELLO WORLD&quot;，返回 H；
+
+    text.match(/ain/g)    // 返回数组 [ain,ain,ain]
+    text.match(/ain/gi)    // 返回数组 [ain,AIN,ain,ain]
+    string.includes(searchvalue, start) //start 起始位置可选
+    text.includes(&quot;world&quot;)    // 返回 true
+    string.startsWith(searchvalue, start)
+    text.startsWith(&quot;Hello&quot;)   // 字符串以Hello开头，返回 true
+    text.endsWith(&quot;Doe&quot;, 5)    // 返回 true
+    let text = &quot;Bill Gates&quot;;
+    text.endsWith(&quot;Gates&quot;,10); //指定长度后必须严格和长度一致，9或11均为 false
+    /*模板字面量*/
+    let text = `He's often called &quot;Johnny&quot;`;  //反引号允许多行字符串
+    let text =
+    `The quick the    
+    lazy dog`;
+    let firstName = &quot;John&quot;;
+    text = `Welcome ${firstName}!`;  //字符串插值（string interpolation）,变量和表达式插入字符串
+    total = `Total: ${(price * (1 + VAT)).toFixed(3)}`; //price=10，VAT=0.25,；
+    let html = `&lt;h2&gt;${header}&lt;/h2&gt;&lt;ul&gt;`; //HTML模板，具体例子太长；
+    isNaN(x);               // 返回 true，因为 x 不是数；
+    typeof Infinity;     //返回number，是超出计算的数字；
+    0x;         //解释为16进制；
+    number.toString(16);     // 返回 80，toString()以字符串形式输出为指定进制，默认10；
+    x.toExponential(2);   //（）内为小数点后位数；
+    mynum.toFixed(num); //num确定保留以四舍五入保留几位小数；
+    toPrecision()      返回字符串值，指定长度的'数字'
+    new Number(500);    //不要用new定义对象，JS中对象无法进行比较；
+    valueOf()     //以数值返回数值
+    Number()
+    parseInt()
+    parseFloat()
+    MAX_VALUE ; MIN_VALUE; 对变量、表达式或值使用数字属性，将返回 undefined;
+    ----/数组方法/----
+    Array.foreach()  //遍历数组
+    fruits.push(&quot;Lemon&quot;);    // 向 fruits 添加一个新元素 (Lemon)，返回字符串长度，使用高索引添加会增加“洞/undefined”
+    pop()    //从数组中弹出元素，返回弹出的值；
+    shift()   //从首部移出元素
+    unshift()   //从首部增加元素
+    delete fruits[0];   // 把 fruits 中的首个元素改为 undefined,尽量不用
+    myarray.toString()     //把数组转换为数组值（逗号分隔）的字符串
+    myarray.join()      //可以规定结合成为字符串的分割符
+    fruits.splice(2, 0, &quot;Lemon&quot;, &quot;Kiwi&quot;);   //第二个参数（0）定义应删除多少元素,返回一个包含已删除项的数组
+    fruits.splice(0, 1);     // 删除 fruits 中的第一个元素
+    fruits.slice()    //用fruits的某个片段切出新数组,不删除改变fruits，start位置(,end位置)；
+    fruits.sort()    //方法是最强大的数组方法之一,按字母排序；
+    points.sort(function(a, b){return a - b});  //数字小-&gt;大排序；
+    points.sort(function(a, b){return 0.5 - Math.random()});   //随机排序数组；
+    Math.max(1, 2, 3); Math.min(1, 2, 3);
+    cars.sort(function(a, b){return a.year - b.year});  //排序有属性数组；
+    
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-</script>
-</body>
-</html>*/
+
           <div class="toc-container"></div>
           
           <hr />
