@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-01-28T08:45:06.105Z</updated>
+    <updated>2022-01-28T08:46:04.979Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
@@ -16,8 +16,7 @@
         <link href="https://foreup.github.io/post/0128-xiao-jie/">
         </link>
         <updated>2022-01-28T08:32:42.000Z</updated>
-        <content type="html"><![CDATA[<p>看完了<a href="https://www.w3school.com.cn/js/index.asp"><strong>w3school JS教程</strong></a></p>
-<p>发现教程太长，太啰嗦了，太基础了，各种重复，因此打算去<a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021087191360"><strong>廖雪峰</strong></a> 那学，过几天看看效果吧，下面看看今天在w3那总结的东西：</p>
+        <content type="html"><![CDATA[<p>看完了<a href="https://www.w3school.com.cn/js/index.asp"><strong>w3school JS教程</strong></a>发现教程太长，太啰嗦了，太基础了，各种重复，因此打算去<a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021087191360"><strong>廖雪峰</strong></a> 网站学，过几天看看效果吧，下面看看今天在w3网站学的东西：</p>
 <pre><code class="language-html">&lt;script&gt;
 myarray.foreach()
     function myFunction(value, index, array) { txt = txt + value + &quot;&lt;br&gt;&quot;; }  //value:项目值，index：索引，array：数组本身；
