@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>Hello Gridea | ForeUP&#39;s Blog</title>
+<title>0203-表单选择-动画-jQ拓展 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="Hello Gridea | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0203-表单选择-动画-jQ拓展 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="Hello Gridea" />
-  <meta property="og:url" content="https://foreup.github.io/post/hello-gridea/" />
+  <meta property="og:description" content="0203-表单选择-动画-jQ拓展" />
+  <meta property="og:url" content="https://foreup.github.io/post/0203-biao-dan-xuan-ze-dong-hua-jq-tuo-zhan/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -151,13 +151,13 @@
             <div class="post-heading">
               <span class="tags">
                 
-                <a href="https://foreup.github.io/tag/8kYtDFOtV/" class="tag">Gridea</a>
+                <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>Hello Gridea</h1>
+              <h1>0203-表单选择-动画-jQ拓展</h1>
               <span class="meta">
                 Posted on
-                2018-12-12，2 min read
+                2022-02-03，9 min read
               </span>
             </div>
           
@@ -172,44 +172,332 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <img class="post-feature-header-image" src="https://foreup.github.io//post-images/hello-gridea.png" alt="封面图">
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=3" alt="封面图">
           </img>
           
-          <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+          <h1 id="事件">事件</h1>
+<h3 id="鼠标事件">鼠标事件</h3>
+<ul>
+<li><code>click</code>: 鼠标单击时触发；</li>
+<li><code>dblclick</code>：鼠标双击时触发；</li>
+<li><code>mouseenter</code>：鼠标进入时触发；</li>
+<li><code>mouseleave</code>：鼠标移出时触发；</li>
+<li><code>mousemove</code>：鼠标在DOM内部移动时触发；</li>
+<li><code>hover</code>：鼠标进入和退出时触发两个函数，相当于mouseenter加上mouseleave.</li>
+</ul>
+<h3 id="键盘事件">键盘事件</h3>
+<p>仅作用在当前焦点的DOM上，通常是<code>&lt;input&gt;</code>和<code>&lt;textarea&gt;</code></p>
+<ul>
+<li><code>keydown</code>：键盘按下时触发；</li>
+<li><code>keyup</code>：键盘松开时触发；</li>
+<li><code>keypress</code>：按一次键后触发.</li>
+</ul>
+<h3 id="其他事件">其他事件</h3>
+<ul>
+<li>focus：当DOM获得焦点时触发；</li>
+<li>blur：当DOM失去焦点时触发；</li>
+<li>change：当<code>&lt;input&gt;</code>、<code>&lt;select&gt;</code>或<code>&lt;textarea&gt;</code>的内容改变时触发；</li>
+<li>submit：当<code>&lt;form&gt;</code>提交时触发；</li>
+<li>ready：当页面被载入并且DOM树完成初始化后触发.<br>
+<code>ready</code>仅作用于document对象, 在DOM完成初始化后触发，且只触发一次，适合初始化代码.<br>
+<strong>简写</strong><br>
+<code>$(function () {...})</code>的形式，牢记这是document对象的ready事件处理函数.</li>
+</ul>
+<h3 id="事件参数">事件参数</h3>
+<p>如<code>mousemove</code>和<code>keypress</code>获取鼠标位置和按键的值, 所有事件都会传入Event对象作为参数, 可以从中获取更多信息:<br>
+获取鼠标位置:</p>
+<pre><code class="language-JavaScript">$(function () {
+    $('#testMouseMoveDiv').mousemove(function (e) {
+        $('#testMouseMoveSpan').text('pageX = ' + e.pageX + ', pageY = ' + e.pageY);
+    });
+});
+</code></pre>
+<h3 id="取消绑定">取消绑定</h3>
+<p><code>off('click', function)</code>  其中<code>function</code>是函数名,匿名函数无法解绑, 可以试用<code>off()</code>解除所有绑定,<code>off('click')</code>解除所有的click事件绑定.</p>
+<pre><code class="language-JavaScript">function hello() {
+    alert('hello!');
+}
+a.click(hello); // 绑定事件
+// 10秒钟后解除绑定:
+setTimeout(function () {
+    a.off('click', hello);
+}, 10000);
+</code></pre>
+<h3 id="安全限制">安全限制</h3>
+<p><code>open()</code>: 打开新窗口, 只能由用户触发的条件执行, 无法直接使用:</p>
+<pre><code class="language-JavaScript">var button1 = $('#testPopupButton1');
+var button2 = $('#testPopupButton2');
+function popupTestWindow() {
+    window.open('/');
+}
+button1.click(function () {
+    popupTestWindow();
+});
+button2.click(function () {
+    // 不立刻执行popupTestWindow()，3秒后执行:
+    setTimeout(popupTestWindow, 3000);
+});
+</code></pre>
+<h2 id="事件练习">事件练习</h2>
+<p>编写函数，绑定事件，实现表单项目的选择与全选操作：</p>
+<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
+&lt;form id=&quot;test-form&quot; action=&quot;test&quot;&gt;
+    &lt;legend&gt;请选择想要学习的编程语言：&lt;/legend&gt;
+    &lt;fieldset&gt;
+        &lt;p&gt;&lt;label class=&quot;selectAll&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; &lt;span class=&quot;selectAll&quot;&gt;全选&lt;/span&gt;&lt;span class=&quot;deselectAll&quot;&gt;全不选&lt;/span&gt;&lt;/label&gt; &lt;a href=&quot;#0&quot; class=&quot;invertSelect&quot;&gt;反选&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;javascript&quot;&gt; JavaScript&lt;/label&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;python&quot;&gt; Python&lt;/label&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;ruby&quot;&gt; Ruby&lt;/label&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;haskell&quot;&gt; Haskell&lt;/label&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;scheme&quot;&gt; Scheme&lt;/label&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;&lt;/p&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+&lt;!--JS函数--&gt;
+&lt;script&gt;
+$(function () {
+let
+    form = $('#test-form'),
+    langs = form.find('[name=lang]'),
+    selectAll = form.find('label.selectAll :checkbox'),
+    selectAllLabel = form.find('label.selectAll span.selectAll'),
+    deselectAllLabel = form.find('label.selectAll span.deselectAll'),
+    invertSelect = form.find('a.invertSelect');
+    langs.change();
+    selectAll.change(function() {
+        if(langs.get().every(e =&gt; e.checked)){
+            langs.prop('checked', false);
+        } 
+        else{
+            langs.prop('checked', true);
+        }
+        langs.change();
+    });
+    langs.change(function() {
+        if(langs.get().every(e =&gt; e.checked)){ 
+            selectAll.prop('checked', true);
+            selectAllLabel.hide();
+            deselectAllLabel.show();
+        }
+        else{
+            selectAll.prop('checked', false);
+            deselectAllLabel.hide();
+            selectAllLabel.show();
+        }
+    });
+    invertSelect.click(function(){
+        for(let x of langs){
+            console.log(x);
+            x.checked = !x.checked;
+        }
+        langs.change();
+    });
+});
+&lt;/script&gt;
+</code></pre>
+<h1 id="动画">动画</h1>
+<p>jQuery动画的原理是逐渐改变CSS的值, 有的动画如<code>slideUp()</code>: <code>height</code>从<code>100px</code>逐渐变为<code>0</code>没有效果, 可能是因为很多不是<code>block</code>性质的DOM元素设置<code>height</code>没用.<br>
+jQuery也没有实现对<code>background-color</code>的动画效果, 可以使用CSS3的<code>transition</code>.</p>
+<h3 id="showhide">show/hide</h3>
+<p><code>toggle()</code>根据当前状态决定是<code>show()</code>还是<code>hide()</code>: <code>toggle('slow')</code></p>
+<pre><code class="language-JavaScript">var div = $('#test-show-hide');
+div.hide(3000); // 在3秒钟内逐渐消失
+***可以设置'slow''fast'字符串;
+var div = $('#test-show-hide');
+div.show('slow'); // 在0.6秒钟内逐渐显示
+</code></pre>
+<h3 id="slideup-slidedown">slideUp / slideDown</h3>
+<p><code>show()</code>和<code>hide()</code>是从左上角逐渐展开或收缩, <code>slideUp()</code>和<code>slideDown()</code>是在垂直方向拉上或拉下；</p>
+<pre><code class="language-JavaScript">var div = $('#test-slide');
+div.slideUp(3000); // 在3秒钟内逐渐向上消失
+</code></pre>
+<h3 id="fadein-fadeout">fadeIn / fadeOut</h3>
+<p>通过不断设置DOM元素的<code>opacity</code>属性实现, <code>fadeToggle()</code>根据元素当前状态决定;</p>
+<pre><code class="language-JavaScript">var div = $('#test-fade');
+div.fadeOut('slow'); // 在0.6秒内淡出
+</code></pre>
+<h3 id="自定义动画animate">自定义动画animate()</h3>
+<pre><code class="language-JavaScript">var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000); // 在3秒钟内CSS过渡到设定值
+</code></pre>
+<p><code>animate()</code>传入一个函数，动画结束时，调用函数：<br>
+ps: 回调函数参数对于基本动画也是适用的</p>
+<pre><code class="language-JavaScript">var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000, function () {
+    console.log('动画已结束');
+    // 恢复至初始状态:
+    $(this).css('opacity', '1.0').css('width', '128px').css('height', '128px');
+});
+</code></pre>
+<h3 id="串行动画">串行动画</h3>
+<p><code>delay()</code>用来暂停动画;</p>
+<pre><code class="language-JavaScript">var div = $('#test-animates');
+// 动画效果：slideDown - 暂停 - 放大 - 暂停 - 缩小
+div.slideDown(2000)
+   .delay(1000)
+   .animate({
+       width: '256px',
+       height: '256px'
+   }, 2000)
+   .delay(1000)
+   .animate({
+       width: '128px',
+       height: '128px'
+   }, 2000);
+}
+</code></pre>
+<h3 id="练习">练习</h3>
+<p>制作remove()动画的渐隐效果:</p>
+<pre><code class="language-JavaScript">function deleteFirstTR() {
+    var tr = $('#test-table&gt;tbody&gt;tr:visible').first();
+    tr.fadeOut(1000,function(){tr.remove();});
+}
+deleteFirstTR();
+</code></pre>
+<h1 id="ajax">AJAX</h1>
+<p>**jQuery利用jsonp实现AJAX跨域访问简单示例:</p>
+<ul>
+<li>1.创建HTML文件</li>
+</ul>
+<pre><code class="language-HTML">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;JSONP测试&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type=&quot;button&quot; value=&quot;刷新&quot; onclick=&quot;refreshPrice()&quot; /&gt;
+    &lt;p&gt;当前价格:&lt;/p&gt;
+    &lt;p id=&quot;current_price&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>2.引用jQuery</li>
+</ul>
+<pre><code class="language-HTML">&lt;script src=&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>3.js代码</li>
+</ul>
+<pre><code class="language-JavaScript">&quot;use strict&quot;
+function refreshPrice() {
+    let jqxhr = $.ajax('http://api.money.126.net/data/feed/0000001,1399001', {
+        method: 'GET',
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'callbackFunction'
+    }).done((data) =&gt; {
+        let str = data['0000001'].name + ': ' +
+            data['0000001'].price + '；' +
+            data['1399001'].name + ': ' +
+            data['1399001'].price;
+        $('#current_price').slideUp('slow').text(str).slideDown('slow');
+    }).fail((xhr, status) =&gt; {
+        alert('失败: ' + xhr.status + ', 原因: ' + status);
+    });
+}
+
+$(() =&gt; {
+    refreshPrice();
+});
+</code></pre>
+<h1 id="jquery拓展">jQuery拓展</h1>
+<h3 id="编写jquery插件">编写jQuery插件</h3>
+<p>利用<code>$.fn</code>对象实现:</p>
+<pre><code class="language-JavaScript">$.fn.highlight1 = function () {
+    // this已绑定为当前jQuery对象:
+    this.css('backgroundColor', '#fffceb').css('color', '#d85030');
+    return this; //实现链式调用
+}
+</code></pre>
+<p>简单加参数:</p>
+<pre><code class="language-JavaScript">$.fn.highlight2 = function (options) {
+    // 要考虑到各种情况:
+    // options为undefined
+    // options只有部分key
+    var bgcolor = options &amp;&amp; options.backgroundColor || '#fffceb';
+    var color = options &amp;&amp; options.color || '#d85030';
+    this.css('backgroundColor', bgcolor).css('color', color);
+    return this;
+}
+</code></pre>
+<p>另一种用jQuery提供的辅助方法<code>$.extend(target, obj1, obj2, ...)</code>，把多个object对象的属性合并到第一个target对象中，遇到同名属性，总是使用靠后的对象的值，也就是越往后优先级越高：</p>
+<pre><code class="language-JavaScript">// 把默认值和用户传入的options合并到对象{}中并返回:
+var opts = $.extend({}, {
+    backgroundColor: '#00a8e6',
+    color: '#ffffff'
+}, options);
+//最终版本的highlight
+$.fn.highlight = function (options) {
+    // 合并默认值和用户设定值:
+    var opts = $.extend({}, $.fn.highlight.defaults, options);
+    this.css('backgroundColor', opts.backgroundColor).css('color', opts.color);
+    return this;
+}
+    // 设定默认值:
+$.fn.highlight.defaults = {
+    color: '#d85030',
+    backgroundColor: '#fff8de'
+}
+    //用户设定默认值
+$.fn.highlight.defaults.color = '#fff';
+$.fn.highlight.defaults.backgroundColor = '#000';
+</code></pre>
 
           <div class="toc-container"><ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E4%BA%8B%E4%BB%B6">事件</a><br>
+*
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li><a href="#%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6">鼠标事件</a></li>
+<li><a href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6">键盘事件</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%BA%8B%E4%BB%B6">其他事件</a></li>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E5%8F%82%E6%95%B0">事件参数</a></li>
+<li><a href="#%E5%8F%96%E6%B6%88%E7%BB%91%E5%AE%9A">取消绑定</a></li>
+<li><a href="#%E5%AE%89%E5%85%A8%E9%99%90%E5%88%B6">安全限制</a></li>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E7%BB%83%E4%B9%A0">事件练习</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%A8%E7%94%BB">动画</a><br>
+*
+<ul>
+<li><a href="#showhide">show/hide</a></li>
+<li><a href="#slideup-slidedown">slideUp / slideDown</a></li>
+<li><a href="#fadein-fadeout">fadeIn / fadeOut</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E7%94%BBanimate">自定义动画animate()</a></li>
+<li><a href="#%E4%B8%B2%E8%A1%8C%E5%8A%A8%E7%94%BB">串行动画</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+</ul>
+</li>
+<li><a href="#ajax">AJAX</a></li>
+<li><a href="#jquery%E6%8B%93%E5%B1%95">jQuery拓展</a><br>
+*
+<ul>
+<li><a href="#%E7%BC%96%E5%86%99jquery%E6%8F%92%E4%BB%B6">编写jQuery插件</a></li>
 </ul>
 </li>
 </ul>
 </div>
           
+          <hr />
+          <p class="next-post">下一篇：
+            <a href="https://foreup.github.io/post/0202-jquery-shi-jian/">
+              <span class="post-title">
+                0202-jQuery事件&rarr;
+              </span>
+            </a>
+          </p>
+          
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/hello-gridea/" class="leancloud_visitors"
-              data-flag-title="Hello Gridea">
+            <span id="/post/0203-biao-dan-xuan-ze-dong-hua-jq-tuo-zhan/" class="leancloud_visitors"
+              data-flag-title="0203-表单选择-动画-jQ拓展">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
