@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>Hello Gridea | ForeUP&#39;s Blog</title>
+<title>0205-underscore | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="Hello Gridea | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0205-underscore | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="Hello Gridea" />
-  <meta property="og:url" content="https://foreup.github.io/post/hello-gridea/" />
+  <meta property="og:description" content="0205-underscore" />
+  <meta property="og:url" content="https://foreup.github.io/post/0205-underscore/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -151,13 +151,13 @@
             <div class="post-heading">
               <span class="tags">
                 
-                <a href="https://foreup.github.io/tag/8kYtDFOtV/" class="tag">Gridea</a>
+                <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>Hello Gridea</h1>
+              <h1>0205-underscore</h1>
               <span class="meta">
                 Posted on
-                2018-12-12，2 min read
+                2022-02-05，4 min read
               </span>
             </div>
           
@@ -172,44 +172,142 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <img class="post-feature-header-image" src="https://foreup.github.io//post-images/hello-gridea.png" alt="封面图">
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=5" alt="封面图">
           </img>
           
-          <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+          <h1 id="underscore">underscore</h1>
+<h2 id="collections">Collections</h2>
+<p><strong>map/filter</strong><br>
+和<code>Array</code>的<code>map()</code>与<code>filter()</code>类似，但<code>underscore</code>的可以作用于<code>Object</code>。当作用于<code>Object</code>时，传入的函数为<code>function (value, key)</code>，第一个参数接收<code>value</code>，第二个参数接收<code>key</code>：</p>
+<pre><code class="language-JavaScript">'use strict';
+var obj = {
+    name: 'bob',
+    school: 'No.1 middle school',
+    address: 'xueyuan road'
+};
+var upper = _.map(obj, function (value, key) {
+    return (key+': '+value); //[&quot;name: bob&quot;,&quot;school: No.1 middle school&quot;,&quot;address: xueyuan road&quot;]
+});
+</code></pre>
+<p>对<code>Object</code>作<code>map()</code>操作的<strong>返回</strong>是<code>Array</code>, <code>_.map</code>换成<code>_.mapObject</code>返回为: <code>{&quot;name&quot;:&quot;name: bob&quot;,&quot;school&quot;:&quot;school: No.1 middle school&quot;,&quot;address&quot;:&quot;address: xueyuan road&quot;}</code><br>
+<strong>every / some</strong><br>
+当集合的所有元素都满足条件时，<code>_.every()</code>函数返回<code>true</code>，当集合的至少一个元素满足条件时，<code>_.some()</code>函数返回<code>true</code>：</p>
+<pre><code class="language-JavaScript">'use strict';
+var obj = {
+    name: 'bob',
+    school: 'No.1 middle school',
+    address: 'xueyuan road'
+};
+// 判断key和value是否全部是小写：
+var r1 = _.every(obj, function (value, key) {
+    return key===key.toLowerCase()&amp;&amp;value===value.toLowerCase();
+});
+var r2 = _.some(obj, function (value, key) {
+    return key===key.toLowerCase()||value===value.toLowerCase();
+});
+</code></pre>
+<p><strong>max / min</strong><br>
+直接返回集合中最大和最小的数, 若集合为<code>Object</code>时会忽略<code>key</code>只作用<code>value</code>.<br>
+<strong>groupBy</strong><br>
+<code>groupBy()</code>把集合的元素按照<code>key</code>归类，<code>key</code>由传入的函数返回：</p>
+<pre><code class="language-JavaScript">'use strict';
+var scores = [20, 81, 75, 40, 91, 59, 77, 66, 72, 88, 99];
+var groups = _.groupBy(scores, function (x) {
+    if (x &lt; 60) {
+        return 'C';
+    } else if (x &lt; 80) {
+        return 'B';
+    } else {
+        return 'A';
+    }
+});
+// 结果:
+// {
+//   A: [81, 91, 88, 99],
+//   B: [75, 77, 66, 72],
+//   C: [20, 40, 59]
+// }
+</code></pre>
+<p><strong>shuffle / sample</strong><br>
+<code>shuffle()</code>用洗牌算法随机打乱一个集合：</p>
+<pre><code class="language-JavaScript">'use strict';
+// 注意每次结果都不一样：
+_.shuffle([1, 2, 3, 4, 5, 6]); // [3, 5, 4, 6, 2, 1]
+</code></pre>
+<p><code>sample()</code>则是随机选择一个或多个元素：</p>
+<pre><code class="language-JavaScript">'use strict';
+// 注意每次结果都不一样：
+// 随机选1个：
+_.sample([1, 2, 3, 4, 5, 6]); // 2
+// 随机选3个：
+_.sample([1, 2, 3, 4, 5, 6], 3); // [6, 1, 4]
+</code></pre>
+<h2 id="arrays">Arrays</h2>
+<p><strong>flatten</strong><br>
+<code>flatten()</code>接收一个<code>Array</code>，无论这个<code>Array</code>里面嵌套了多少个<code>Array</code>，<code>flatten()</code>最后都把它们变成一个一维数组：</p>
+<pre><code class="language-JavaScript">_.flatten([1, [2], [3, [[4], [5]]]]); // [1, 2, 3, 4, 5]
+</code></pre>
+<p><strong>zip / unzip</strong><br>
+<code>zip()</code>把两个或多个数组的所有元素按索引对齐，然后按索引合并成新数组。</p>
+<pre><code class="language-JavaScript">'use strict';
+var names = ['Adam', 'Lisa', 'Bart'];
+var scores = [85, 92, 59];
+_.zip(names, scores);
+// [['Adam', 85], ['Lisa', 92], ['Bart', 59]]
+</code></pre>
+<p><code>unzip()</code>则是反过来：</p>
+<pre><code class="language-JavaScript">'use strict';
+var namesAndScores = [['Adam', 85], ['Lisa', 92], ['Bart', 59]];
+_.unzip(namesAndScores);
+// [['Adam', 'Lisa', 'Bart'], [85, 92, 59]]
+</code></pre>
+<p><strong>object</strong></p>
+<pre><code class="language-JavaScript">var names = ['Adam', 'Lisa', 'Bart'];
+var scores = [85, 92, 59];
+_.object(names, scores);
+// {Adam: 85, Lisa: 92, Bart: 59}
+</code></pre>
+<p><strong>range</strong><br>
+快速生成序列:</p>
+<pre><code class="language-JavaScript">'use strict';
+// 从0开始小于10:
+_.range(10); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+// 从1开始小于11：
+_.range(1, 11); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// 从0开始小于30，步长5:
+_.range(0, 30, 5); // [0, 5, 10, 15, 20, 25]
+// 从0开始大于-10，步长-1:
+_.range(0, -10, -1); // [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+</code></pre>
+<p><strong>uniq</strong></p>
+<pre><code class="language-JavaScript">var arr = ['Apple', 'orange', 'banana', 'ORANGE', 'apple', 'PEAR'];
+var result = _.uniq(arr,function(x){return x.toUpperCase();});
+//result:[&quot;Apple&quot;, &quot;orange&quot;, &quot;banana&quot;, &quot;PEAR&quot;]
+</code></pre>
 
           <div class="toc-container"><ul class="markdownIt-TOC">
-<li>
+<li><a href="#underscore">underscore</a>
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li><a href="#collections">Collections</a></li>
+<li><a href="#arrays">Arrays</a></li>
 </ul>
 </li>
 </ul>
 </div>
           
+          <hr />
+          <p class="next-post">下一篇：
+            <a href="https://foreup.github.io/post/0204-jquery-te-ding-yuan-su-tuo-zhan/">
+              <span class="post-title">
+                0204-jQuery特定元素拓展&rarr;
+              </span>
+            </a>
+          </p>
+          
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/hello-gridea/" class="leancloud_visitors"
-              data-flag-title="Hello Gridea">
+            <span id="/post/0205-underscore/" class="leancloud_visitors"
+              data-flag-title="0205-underscore">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
