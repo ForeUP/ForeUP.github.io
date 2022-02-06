@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0128小结 | ForeUP&#39;s Blog</title>
+<title>0206-underscore-Python | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0128小结 | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0206-underscore-Python | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0128小结" />
-  <meta property="og:url" content="https://foreup.github.io/post/0128-xiao-jie/" />
+  <meta property="og:description" content="0206-underscore-Python" />
+  <meta property="og:url" content="https://foreup.github.io/post/0206-underscore-python/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0128小结</h1>
+              <h1>0206-underscore-Python</h1>
               <span class="meta">
                 Posted on
-                2022-01-28，4 min read
+                2022-02-06，10 min read
               </span>
             </div>
           
@@ -172,92 +172,388 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <p>看完了<a href="https://www.w3school.com.cn/js/index.asp"><strong>w3school JS教程</strong></a>发现教程太长，太啰嗦了，太基础了，各种重复，因此打算去**<a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021087191360">廖雪峰</a>** 那学，过几天看看效果吧，下面看看今天在<br>
-<strong>w3那总结的东西：</strong></p>
-<pre><code class="language-html">&lt;script&gt;
-myarray.foreach()
-    function myFunction(value, index, array) { txt = txt + value + &quot;&lt;br&gt;&quot;; }  //value:项目值，index：索引，array：数组本身；
-    myarray.map()    //对每个元素执行函数创建新数组，不会对没有值元素执行，不改变原来数组；   
-    numbers.reduce(function1,100)   // return total + value; total 总数（初始值/先前返回的值）,可定义一个初始值, reduceRight()
-    var over18 = numbers.filter(myFunction);  //function{ return value &gt;18 ; },创建通过测试的新数组；
-    numbers.every()    //方法检查所有数组值是否通过测试,some()检查某些数组值.
-    mynum.find()    //方法返回通过测试函数的第一个数组元素的值,findIndex()返回索引；
-    -----'日期'------
-    new Date(2018, 11, 24, 10, 33, 30);  //年、月、日、小时、分钟、秒,0为一月；
-    var d = new Date(&quot;October 13, 2014 11:13:00&quot;); //日期存储为自 1970 年 1 月 1 日 00:00:00 UTC以来的毫秒数;
-    document.getElementById(&quot;demo&quot;).innerHTML = d;  //d为日期对象，会使用 toString()自动转换为字符串；
-    d.toUTCString();  d.toDateString();   //转换为易读的日期字符串
-    ISO日期格式：&quot;2018-02-19&quot; （国际标准），严格符合JS标准
-    new Date(&quot;2019&quot;); 与 new Date(2019); 不同；
-    短日期通常使用 &quot;MM/DD/YYYY&quot; 格式；
-    var d = new Date();
-    d.getDate()   以数值返回天（1-31）  d.getUTCDate()  
-    d.getDay()    以数值获取周名（0-6）
-    d.getFullYear()   获取四位的年（yyyy）
-    d.getHours()  获取小时（0-23）
-    d.getMilliseconds()   获取毫秒（0-999）
-    d.getMinutes()    获取分（0-59）
-    d.getMonth()  获取月（0-11）
-    d.getSeconds()    获取秒（0-59）
-    d.getTime()   获取时间（从 1970 年 1 月 1 日至今的毫秒数）
-    -----'数学'------
-    Math.round(x)     返回 x 四舍五入为最接近的整数；
-    Math.pow(x, y)    返回 x 的 y 次幂；
-    Math.sqrt(x)    返回 x 的平方根；
-    Math.ceil(x)   返回 x '上舍入' 最接近的整数
-    Math.floor(x)   '下舍入'
-    Math.sin(x)    返回角 x弧度 的正弦
-&lt;/script&gt;
-&lt;script&gt;
-var add = (function () {
-  var counter = 0;
-  return function () {counter += 1; return counter;}
-})();
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=6" alt="封面图">
+          </img>
+          
+          <h2 id="function">Function</h2>
+<h3 id="bind">bind</h3>
+<p>错误函数用法示例:</p>
+<pre><code class="language-JavaScript">'use strict';
+var s = ' Hello  ';
+s.trim();
+// 输出'Hello'
+var fn = s.trim;
+fn();
+// Uncaught TypeError: String.prototype.trim called on null or undefined
+</code></pre>
+<p>用<code>fn()</code>取代<code>s.trim()</code>, 上述方法的<code>fn()</code>传入的<code>this</code>指针是<code>undefined</code>, 应该这么用:</p>
+<pre><code class="language-JavaScript">var s = ' Hello  ';
+var fn = s.trim;
+// 调用call并传入s对象作为this:
+fn.call(s)
+// 输出Hello
+</code></pre>
+<p><code>bind()</code>可以将<code>s</code>绑定到<code>fn()</code>的<code>this</code>上, 修复之前的错误:</p>
+<pre><code class="language-JavaScript">var s = ' Hello  ';
+var fn = _.bind(s.trim, s);
+fn();
+</code></pre>
+<h3 id="partial">partial</h3>
+<p><code>partial()</code>创建偏函数;<br>
+创建<code>pow2N(n)</code>实现<code>Math.pow(2,n)</code>;</p>
+<pre><code class="language-JavaScript">'use strict';
+var pow2N = _.partial(Math.pow, 2);
+pow2N(3); // 8
+pow2N(5); // 32
+pow2N(10); // 1024
+</code></pre>
+<p>创建<code>cube(x)</code>，计算<code>x^3</code>，可以用<code>_</code>作占位符，固定住第二个参数：</p>
+<pre><code class="language-JavaScript">var cube = _.partial(Math.pow, _, 3);
+cube(3); // 27
+cube(5); // 125
+cube(10); // 1000
+</code></pre>
+<h3 id="memoize">memoize</h3>
+<p>用<code>memoize()</code>自动缓存函数计算的结果：</p>
+<pre><code class="language-JavaScript">var factorial = _.memoize(function(n) {
+    console.log('start calculate ' + n + '!...');
+    var s = 1, i = n;
+    while (i &gt; 1) {
+        s = s * i;
+        i --;
+    }
+    console.log(n + '! = ' + s);
+    return s;
+});
+// 第一次调用:
+factorial(10); // 3628800
+// 注意控制台输出:
+// start calculate 10!...
+// 10! = 3628800
+// 第二次调用:
+factorial(10); // 3628800
+// 控制台没有输出
+</code></pre>
+<p>但是<code>factorial(9);</code>仍然会重新计算, 可以利用<strong>递归调用</strong>实现阶乘的逐步缓存:</p>
+<pre><code class="language-JavaScript">var factorial = _.memoize(function(n) {
+    console.log('start calculate ' + n + '!...');
+    if (n &lt; 2) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+});
+factorial(10); // 3628800
+// 输出结果说明factorial(1)~factorial(10)都已经缓存了:
+// start calculate 10!...
+// start calculate 9!...
+// start calculate 8!...
+// start calculate 7!...
+// start calculate 6!...
+// start calculate 5!...
+// start calculate 4!...
+// start calculate 3!...
+// start calculate 2!...
+// start calculate 1!...
+factorial(9); // 362880
+// console无输出
+</code></pre>
+<h3 id="once">once</h3>
+<p>once()保证某个函数执行且仅执行一次:</p>
+<pre><code class="language-JavaScript">var register = _.once(function () {
+    alert('Register ok!');
+});
+// 测试效果:
+register();
+register(); //之后无弹窗
+register();
+</code></pre>
+<h3 id="delay">delay</h3>
+<pre><code class="language-JavaScript">'use strict';
+// 2秒后调用alert():
+_.delay(alert, 2000);
+</code></pre>
+<p>延迟调用的函数有参数:</p>
+<pre><code class="language-JavaScript">var log = _.bind(console.log, console);
+_.delay(log, 2000, 'Hello,', 'world!');
+// 2秒后打印'Hello, world!':
+</code></pre>
+<h1 id="python">Python</h1>
+<h2 id="字符串编码">字符串编码</h2>
+<p><code>ord()</code>获取字符的整数表示，<code>chr()</code>把编码转换为对应的字符：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; ord('A')
+65
+&gt;&gt;&gt; ord('中')
+20013
+&gt;&gt;&gt; chr(66)
+'B'
+&gt;&gt;&gt; chr(25991)
+'文'
+</code></pre>
+<p>用十六进制这么写<code>str</code>：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; '\u4e2d\u6587'  #4e2d&gt;20013&gt;'中'
+'中文'
+</code></pre>
+<p>字符串类型为<code>str</code>，在网络上传输或保存到磁盘需要转化为字节为单位的<code>bytes</code>数据，用带<code>b</code>前缀的单引号或双引号表示：<code>'ABC'</code>和<code>b'ABC'</code>不同。<br>
+<strong>encode()与decode()</strong><br>
+<code>str</code>通过<code>encode()</code>方法可以编码为指定的<code>bytes</code>：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; 'ABC'.encode('ascii')
+b'ABC'
+&gt;&gt;&gt; '中文'.encode('utf-8')
+b'\xe4\xb8\xad\xe6\x96\x87'
+&gt;&gt;&gt; '中文'.encode('ascii')
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+</code></pre>
+<p>把<code>bytes</code>变为<code>str</code>，需要用<code>decode()</code>:</p>
+<pre><code class="language-Python">&gt;&gt;&gt; b'ABC'.decode('ascii')
+'ABC'
+&gt;&gt;&gt; b'\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')
+'中文'
+</code></pre>
+<p>如果<code>bytes</code>中只有一小部分无效的字节，可以传入<code>errors='ignore'</code>忽略错误的字节：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; b'\xe4\xb8\xad\xff'.decode('utf-8', errors='ignore')
+'中'
+</code></pre>
+<p><strong>len()</strong><br>
+计算<code>str</code>的字符数用<code>len()</code>:</p>
+<pre><code class="language-Python">&gt;&gt;&gt; len('ABC')
+3
+&gt;&gt;&gt; len('中文')
+2
+</code></pre>
+<p>如果换成<code>bytes</code>就计算字节数:</p>
+<pre><code class="language-Python">&gt;&gt;&gt; len(b'ABC')
+3
+&gt;&gt;&gt; len(b'\xe4\xb8\xad\xe6\x96\x87')
+6
+&gt;&gt;&gt; len('中文'.encode('utf-8'))
+6
+</code></pre>
+<p><strong>占位符</strong><br>
+<code>x%</code> ——十六进制整数;<br>
+<code>%s</code>永远起作用，它会把任何数据类型转换为字符串：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; 'Age: %s. Gender: %s' % (25, True)
+'Age: 25. Gender: True'
+#format(), 占位符{0}、{1}…
+&gt;&gt;&gt; 'Hello, {0}, 成绩提升了 {1:.1f}%'.format('小明', 17.125)
+'Hello, 小明, 成绩提升了 17.1%'
+</code></pre>
+<p>f-string, 若包含{xxx}，就会以对应的变量替换：</p>
+<pre><code class="language-Python">&gt;&gt;&gt; r = 2.5
+&gt;&gt;&gt; s = 3.14 * r ** 2
+&gt;&gt;&gt; print(f'The area of a circle with radius {r} is {s:.2f}')
+The area of a circle with radius 2.5 is 19.62
+</code></pre>
+<p>除了特殊需求，牢记仅使用<strong>UTF-8</strong>编码。</p>
+<h2 id="list与tuple">list与tuple</h2>
+<p><strong>list</strong></p>
+<pre><code class="language-Python">&gt;&gt;&gt; classmates = ['Michael', 'Bob', 'Tracy']
+&gt;&gt;&gt; classmates
+['Michael', 'Bob', 'Tracy']
+</code></pre>
+<p>len()函数可以获得list元素的个数:<code>len(classmates) //3</code></p>
+<pre><code class="language-Python">&gt;&gt;&gt; classmates[0]
+'Michael'
+&gt;&gt;&gt; classmates[1]
+'Bob'
+&gt;&gt;&gt; classmates[2]
+'Tracy'
+&gt;&gt;&gt; classmates[3]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>访问倒数第n个元素:</p>
+<pre><code class="language-Python">&gt;&gt;&gt; classmates[-1]
+'Tracy'
+&gt;&gt;&gt; classmates[-2]
+'Bob'
+&gt;&gt;&gt; classmates[-3]
+'Michael'
+&gt;&gt;&gt; classmates[-4]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p><strong>追加元素</strong></p>
+<pre><code class="language-Python">#从末尾追加
+&gt;&gt;&gt; classmates.append('Adam')
+&gt;&gt;&gt; classmates
+['Michael', 'Bob', 'Tracy', 'Adam']
+#按索引插入
+&gt;&gt;&gt; classmates.insert(1, 'Jack')
+&gt;&gt;&gt; classmates
+['Michael', 'Jack', 'Bob', 'Tracy', 'Adam']
+#删除末尾
+&gt;&gt;&gt; classmates.pop()
+'Adam'
+&gt;&gt;&gt; classmates
+['Michael', 'Jack', 'Bob', 'Tracy']
+#索引弹出
+&gt;&gt;&gt; classmates.pop(1)
+'Jack'
+&gt;&gt;&gt; classmates
+['Michael', 'Bob', 'Tracy']
+#替换
+&gt;&gt;&gt; classmates[1] = 'Sarah'
+&gt;&gt;&gt; classmates
+['Michael', 'Sarah', 'Tracy']
+</code></pre>
+<p><strong>list套list——多维数组</strong></p>
+<pre><code class="language-Python">&gt;&gt;&gt; s = ['python', 'java', ['asp', 'php'], 'scheme']
+&gt;&gt;&gt; len(s)
+4
+</code></pre>
+<p><strong>tuple</strong><br>
+理解“指向不变”:</p>
+<pre><code class="language-Python">&gt;&gt;&gt; t = ('a', 'b', ['A', 'B'])
+&gt;&gt;&gt; t[2][0] = 'X'
+&gt;&gt;&gt; t[2][1] = 'Y'
+&gt;&gt;&gt; t
+('a', 'b', ['X', 'Y'])
+</code></pre>
+<h2 id="条件判断">条件判断</h2>
+<pre><code class="language-Python">if &lt;条件判断1&gt;:
+    &lt;执行1&gt;
+elif &lt;条件判断2&gt;:
+    &lt;执行2&gt;
+elif &lt;条件判断3&gt;:
+    &lt;执行3&gt;
+else:
+    &lt;执行4&gt;
+</code></pre>
+<h2 id="循环">循环</h2>
+<p><code>for...in...</code><br>
+<code>for x in ...</code>循环就是把每个元素代入变量x，然后执行缩进块的语句。</p>
+<pre><code class="language-Python">names = ['Michael', 'Bob', 'Tracy']
+for name in names:
+    print(name)
+</code></pre>
+<p><code>range(101)</code>生成0-100的整数序列.<br>
+<code>while</code>循环</p>
+<pre><code class="language-Python">sum = 0
+n = 99
+while n &gt; 0:
+    sum = sum + n
+    n = n - 2
+print(sum)
+</code></pre>
+<h2 id="dict与set">dict与set</h2>
+<p>dict在其他语言中Map对象。<br>
+<strong>总述：</strong> 列表 <code>list[]</code> 、元组 <code>tuple()</code> 、字典 <code>dict{ key : value }</code> 、无序不重复元素集合  <code>set(list[])</code>  ，后两者的key为不可变对象, 元组元素&quot;指向&quot;不可变。<br>
+对于 <strong>不变对象</strong> 来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。<br>
+重复元素在set中自动被过滤：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set([1, 1, 2, 2, 3, 3])
+&gt;&gt;&gt; s
+{1, 2, 3}
+</code></pre>
+<p>添加元素到<code>set</code>中:</p>
+<pre><code class="language-python">&gt;&gt;&gt; s.add(4)
+&gt;&gt;&gt; s
+{1, 2, 3, 4}
+&gt;&gt;&gt; s.add(4)
+&gt;&gt;&gt; s
+{1, 2, 3, 4}
+</code></pre>
+<p>删除元素：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s.remove(4)
+&gt;&gt;&gt; s
+{1, 2, 3}
+</code></pre>
+<p>set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s1 = set([1, 2, 3])
+&gt;&gt;&gt; s2 = set([2, 3, 4])
+&gt;&gt;&gt; s1 &amp; s2
+{2, 3}
+&gt;&gt;&gt; s1 | s2
+{1, 2, 3, 4}
+</code></pre>
+<h2 id="调用函数">调用函数</h2>
+<p><code>max()</code>函数可以接受任意多个参数, 并返回最大的数:</p>
+<pre><code class="language-python">&gt;&gt;&gt; max(1, 2)
+2
+&gt;&gt;&gt; max(2, 3, 1, -5)
+3
+</code></pre>
+<h2 id="定义函数">定义函数</h2>
+<p><strong>空函数</strong></p>
+<pre><code class="language-python">def nop():
+    pass
+</code></pre>
+<p><code>pass</code>可以用来作为占位符，比如现在还没想好怎么写函数的代码，就可以先放一个<code>pass</code>，让代码能运行起来, 也可以放到其他语句中:</p>
+<pre><code class="language-python">if age &gt;= 18:
+    pass
+</code></pre>
+<p><strong>参数检查</strong><br>
+数据类型检查可以用内置函数<code>isinstance()</code>实现：</p>
+<pre><code class="language-python">def my_abs(x):
+    if not isinstance(x, (int, float)):
+        raise TypeError('bad operand type')
+    if x &gt;= 0:
+        return x
+    else:
+        return -x
+</code></pre>
+<p><strong>返回多个值</strong><br>
+游戏中经常需要从一个点移动到另一个点，给出坐标、位移和角度，就可以计算出新的坐标：</p>
+<pre><code class="language-python">import math
 
-function myFunction(){
-  document.getElementById(&quot;demo&quot;).innerHTML = add();
-}
-&lt;/script&gt;
+def move(x, y, step, angle=0):
+    nx = x + step * math.cos(angle)
+    ny = y - step * math.sin(angle)
+    return nx, ny
 </code></pre>
-<p>廖雪峰中个人认为<strong>有用的练习</strong><br>
-2.不要使用JavaScript内置的parseInt()函数，利用map和reduce操作实现一个string2int()函数</p>
-<pre><code class="language-html">&lt;script&gt;
-var s = '123456789';
-var arr = [];
-for( var a of s ){ arr.push(a) }
-console.log(arr);
-//ASCII码，数字字符的ASCII码 - '0'的ASCII码值 = 数字字符的数值
-//var brr = arr.map(function(x){ return x - '0' ;});
-var brr = arr.map(function(x){ return x * 1;});
-console.log(brr);
-//转换为整数
-var c = brr.reduce(function(x,y){ return x * 10 + y; });
-console.log(c);
-&lt;/script&gt;
+<p>Python函数返回的仍然是单一值：</p>
+<pre><code class="language-python">&gt;&gt;&gt; r = move(100, 100, 60, math.pi / 6)
+&gt;&gt;&gt; print(r)
+(151.96152422706632, 70.0)
 </code></pre>
-<p>3.把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字</p>
-<pre><code class="language-html">&lt;script&gt;
-var arr = ['adam', 'LISA', 'barT'];
-var l3arr = arr.map(function(x){return x[0].toUpperCase()+x.slice(1).toLowerCase();});
-console.log(l3arr);
-&lt;/script&gt;
-</code></pre>
+<h2 id="函数的参数">函数的参数</h2>
+<p>明天</p>
 
-          <div class="toc-container"></div>
+          <div class="toc-container"><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#function">Function</a>
+<ul>
+<li><a href="#bind">bind</a></li>
+<li><a href="#partial">partial</a></li>
+<li><a href="#memoize">memoize</a></li>
+<li><a href="#once">once</a></li>
+<li><a href="#delay">delay</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#python">Python</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E7%A0%81">字符串编码</a></li>
+<li><a href="#list%E4%B8%8Etuple">list与tuple</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD">条件判断</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF">循环</a></li>
+<li><a href="#dict%E4%B8%8Eset">dict与set</a></li>
+<li><a href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0">调用函数</a></li>
+<li><a href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0">定义函数</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0">函数的参数</a></li>
+</ul>
+</li>
+</ul>
+</div>
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/0127-xue-xi-bi-ji/">
+            <a href="https://foreup.github.io/post/0205-underscore/">
               <span class="post-title">
-                0127学习笔记&rarr;
+                0205-underscore&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0128-xiao-jie/" class="leancloud_visitors"
-              data-flag-title="0128小结">
+            <span id="/post/0206-underscore-python/" class="leancloud_visitors"
+              data-flag-title="0206-underscore-Python">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
