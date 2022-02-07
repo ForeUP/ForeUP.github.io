@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-02-07T11:36:31.284Z</updated>
+    <updated>2022-02-07T11:38:34.734Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>Daily Notes</subtitle>
     <logo>https://foreup.github.io/images/avatar.png</logo>
     <icon>https://foreup.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, ForeUP&apos;s Blog</rights>
