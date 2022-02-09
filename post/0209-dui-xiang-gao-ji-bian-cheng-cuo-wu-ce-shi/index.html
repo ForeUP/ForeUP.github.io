@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0205-underscore | ForeUP&#39;s Blog</title>
+<title>0209-对象高级编程-错误测试 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0205-underscore | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0209-对象高级编程-错误测试 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0205-underscore" />
-  <meta property="og:url" content="https://foreup.github.io/post/0205-underscore/" />
+  <meta property="og:description" content="0209-对象高级编程-错误测试" />
+  <meta property="og:url" content="https://foreup.github.io/post/0209-dui-xiang-gao-ji-bian-cheng-cuo-wu-ce-shi/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0205-underscore</h1>
+              <h1>0209-对象高级编程-错误测试</h1>
               <span class="meta">
                 Posted on
-                2022-02-05，4 min read
+                2022-02-09，9 min read
               </span>
             </div>
           
@@ -172,124 +172,339 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=5" alt="封面图">
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=9" alt="封面图">
           </img>
           
-          <h1 id="underscore">underscore</h1>
-<h2 id="collections">Collections</h2>
-<p><strong>map/filter</strong><br>
-和<code>Array</code>的<code>map()</code>与<code>filter()</code>类似，但<code>underscore</code>的可以作用于<code>Object</code>。当作用于<code>Object</code>时，传入的函数为<code>function (value, key)</code>，第一个参数接收<code>value</code>，第二个参数接收<code>key</code>：</p>
-<pre><code class="language-JavaScript">'use strict';
-var obj = {
-    name: 'bob',
-    school: 'No.1 middle school',
-    address: 'xueyuan road'
-};
-var upper = _.map(obj, function (value, key) {
-    return (key+': '+value); //[&quot;name: bob&quot;,&quot;school: No.1 middle school&quot;,&quot;address: xueyuan road&quot;]
-});
+          <h2 id="使用__slots_">使用__slots_</h2>
+<p>限制实例可添加的属性, 但对当前类中的<code>__slots__</code>对子类无作用:</p>
+<pre><code class="language-python">class Student(object):
+    __slots__ = ('name', 'age') # 用tuple定义允许绑定的属性名称
+&gt;&gt;&gt; s = Student() # 创建新的实例
+&gt;&gt;&gt; s.name = 'Michael' # 绑定属性'name'
+&gt;&gt;&gt; s.age = 25 # 绑定属性'age'
+&gt;&gt;&gt; s.score = 99 # 绑定属性'score'--报错
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+AttributeError: 'Student' object has no attribute 'score'
+#对子类不起作用
+&gt;&gt;&gt; class GraduateStudent(Student):
+...     pass
+...
+&gt;&gt;&gt; g = GraduateStudent()
+&gt;&gt;&gt; g.score = 9999 #不报错
 </code></pre>
-<p>对<code>Object</code>作<code>map()</code>操作的<strong>返回</strong>是<code>Array</code>, <code>_.map</code>换成<code>_.mapObject</code>返回为: <code>{&quot;name&quot;:&quot;name: bob&quot;,&quot;school&quot;:&quot;school: No.1 middle school&quot;,&quot;address&quot;:&quot;address: xueyuan road&quot;}</code><br>
-<strong>every / some</strong><br>
-当集合的所有元素都满足条件时，<code>_.every()</code>函数返回<code>true</code>，当集合的至少一个元素满足条件时，<code>_.some()</code>函数返回<code>true</code>：</p>
-<pre><code class="language-JavaScript">'use strict';
-var obj = {
-    name: 'bob',
-    school: 'No.1 middle school',
-    address: 'xueyuan road'
-};
-// 判断key和value是否全部是小写：
-var r1 = _.every(obj, function (value, key) {
-    return key===key.toLowerCase()&amp;&amp;value===value.toLowerCase();
-});
-var r2 = _.some(obj, function (value, key) {
-    return key===key.toLowerCase()||value===value.toLowerCase();
-});
+<h2 id="使用property">使用@property</h2>
+<p><code>@property</code>默认只赋予<code>getter</code>属性, 如需<code>setter</code>需要用到<code>属性名.setter</code>:<br>
+<code>@property</code>给一个Screen对象加上<code>width</code>和<code>height</code>属性，以及一个只读属性<code>resolution</code>：</p>
+<pre><code class="language-python">class Screen(object):
+    @property
+    def width(self):
+        return self._width
+    @property
+    def height(self):
+        return self._height
+    @property
+    def resolution(self):
+        return self._width*self._height
+
+    @height.setter
+    def height(self, x):
+        if isinstance(x, int):
+            self._height = x
+        else:
+            raise ValueError('check your value')
+    @width.setter
+    def width(self, x):
+        if isinstance(x, int):
+            self._width= x
+        else:
+            raise ValueError('check your value')
+# 测试:
+s = Screen()
+s.width = 1024
+s.height = 768
+print('resolution =', s.resolution)
+if s.resolution == 786432:
+    print('测试通过!')
+else:
+    print('测试失败!')
 </code></pre>
-<p><strong>max / min</strong><br>
-直接返回集合中最大和最小的数, 若集合为<code>Object</code>时会忽略<code>key</code>只作用<code>value</code>.<br>
-<strong>groupBy</strong><br>
-<code>groupBy()</code>把集合的元素按照<code>key</code>归类，<code>key</code>由传入的函数返回：</p>
-<pre><code class="language-JavaScript">'use strict';
-var scores = [20, 81, 75, 40, 91, 59, 77, 66, 72, 88, 99];
-var groups = _.groupBy(scores, function (x) {
-    if (x &lt; 60) {
-        return 'C';
-    } else if (x &lt; 80) {
-        return 'B';
-    } else {
-        return 'A';
-    }
-});
-// 结果:
-// {
-//   A: [81, 91, 88, 99],
-//   B: [75, 77, 66, 72],
-//   C: [20, 40, 59]
-// }
+<h2 id="多重继承">多重继承</h2>
+<p>或者叫<strong>多继承</strong>，与java的多重继承区分。<br>
+实例方法的调用顺序按照<b><a href="https://www.jianshu.com/p/c9a0b055947b">拓扑序列</a></b>的展开顺序。<br>
+类的继承关系通常主线都是单一继承下来的，例如，<code>Ostrich</code>继承自<code>Bird</code>。但是，如果需要“混入”额外的功能，通过多重继承就可以实现，比如，让<code>Ostrich</code>除了继承自<code>Bird</code>外，再同时继承<code>Runnable</code>。这种设计通常称之为<b><code>MixIn</code></b>。</p>
+<h2 id="定制类">定制类</h2>
+<p><b> __str__</b><br>
+通常<code>__str__()</code>和<code>__repr__()</code>代码都是一样的，所以，有个偷懒的写法：</p>
+<pre><code class="language-python">class Student(object):
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return 'Student object (name=%s)' % self.name
+    __repr__ = __str__
 </code></pre>
-<p><strong>shuffle / sample</strong><br>
-<code>shuffle()</code>用洗牌算法随机打乱一个集合：</p>
-<pre><code class="language-JavaScript">'use strict';
-// 注意每次结果都不一样：
-_.shuffle([1, 2, 3, 4, 5, 6]); // [3, 5, 4, 6, 2, 1]
+<p><b>__iter__</b><br>
+如果一个类想被用于<code>for ... in</code>循环, 就必须实现一个<code>__iter__()</code>方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<code>__next__()</code>方法拿到循环的下一个值，直到遇到<code>StopIteration</code>错误时退出循环。</p>
+<pre><code class="language-python">class Fib(object):
+    def __init__(self):
+        self.a, self.b = 0, 1 # 初始化两个计数器a，b
+    def __iter__(self):
+        return self # 实例本身就是迭代对象，故返回自己
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b # 计算下一个值
+        if self.a &gt; 100000: # 退出循环的条件
+            raise StopIteration()
+        return self.a # 返回下一个值
+	
+#调用
+&gt;&gt;&gt; for n in Fib():
+...     print(n)
+...
+1
+1
+2
+3
+5
+...
+46368
+75025
 </code></pre>
-<p><code>sample()</code>则是随机选择一个或多个元素：</p>
-<pre><code class="language-JavaScript">'use strict';
-// 注意每次结果都不一样：
-// 随机选1个：
-_.sample([1, 2, 3, 4, 5, 6]); // 2
-// 随机选3个：
-_.sample([1, 2, 3, 4, 5, 6], 3); // [6, 1, 4]
+<p><b>__getitem__</b></p>
+<p><b>__getattr__</b><br>
+只有在没有找到属性的情况下，才调用<code>__getattr__</code>，已有的属性，比如<code>name</code>，不会在<code>__getattr__</code>中查找。</p>
+<p><b>__call__</b></p>
+<pre><code class="language-python">class Student(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __call__(self):
+        print('My name is %s.' % self.name)
+&gt;&gt;&gt; s = Student('Michael')
+&gt;&gt;&gt; s() # self参数不要传入
+My name is Michael.
 </code></pre>
-<h2 id="arrays">Arrays</h2>
-<p><strong>flatten</strong><br>
-<code>flatten()</code>接收一个<code>Array</code>，无论这个<code>Array</code>里面嵌套了多少个<code>Array</code>，<code>flatten()</code>最后都把它们变成一个一维数组：</p>
-<pre><code class="language-JavaScript">_.flatten([1, [2], [3, [[4], [5]]]]); // [1, 2, 3, 4, 5]
+<p><code>__call__()</code>还可以定义参数;<br>
+可以把对象看成函数，把函数看成对象，因为两者之间本没有根本的区别；<br>
+<code>callable()</code>函数，判断一个对象是否是“可调用”对象。</p>
+<h2 id="枚举类">枚举类</h2>
+<p><code>from enum import Enum</code>:</p>
+<pre><code class="language-python">from enum import Enum
+Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+for name, member in Month.__members__.items():
+    print(name, '=&gt;', member, ',', member.value)
 </code></pre>
-<p><strong>zip / unzip</strong><br>
-<code>zip()</code>把两个或多个数组的所有元素按索引对齐，然后按索引合并成新数组。</p>
-<pre><code class="language-JavaScript">'use strict';
-var names = ['Adam', 'Lisa', 'Bart'];
-var scores = [85, 92, 59];
-_.zip(names, scores);
-// [['Adam', 85], ['Lisa', 92], ['Bart', 59]]
+<p>把<code>Student</code>的<code>gender</code>属性改造为枚举类型，可以避免使用字符串：</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+from enum import Enum, unique
+class Gender(Enum):
+    Male = 0
+    Female = 1
+class Student(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.gender = Gender(gender)
+# 测试:
+bart = Student('Bart', Gender.Male)
+if bart.gender == Gender.Male:
+    print('测试通过!')
+else:
+    print('测试失败!')
 </code></pre>
-<p><code>unzip()</code>则是反过来：</p>
-<pre><code class="language-JavaScript">'use strict';
-var namesAndScores = [['Adam', 85], ['Lisa', 92], ['Bart', 59]];
-_.unzip(namesAndScores);
-// [['Adam', 'Lisa', 'Bart'], [85, 92, 59]]
+<h2 id="元类暂时跳过">元类——暂时跳过</h2>
+<p>网站说以后用不到,以后在再学吧</p>
+<h1 id="错误调试与测试">错误调试与测试</h1>
+<h2 id="错误处理">错误处理</h2>
+<pre><code class="language-python">try:
+    print('try...')
+    r = 10 / int('2')
+    print('result:', r)
+except ValueError as e:
+    print('ValueError:', e)
+except ZeroDivisionError as e:
+    print('ZeroDivisionError:', e)
+else:
+    print('no error!')
+finally:
+    print('finally...')
+print('END')
 </code></pre>
-<p><strong>object</strong></p>
-<pre><code class="language-JavaScript">var names = ['Adam', 'Lisa', 'Bart'];
-var scores = [85, 92, 59];
-_.object(names, scores);
-// {Adam: 85, Lisa: 92, Bart: 59}
+<p><strong>抛出错误</strong></p>
+<pre><code class="language-python"># err_raise.py
+class FooError(ValueError):
+    pass
+
+def foo(s):
+    n = int(s)
+    if n==0:
+        raise FooError('invalid value: %s' % s)
+    return 10 / n
+
+foo('0')
 </code></pre>
-<p><strong>range</strong><br>
-快速生成序列:</p>
-<pre><code class="language-JavaScript">'use strict';
-// 从0开始小于10:
-_.range(10); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-// 从1开始小于11：
-_.range(1, 11); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-// 从0开始小于30，步长5:
-_.range(0, 30, 5); // [0, 5, 10, 15, 20, 25]
-// 从0开始大于-10，步长-1:
-_.range(0, -10, -1); // [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+<h2 id="调试">调试</h2>
+<p><strong>assert</strong><br>
+<code>assert</code>的意思是，表达式<code>n != 0</code>应该是<code>True</code>，否则抛出<code>AssertionError</code><br>
+<strong>logging</strong></p>
+<pre><code class="language-python">import logging
+logging.basicConfig(level=logging.INFO) #指定记录的级别
+
+s = '0'
+n = int(s)
+logging.info('n = %d' % n)
+print(10 / n)
+#输出
+$ python err.py
+INFO:root:n = 0
+Traceback (most recent call last):
+  File &quot;err.py&quot;, line 8, in &lt;module&gt;
+    print(10 / n)
+ZeroDivisionError: division by zero
 </code></pre>
-<p><strong>uniq</strong></p>
-<pre><code class="language-JavaScript">var arr = ['Apple', 'orange', 'banana', 'ORANGE', 'apple', 'PEAR'];
-var result = _.uniq(arr,function(x){return x.toUpperCase();});
-//result:[&quot;Apple&quot;, &quot;orange&quot;, &quot;banana&quot;, &quot;PEAR&quot;]
+<p>允许你指定记录信息的级别，有<code>debug</code>，<code>info</code>，<code>warning</code>，<code>error</code>等几个级别，当我们指定<code>level=INFO</code>时，<code>logging.debug</code>不起作用; 指定<code>level=WARNING</code>后，<code>debug</code>和<code>info</code>不起作用.<br>
+<strong>pdb</strong><br>
+以参数<code>-m pdb</code>启动后，<code>pdb</code>定位到下一步要执行的代码<code>-&gt; s = '0'</code>。<br>
+输入命令<code>l</code>:  <code>(Pdb) l</code>  来查看代码;<br>
+<code>n</code>:  可以单步执行代码;<br>
+输入命令  <code>p</code>  变量名来查看变量;<br>
+<code>q</code>结束调试</p>
+<pre><code class="language-python">$ python -m pdb err.py
+&gt; /Users/michael/Github/learn-python3/samples/debug/err.py(2)&lt;module&gt;()
+-&gt; s = '0'
+</code></pre>
+<p><code>pdb.set_trace()</code>执行到此行代码进入<code>pdb</code>调试模式.</p>
+<h2 id="单元测试">单元测试</h2>
+<p>读取实例属性: <code>实例名.属性</code> 记住<code>.</code>的作用是获取属性;<br>
+编写一个Dict类，这个类的行为和dict一致，但是可以通过属性来访问，用起来就像下面这样：</p>
+<pre><code class="language-python">&gt;&gt;&gt; d = Dict(a=1, b=2)
+&gt;&gt;&gt; d['a']
+1
+&gt;&gt;&gt; d.a #通过属性访问
+1
+</code></pre>
+<p><code>mydict.py</code>代码如下：</p>
+<pre><code class="language-python">class Dict(dict):
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r&quot;'Dict' object has no attribute '%s'&quot; % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+</code></pre>
+<p>测试单元: <code>unittest</code>模块，编写<code>mydict_test.py</code></p>
+<pre><code class="language-python">import unittest
+
+from mydict import Dict
+
+class TestDict(unittest.TestCase):
+
+    def test_init(self):
+        d = Dict(a=1, b='test')
+        self.assertEqual(d.a, 1)
+        self.assertEqual(d.b, 'test')
+        self.assertTrue(isinstance(d, dict))
+
+    def test_key(self):
+        d = Dict()
+        d['key'] = 'value'
+        self.assertEqual(d.key, 'value')
+
+    def test_attr(self):
+        d = Dict()
+        d.key = 'value'
+        self.assertTrue('key' in d) #注意
+        self.assertEqual(d['key'], 'value') #注意
+
+    def test_keyerror(self):
+        d = Dict()
+        with self.assertRaises(KeyError): #注意
+            value = d['empty']
+
+    def test_attrerror(self):
+        d = Dict()
+        with self.assertRaises(AttributeError):
+            value = d.empty
+</code></pre>
+<p>运行单元测试:</p>
+<pre><code class="language-python">#在mydict_test.py的最后加上两行代码：
+if __name__ == '__main__':
+    unittest.main()
+#然后当做正常的python脚本运行：
+$ python mydict_test.py
+#推荐方法:
+#通过参数-m unittest直接运行单元测试：
+$ python -m unittest mydict_test
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+</code></pre>
+<h2 id="文档测试">文档测试</h2>
+<p>上节课的例子用文档测试:</p>
+<pre><code class="language-python"># mydict2.py
+class Dict(dict):
+    '''
+    Simple dict but also support access as x.y style.
+
+    &gt;&gt;&gt; d1 = Dict()
+    &gt;&gt;&gt; d1['x'] = 100
+    &gt;&gt;&gt; d1.x
+    100
+    &gt;&gt;&gt; d1.y = 200
+    &gt;&gt;&gt; d1['y']
+    200
+    &gt;&gt;&gt; d2 = Dict(a=1, b=2, c='3')
+    &gt;&gt;&gt; d2.c
+    '3'
+    &gt;&gt;&gt; d2['empty']
+    Traceback (most recent call last):
+        ...
+    KeyError: 'empty'
+    &gt;&gt;&gt; d2.empty
+    Traceback (most recent call last):
+        ...
+    AttributeError: 'Dict' object has no attribute 'empty'
+    '''
+    def __init__(self, **kw):
+        super(Dict, self).__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r&quot;'Dict' object has no attribute '%s'&quot; % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+if __name__=='__main__':  #确保只在测试环境运行文档测试, 在引用模块不运行.
+    import doctest
+    doctest.testmod()
 </code></pre>
 
           <div class="toc-container"><ul class="markdownIt-TOC">
-<li><a href="#underscore">underscore</a>
+<li>
 <ul>
-<li><a href="#collections">Collections</a></li>
-<li><a href="#arrays">Arrays</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8__slots_">使用__slots_</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8property">使用@property</a></li>
+<li><a href="#%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF">多重继承</a></li>
+<li><a href="#%E5%AE%9A%E5%88%B6%E7%B1%BB">定制类</a></li>
+<li><a href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB">枚举类</a></li>
+<li><a href="#%E5%85%83%E7%B1%BB%E6%9A%82%E6%97%B6%E8%B7%B3%E8%BF%87">元类——暂时跳过</a></li>
+</ul>
+</li>
+<li><a href="#%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95">错误调试与测试</a>
+<ul>
+<li><a href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">错误处理</a></li>
+<li><a href="#%E8%B0%83%E8%AF%95">调试</a></li>
+<li><a href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">单元测试</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E6%B5%8B%E8%AF%95">文档测试</a></li>
 </ul>
 </li>
 </ul>
@@ -297,17 +512,17 @@ var result = _.uniq(arr,function(x){return x.toUpperCase();});
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/0204-jquery-te-ding-yuan-su-tuo-zhan/">
+            <a href="https://foreup.github.io/post/0208-han-shu-dui-xiang-bian-cheng/">
               <span class="post-title">
-                0204-jQuery特定元素拓展&rarr;
+                0208-函数-对象编程&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0205-underscore/" class="leancloud_visitors"
-              data-flag-title="0205-underscore">
+            <span id="/post/0209-dui-xiang-gao-ji-bian-cheng-cuo-wu-ce-shi/" class="leancloud_visitors"
+              data-flag-title="0209-对象高级编程-错误测试">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
