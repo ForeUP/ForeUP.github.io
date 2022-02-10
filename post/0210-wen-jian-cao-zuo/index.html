@@ -1,7 +1,8 @@
-<html lang="zh">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta content="yes" name="apple-mobile-web-app-capable" />
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
@@ -9,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>关于 - ForeUP&#39;s Blog</title>
+<title>0210-文件操作 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="关于 - ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0210-文件操作 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -29,11 +30,67 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"> -->
+  <meta property="og:description" content="0210-文件操作" />
+  <meta property="og:url" content="https://foreup.github.io/post/0210-wen-jian-cao-zuo/" />
+  <meta property="og:locale" content="zh-CN" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ForeUP&#39;s Blog" />
+  <!-- <script src="../assets/styles/scripts/tocScript.js"></script> -->
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="https://foreup.github.io/">ForeUP&#39;s Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+      data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+      aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        
+        <li class="nav-item">
+          
+          <a class="nav-link" href="/">首页</a>
+          
+        </li>
+        
+        <li class="nav-item">
+          
+          <a class="nav-link" href="/archives">归档</a>
+          
+        </li>
+        
+        <li class="nav-item">
+          
+          <a class="nav-link" href="/tags">标签</a>
+          
+        </li>
+        
+        <li class="nav-item">
+          
+          <a class="nav-link" href="/about">关于</a>
+          
+        </li>
+        
+        <li class="nav-item">
+          <div class="gridea-search-container">
+            <form id="gridea-search-form" style="position: relative" data-update="1644486441355"
+              action="/search/index.html">
+              <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+              <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!-- Page Header -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="https://foreup.github.io/">ForeUP&#39;s Blog</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -90,9 +147,18 @@
         
           <!-- 没Title为其他页面Header -->
           
-            <!-- 其他页面（archives、tags、about...）Header -->
-            <div class="sub-site-heading">
-              <h1 class="tag-tl">About</h1>
+            <!-- 没Title并且有headerType为Post：文章Header -->
+            <div class="post-heading">
+              <span class="tags">
+                
+                <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
+                
+              </span>
+              <h1>0210-文件操作</h1>
+              <span class="meta">
+                Posted on
+                2022-02-10，8 min read
+              </span>
             </div>
           
         
@@ -100,14 +166,269 @@
     </div>
   </div>
 </header>
+  <!-- Post Content -->
+  <article id="post-content-article">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                
-                <div class="comment" style="text-align: center;">
-                    
-                    
-                    <!-- <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script> -->
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto post-content-container">
+          
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=10" alt="封面图">
+          </img>
+          
+          <h1 id="io编程">IO编程</h1>
+<p>本章主要讲同步IO,异步IO太复杂,后续涉及到服务端再讲.</p>
+<h2 id="文件读写">文件读写</h2>
+<p><strong>读文件</strong><br>
+<code>open()</code> 函数, <code>f.close()</code> 关闭文件;<br>
+调用<code>read()</code>会一次性读取文件的全部内容, <code>read(size)</code>读取<code>size</code>个字符/字节的内容.<br>
+<code>readline()</code>可以每次<strong>读取一行</strong>内容，调用<code>readlines()</code>一次读取所有内容并<strong>按行返回list</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; with open('ABC.txt', 'r') as fname :
+&gt;&gt;&gt; 		str = fname.read()
+&gt;&gt;&gt; f = open('/Users/michael/test.jpg', 'rb') #以二进制打开, 打开文本可以用decode解码为字符串
+&gt;&gt;&gt; f.read()
+b'\xff\xd8\xff\xe1\x00\x18Exif\x00\x00...' # 十六进制表示的字节
+for line in f.readlines():
+    print(line.strip()) # strip参数为空,把末尾的'\n'或空格删掉
+</code></pre>
+<p><strong>写文件</strong><br>
+调用<code>open()</code>函数时，传入标识符<code>'w'</code>或者<code>'wb'</code>表示写文本文件或写二进制文件：新建或删除存在的内容.<br>
+追加内容用标识符:<code>a</code>.<br>
+<strong>StringIO和BytesIO</strong></p>
+<ul>
+<li><code>tell</code> 方法获取当前文件读取指针的位置</li>
+<li><code>seek</code> 方法，用于移动文件读写指针到指定位置,有两个参数，第一个<strong>offset</strong>: 偏移量，需要向前或向后的字节数，<strong>正为向后，负为向前</strong>；第二个<strong>whence</strong>: 可选值，默认为<code>0</code>，表示文件<strong>开头</strong>，<code>1</code>表示相对于<strong>当前</strong>的位置，<code>2</code>表示文件<strong>末尾</strong></li>
+<li>用<code>seek</code>方法时，需注意，如果你打开的文件没有用<b><code>'b'</code></b>的方式打开，则<code>offset</code>无法使用<strong>负值</strong>哦</li>
+</ul>
+<pre><code class="language-python"># stringIO 比如说，这时候，你需要对获取到的数据进行操作，但是你并不想把数据写到本地硬盘上，这时候你就可以用stringIO
+from io import StringIO
+from io import BytesIO
+def outputstring():
+    return 'string \nfrom \noutputstring \nfunction'
+
+s = outputstring()
+
+# 将函数返回的数据在内存中读
+sio = StringIO(s)
+# 可以用StringIO本身的方法
+print(sio.getvalue())
+# 也可以用file-like object的方法
+s = sio.readlines()
+for i in s:
+    print(i.strip())
+
+
+# 将函数返回的数据在内存中写
+sio = StringIO()
+sio.write(s)
+# 可以用StringIO本身的方法查看
+s=sio.getvalue()
+print(s)
+
+# 如果你用file-like object的方法查看的时候，你会发现数据为空
+sio = StringIO()
+sio.write(s)
+for i in sio.readlines():
+    print(i.strip())
+
+# 这时候我们需要修改下文件的指针位置
+# 我们发现可以打印出内容了
+sio = StringIO()
+sio.write(s)
+sio.seek(0,0)
+print(sio.tell())
+for i in sio.readlines():
+    print(i.strip())
+
+# 上面涉及到了两个方法seek 和 tell
+
+# stringIO 只能操作str，如果要操作二进制数据，就需要用到BytesIO
+# 上面的sio无法用seek从当前位置向前移动，这时候，我们用'b'的方式写入数据，就可以向前移动了
+bio = BytesIO()
+bio.write(s.encode('utf-8'))
+print(bio.getvalue())
+bio.seek(-36,1)
+print(bio.tell())
+for i in bio.readlines():
+    print(i.strip())
+</code></pre>
+<h2 id="操作文件与目录">操作文件与目录</h2>
+<p><code>os.chdir(file_path)</code><br>
+进入file_path路径;<br>
+<code>os.path.abspath('.')</code><br>
+当前位置的绝对路径<br>
+<code>os.path.join(pwd,x)</code><br>
+合并路径<br>
+<code>os.listdir(pwd)</code><br>
+列出当前路径所有文件及目录(不包括子目录)<br>
+<code>os.path.isfile(os.path.join(pwd,x))</code><br>
+判断括号内的路径是否为文件<br>
+<code>os.path.isdir(os.path.join(pwd,x))</code><br>
+判断括号内的路径是否为目录<br>
+<code>shutil</code>模块提供了<code>copyfile()</code>的函数</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.path.split('/Users/michael/testdir/file.txt')
+('/Users/michael/testdir', 'file.txt')
+&gt;&gt;&gt; os.path.splitext('/path/to/file.txt') #获得文件拓展名
+('/path/to/file', '.txt')
+
+</code></pre>
+<p><strong>查找</strong>当前目录及子目录的指定文件名:</p>
+<pre><code class="language-python">import os
+
+def findfile(s, file_path):
+    #进入当前目录
+    os.chdir(file_path)
+    #查找当前目录包含输入字符串的文件
+    L = [x for x in os.listdir('.') if os.path.isfile(x)]
+    for x in L:
+        #查找是否包含s，包含返回开始s的下标，不包含返回-1
+        if x.find(s)!=-1:
+            print(os.path.join(file_path,x))
+        else:
+            pass
+    #查找各目录中是否包含输入字符串的文件
+    Y = [x for x in os.listdir('.') if os.path.isdir(x)]
+    for x in Y:
+        file_path2=os.path.join(file_path,x)
+        findfile(s,file_path2)
+
+def main():
+    #path = input('请输入绝对路径：')
+    path = os.path.abspath('.')
+    s = input('请输入要查找的字符串：')
+    result = findfile(s, path)
+    if result == None :
+        print ('没找到或查找结束！')
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<h2 id="序列化">序列化</h2>
+<p><strong>pickle</strong><br>
+<code>pickle.dumps()</code>方法把任意对象序列化成一个<code>bytes</code>;<br>
+<code>pickle.loads()</code>方法反序列化出对象;<br>
+<code>pickle.dump()</code>直接把对象序列化后写入一个<code>file-like Object</code>即写入文件;<br>
+<code>pickle.load()</code>方法从一个<code>file-like Object</code>中直接反序列化出对象.</p>
+<pre><code class="language-python">&gt;&gt;&gt; import pickle
+&gt;&gt;&gt; d = dict(name='Bob', age=20, score=88)
+&gt;&gt;&gt; pickle.dumps(d)
+b'\x80\x03}q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x04\x00\x00\x00nameq\x03X\x03\x00\x00\x00Bobq\x04u.'
+&gt;&gt;&gt; f = open('dump.txt', 'wb')
+&gt;&gt;&gt; pickle.dump(d, f)
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; f = open('dump.txt', 'rb')
+&gt;&gt;&gt; d = pickle.load(f)
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; d
+{'age': 20, 'score': 88, 'name': 'Bob'}
+</code></pre>
+<p><strong>JSON</strong></p>
+<table>
+<thead>
+<tr>
+<th>JSON类型</th>
+<th>Python类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{}</td>
+<td>dict</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>list</td>
+</tr>
+<tr>
+<td>&quot;string&quot;</td>
+<td>str</td>
+</tr>
+<tr>
+<td>1234.56</td>
+<td>int或float</td>
+</tr>
+<tr>
+<td>true/false</td>
+<td>True/False</td>
+</tr>
+<tr>
+<td>null</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><code>json</code>模块，<code>dumps()</code>方法返回一个<code>str</code>，内容就是标准的<code>JSON</code>；类似的，<code>dump()</code>方法可以直接把<code>JSON</code>写入一个<code>file-like Object</code>。</p>
+<pre><code class="language-python">&gt;&gt;&gt; import json
+&gt;&gt;&gt; d = dict(name='Bob', age=20, score=88)
+&gt;&gt;&gt; json.dumps(d)
+'{&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;}'
+&gt;&gt;&gt; json_str = '{&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;}'
+&gt;&gt;&gt; json.loads(json_str)
+{'age': 20, 'score': 88, 'name': 'Bob'}
+</code></pre>
+<p><strong><code>class</code></strong> 转为json对象:<br>
+<code>dumps()</code>方法的<code>default</code>参数可以定义将<code>class</code>转为<code>dict</code>的函数;</p>
+<pre><code class="language-python">import json
+
+class Student(object):
+    def __init__(self, name, age, score):
+        self.name = name
+        self.age = age
+        self.score = score
+s = Student('Bob', 20, 88)
+
+def student2dict(std):
+    return {
+        'name': std.name,
+        'age': std.age,
+        'score': std.score
+    }
+&gt;&gt;&gt; print(json.dumps(s, default=student2dict))
+{&quot;age&quot;: 20, &quot;name&quot;: &quot;Bob&quot;, &quot;score&quot;: 88}
+</code></pre>
+<p>通常<code>class</code>的实例都有一个<code>__dict__</code>属性，它就是一个<code>dict</code>，用来存储实例变量; 少数例外，比如定义了<code>__slots__</code>的<code>class</code>。</p>
+<pre><code class="language-python">print(json.dumps(s, default=lambda obj: obj.__dict__))
+</code></pre>
+<p><code>object_hook</code>函数负责把<code>dict</code>转换为<code>Student</code>实例：</p>
+<pre><code class="language-python">def dict2student(d):
+    return Student(d['name'], d['age'], d['score'])
+
+&gt;&gt;&gt; json_str = '{&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;}'
+&gt;&gt;&gt; print(json.loads(json_str, object_hook=dict2student))
+&lt;__main__.Student object at 0x10cd3c190&gt;
+</code></pre>
+
+          <div class="toc-container"><ul class="markdownIt-TOC">
+<li><a href="#io%E7%BC%96%E7%A8%8B">IO编程</a>
+<ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a></li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95">操作文件与目录</a></li>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+</ul>
+</li>
+</ul>
+</div>
+          
+          <hr />
+          <p class="next-post">下一篇：
+            <a href="https://foreup.github.io/post/0209-dui-xiang-gao-ji-bian-cheng-cuo-wu-ce-shi/">
+              <span class="post-title">
+                0209-对象高级编程-错误测试&rarr;
+              </span>
+            </a>
+          </p>
+          
+          <div class="comment" style="text-align: center;">
+            
+            <span id="/post/0210-wen-jian-cao-zuo/" class="leancloud_visitors"
+              data-flag-title="0210-文件操作">
+              <em class="post-meta-item-text">阅读量 </em>
+              <i class="leancloud-visitors-count">loading...</i>
+            </span>
+            
+
+            
+            
+            <!-- <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script> -->
 
 <script>
 
@@ -6301,12 +6622,12 @@
 	});
 </script>
 
-                    
-                </div>
-            </div>
+            
+          </div>
         </div>
-    </div>
-    <!-- Footer -->
+      </div>
+  </article>
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="row">
@@ -6393,8 +6714,8 @@
       }
     }
   })(this));</script>
-    
-    <div id="landlord-parent">
+  
+  <div id="landlord-parent">
     <div id="landlord">
         <div class="message" style="opacity:0"></div>
         <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
@@ -6434,6 +6755,8 @@
         };
     }
 </script>
-    
+  
+  <script src="https://foreup.github.io//media/scripts/tocScript.js"></script>
 </body>
+
 </html>
