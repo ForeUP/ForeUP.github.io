@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0127学习笔记 | ForeUP&#39;s Blog</title>
+<title>0211-进程线程-爬虫基础 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0127学习笔记 | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0211-进程线程-爬虫基础 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0127学习笔记" />
-  <meta property="og:url" content="https://foreup.github.io/post/0127-xue-xi-bi-ji/" />
+  <meta property="og:description" content="0211-进程线程-爬虫基础" />
+  <meta property="og:url" content="https://foreup.github.io/post/0211-jin-cheng-xian-cheng-pa-chong-ji-chu/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0127学习笔记</h1>
+              <h1>0211-进程线程-爬虫基础</h1>
               <span class="meta">
                 Posted on
-                2022-01-27，4 min read
+                2022-02-11，8 min read
               </span>
             </div>
           
@@ -172,110 +172,336 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;学过的语法记录&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script type=&quot;&quot;&gt;
-    /*onchange	HTML 元素已被改变
-    onclick	用户点击了 HTML 元素
-    onmouseover	用户把鼠标移动到 HTML 元素上
-    onmouseout	用户把鼠标移开 HTML 元素
-    onkeydown	用户按下键盘按键
-    onload	浏览器已经完成页面加载*/
+          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=11" alt="封面图">
+          </img>
+          
+          <h1 id="进程和线程">进程和线程</h1>
+<h2 id="多进程">多进程</h2>
+<h3 id="multiprocessing">multiprocessing</h3>
+<p><strong><code>multiprocessing</code></strong> 模块提供了一个 <code>Process</code> 类来代表一个进程对象.<br>
+<code>join()</code>方法可以等待子进程结束后再继续往下运行，或者说说将进程加入主进程，通常用于进程间的同步。</p>
+<pre><code class="language-python">from multiprocessing import Process
+import os
 
-    concat()
-    indexOf()
-    lastIndexOf()
-    /*搜索字符串*/
-    search()
-    slice()
-    substring()
-    substr()
-    --------------
-    replace()
-    toUpperCase()
-    toLowerCase()
-    mystring.trim()
-    --------------
-    提取字符串
-    charAt() //返回字母
-    charCodeAt() // 返回编码值
-    str[0];   // str = &quot;HELLO WORLD&quot;，返回 H；
+# 子进程要执行的代码
+def run_proc(name):
+    print('Run child process %s (%s)...' % (name, os.getpid()))
 
-    text.match(/ain/g)    // 返回数组 [ain,ain,ain]
-    text.match(/ain/gi)    // 返回数组 [ain,AIN,ain,ain]
-    string.includes(searchvalue, start) //start 起始位置可选
-    text.includes(&quot;world&quot;)    // 返回 true
-    string.startsWith(searchvalue, start)
-    text.startsWith(&quot;Hello&quot;)   // 字符串以Hello开头，返回 true
-    text.endsWith(&quot;Doe&quot;, 5)    // 返回 true
-    let text = &quot;Bill Gates&quot;;
-    text.endsWith(&quot;Gates&quot;,10); //指定长度后必须严格和长度一致，9或11均为 false
-    /*模板字面量*/
-    let text = `He's often called &quot;Johnny&quot;`;  //反引号允许多行字符串
-    let text =
-    `The quick the    
-    lazy dog`;
-    let firstName = &quot;John&quot;;
-    text = `Welcome ${firstName}!`;  //字符串插值（string interpolation）,变量和表达式插入字符串
-    total = `Total: ${(price * (1 + VAT)).toFixed(3)}`; //price=10，VAT=0.25,；
-    let html = `&lt;h2&gt;${header}&lt;/h2&gt;&lt;ul&gt;`; //HTML模板，具体例子太长；
-    isNaN(x);               // 返回 true，因为 x 不是数；
-    typeof Infinity;     //返回number，是超出计算的数字；
-    0x;         //解释为16进制；
-    number.toString(16);     // 返回 80，toString()以字符串形式输出为指定进制，默认10；
-    x.toExponential(2);   //（）内为小数点后位数；
-    mynum.toFixed(num); //num确定保留以四舍五入保留几位小数；
-    toPrecision()      返回字符串值，指定长度的'数字'
-    new Number(500);    //不要用new定义对象，JS中对象无法进行比较；
-    valueOf()     //以数值返回数值
-    Number()
-    parseInt()
-    parseFloat()
-    MAX_VALUE ; MIN_VALUE; 对变量、表达式或值使用数字属性，将返回 undefined;
-    ----/数组方法/----
-    Array.foreach()  //遍历数组
-    fruits.push(&quot;Lemon&quot;);    // 向 fruits 添加一个新元素 (Lemon)，返回字符串长度，使用高索引添加会增加“洞/undefined”
-    pop()    //从数组中弹出元素，返回弹出的值；
-    shift()   //从首部移出元素
-    unshift()   //从首部增加元素
-    delete fruits[0];   // 把 fruits 中的首个元素改为 undefined,尽量不用
-    myarray.toString()     //把数组转换为数组值（逗号分隔）的字符串
-    myarray.join()      //可以规定结合成为字符串的分割符
-    fruits.splice(2, 0, &quot;Lemon&quot;, &quot;Kiwi&quot;);   //第二个参数（0）定义应删除多少元素,返回一个包含已删除项的数组
-    fruits.splice(0, 1);     // 删除 fruits 中的第一个元素
-    fruits.slice()    //用fruits的某个片段切出新数组,不删除改变fruits，start位置(,end位置)；
-    fruits.sort()    //方法是最强大的数组方法之一,按字母排序；
-    points.sort(function(a, b){return a - b});  //数字小-&gt;大排序；
-    points.sort(function(a, b){return 0.5 - Math.random()});   //随机排序数组；
-    Math.max(1, 2, 3); Math.min(1, 2, 3);
-    cars.sort(function(a, b){return a.year - b.year});  //排序有属性数组；
+if __name__=='__main__':
+    print('Parent process %s.' % os.getpid())
+    p = Process(target=run_proc, args=('test',))
+    print('Child process will start.')
+    p.start()
+    p.join()
+    print('Child process end.')
+#结果
+Parent process 928.
+Child process will start.
+Run child process test (929)...
+Process end.
+</code></pre>
+<h2 id="多进程-2">多进程</h2>
+<p><code>threading</code>高级模块，对<code>_thread</code>进行了封装。绝大多数情况下，我们只需要使用<code>threading</code>这个高级模块。<br>
+启动一个线程就是把一个函数传入并创建<code>Thread</code>实例，然后调用<code>start()</code>开始执行：</p>
+<pre><code class="language-python">import time, threading
+
+# 新线程执行的代码:
+def loop():
+    print('thread %s is running...' % threading.current_thread().name)
+    n = 0
+    while n &lt; 5:
+        n = n + 1
+        print('thread %s &gt;&gt;&gt; %s' % (threading.current_thread().name, n))
+        time.sleep(1)
+    print('thread %s ended.' % threading.current_thread().name)
+
+print('thread %s is running...' % threading.current_thread().name)
+t = threading.Thread(target=loop, name='LoopThread')
+t.start()
+t.join()
+print('thread %s ended.' % threading.current_thread().name)
+#执行结果
+thread MainThread is running...
+thread LoopThread is running...
+thread LoopThread &gt;&gt;&gt; 1
+thread LoopThread &gt;&gt;&gt; 2
+thread LoopThread &gt;&gt;&gt; 3
+thread LoopThread &gt;&gt;&gt; 4
+thread LoopThread &gt;&gt;&gt; 5
+thread LoopThread ended.
+thread MainThread ended.
+</code></pre>
+<h3 id="lock">Lock</h3>
+<p>多进程的变量各自独立互不影响，多线程的变量相互共享，线程之间共享数据最大的危险在于多个线程同时改一个变量，把内容给改乱了。<br>
+<strong>例子：</strong></p>
+<pre><code class="language-python">import time, threading
+
+# 假定这是你的银行存款:
+balance = 0
+
+def change_it(n):
+    # 先存后取，结果应该为0:
+    global balance
+    balance = balance + n
+    balance = balance - n
+
+def run_thread(n):
+    for i in range(2000000):
+        change_it(n)
+
+t1 = threading.Thread(target=run_thread, args=(5,))
+t2 = threading.Thread(target=run_thread, args=(8,))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(balance)
+#结果
+3
+</code></pre>
+<p>t1、t2交替执行时，只要循环次数足够多，<code>balance</code>的结果就不一定是<code>0</code>了。<br>
+创建一个锁就是通过<code>threading.Lock()</code>来实现：</p>
+<pre><code class="language-python">balance = 0
+lock = threading.Lock()
+
+def run_thread(n):
+    for i in range(100000):
+        # 先要获取锁:
+        lock.acquire()
+        try:
+            # 放心地改吧:
+            change_it(n)
+        finally:
+            # 改完了一定要释放锁:
+            lock.release()
+</code></pre>
+<p>获得锁的线程用完后一定要释放锁，否则那些苦苦等待锁的线程将永远等待下去，成为死线程，所以使用<code>try....finally....</code>确保释放锁。</p>
+<h2 id="threadlocal">ThreadLocal</h2>
+<p>全局变量<code>local_school</code>就是一个<code>ThreadLocal</code>对象，每个<code>Thread</code>对它都可以读写<code>student</code>属性，但互不影响；<br>
+每个属性如<code>local_school.student</code>都是线程的局部变量，可以任意读写而互不干扰，也不用管理锁的问题，<code>ThreadLocal</code>内部会处理；<br>
+可以理解为全局变量<code>local_school</code>是一个<code>dict</code>，不但可以用<code>local_school.student</code>，还可以绑定其他变量，如<code>local_school.teacher</code>等等：</p>
+<pre><code class="language-python">import threading
     
+# 创建全局ThreadLocal对象:
+local_school = threading.local()
 
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+def process_student():
+    # 获取当前线程关联的student:
+    std = local_school.student
+    print('Hello, %s (in %s)' % (std, threading.current_thread().name))
+
+def process_thread(name):
+    # 绑定ThreadLocal的student:
+    local_school.student = name
+    process_student()
+
+t1 = threading.Thread(target= process_thread, args=('Alice',), name='Thread-A')
+t2 = threading.Thread(target= process_thread, args=('Bob',), name='Thread-B')
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+#结果：
+Hello, Alice (in Thread-A)
+Hello, Bob (in Thread-B)
+</code></pre>
+<h2 id="分布式进程">分布式进程</h2>
+<p>利用<code>managers</code>模块分装<code>queue</code>，<code>register</code>到网络上并设置<code>端口</code>与验证<code>authkey</code>，具体见下：<br>
+两个<code>.py</code>文件，<code>master.py</code>和<code>worker.py</code>;<br>
+下列代码可能在Windows下有错误，修改见 <strong><a href="https://www.liaoxuefeng.com/discuss/969955749132672/1441664361037857">廖雪峰网站评论区</a></strong></p>
+<pre><code class="language-python"># task_master.py
+
+import random, time, queue
+from multiprocessing.managers import BaseManager
+
+# 发送任务的队列:
+task_queue = queue.Queue()
+# 接收结果的队列:
+result_queue = queue.Queue()
+
+# 从BaseManager继承的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 把两个Queue都注册到网络上, callable参数关联了Queue对象:
+QueueManager.register('get_task_queue', callable=lambda: task_queue)
+QueueManager.register('get_result_queue', callable=lambda: result_queue)
+# 绑定端口5000, 设置验证码'abc':
+manager = QueueManager(address=('', 5000), authkey=b'abc')
+# 启动Queue:
+manager.start()
+# 获得通过网络访问的Queue对象:
+task = manager.get_task_queue()
+result = manager.get_result_queue()
+# 放几个任务进去:
+for i in range(10):
+    n = random.randint(0, 10000)
+    print('Put task %d...' % n)
+    task.put(n)
+# 从result队列读取结果:
+print('Try get results...')
+for i in range(10):
+    r = result.get(timeout=10)
+    print('Result: %s' % r)
+# 关闭:
+manager.shutdown()
+print('master exit.'
+</code></pre>
+<p>添加任务到<code>Queue</code>不可以直接对原始的<code>task_queue</code>进行操作，那样就绕过了<code>QueueManager</code>的封装，必须通过<code>manager.get_task_queue()</code>获得的<code>Queue</code>接口添加。</p>
+<pre><code class="language-python"># task_worker.py
+
+import time, sys, queue
+from multiprocessing.managers import BaseManager
+
+# 创建类似的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 由于这个QueueManager只从网络上获取Queue，所以注册时只提供名字:
+QueueManager.register('get_task_queue')
+QueueManager.register('get_result_queue')
+
+# 连接到服务器，也就是运行task_master.py的机器:
+server_addr = '127.0.0.1'
+print('Connect to server %s...' % server_addr)
+# 端口和验证码注意保持与task_master.py设置的完全一致:
+m = QueueManager(address=(server_addr, 5000), authkey=b'abc')
+# 从网络连接:
+m.connect()
+# 获取Queue的对象:
+task = m.get_task_queue()
+result = m.get_result_queue()
+# 从task队列取任务,并把结果写入result队列:
+for i in range(10):
+    try:
+        n = task.get(timeout=1)
+        print('run task %d * %d...' % (n, n))
+        r = '%d * %d = %d' % (n, n, n*n)
+        time.sleep(1)
+        result.put(r)
+    except Queue.Empty: #或者是queue.Empty
+        print('task queue is empty.')
+# 处理结束:
+print('worker exit.')
+</code></pre>
+<p><strong>结果</strong><br>
+先启动task_master.py服务进程：</p>
+<pre><code class="language-python">$ python3 task_master.py 
+Put task 3411...
+Put task 1605...
+Put task 1398...
+Put task 4729...
+Put task 5300...
+Put task 7471...
+Put task 68...
+Put task 4219...
+Put task 339...
+Put task 7866...
+Try get results...
+</code></pre>
+<p><code>task_master.py</code>进程发送完任务后，开始等待<code>result</code>队列的结果。现在启动<code>task_worker.py</code>进程：</p>
+<pre><code class="language-python">$ python3 task_worker.py
+Connect to server 127.0.0.1...
+run task 3411 * 3411...
+run task 1605 * 1605...
+run task 1398 * 1398...
+run task 4729 * 4729...
+run task 5300 * 5300...
+run task 7471 * 7471...
+run task 68 * 68...
+run task 4219 * 4219...
+run task 339 * 339...
+run task 7866 * 7866...
+worker exit.
+</code></pre>
+<p><code>task_worker.py</code>进程结束，在<code>task_master.py</code>进程中会继续打印出结果：</p>
+<pre><code class="language-python">Result: 3411 * 3411 = 11634921
+Result: 1605 * 1605 = 2576025
+Result: 1398 * 1398 = 1954404
+Result: 4729 * 4729 = 22363441
+Result: 5300 * 5300 = 28090000
+Result: 7471 * 7471 = 55815841
+Result: 68 * 68 = 4624
+Result: 4219 * 4219 = 17799961
+Result: 339 * 339 = 114921
+Result: 7866 * 7866 = 61873956
+</code></pre>
+<h1 id="莫烦爬虫">莫烦爬虫</h1>
+<p><strong>打开网页</strong></p>
+<pre><code class="language-python">from urllib.request import urlopen
+
+# if has Chinese, apply decode()
+html = urlopen(
+    &quot;https://mofanpy.com/static/scraping/basic-structure.html&quot;
+).read().decode('utf-8')
+print(html)
+</code></pre>
+<p><strong>BeautifulSoup</strong><br>
+利用beautifulsoup<strong>爬取百度百科</strong>词条:<br>
+重点:</p>
+<pre><code class="language-python">#注意结果的形式及匹配方式
+soup.find_all('a', {&quot;target&quot;:&quot;_blank&quot;, &quot;href&quot;:re.compile(&quot;/item/(%.+)+$&quot;)}) 
+soup.find('h1').get_text()
+#注意随机排序与获取一个例子
+sublink.append(random.sample(nexturl, 1)[0]['href'])
+</code></pre>
+<p>代码:</p>
+<pre><code class="language-python">from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import re
+import random
+
+sublink = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
+mainlink= &quot;https://baike.baidu.com&quot;
+
+for i in range(20):
+    alink = mainlink + sublink[-1]
+    html = urlopen(alink).read().decode('utf-8')
+    soup = BeautifulSoup(html, features='lxml')
+    print (soup.find('h1').get_text(), '   url:', sublink[-1])
+    nexturl = soup.find_all('a', {&quot;target&quot;:&quot;_blank&quot;, &quot;href&quot;:re.compile(&quot;/item/(%.+)+$&quot;)})
+    #print (nexturl)
+    if len(nexturl)!=0 :
+        sublink.append(random.sample(nexturl, 1)[0]['href'])
+    else :
+        sublink.pop()
+
 </code></pre>
 
-          <div class="toc-container"></div>
+          <div class="toc-container"><ul class="markdownIt-TOC">
+<li><a href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B">进程和线程</a>
+<ul>
+<li><a href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B">多进程</a>
+<ul>
+<li><a href="#multiprocessing">multiprocessing</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B-2">多进程</a>
+<ul>
+<li><a href="#lock">Lock</a></li>
+</ul>
+</li>
+<li><a href="#threadlocal">ThreadLocal</a></li>
+<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B">分布式进程</a></li>
+</ul>
+</li>
+<li><a href="#%E8%8E%AB%E7%83%A6%E7%88%AC%E8%99%AB">莫烦爬虫</a></li>
+</ul>
+</div>
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/github-pages-yu-gridea-da-jian-jing-tai-bo-ke/">
+            <a href="https://foreup.github.io/post/0210-wen-jian-cao-zuo/">
               <span class="post-title">
-                Github Pages与GRidea搭建静态博客&rarr;
+                0210-文件操作&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0127-xue-xi-bi-ji/" class="leancloud_visitors"
-              data-flag-title="0127学习笔记">
+            <span id="/post/0211-jin-cheng-xian-cheng-pa-chong-ji-chu/" class="leancloud_visitors"
+              data-flag-title="0211-进程线程-爬虫基础">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>

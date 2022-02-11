@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-02-10T10:18:10.645Z</updated>
+    <updated>2022-02-11T11:37:44.528Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
@@ -10,6 +10,306 @@
     <logo>https://foreup.github.io/images/avatar.png</logo>
     <icon>https://foreup.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, ForeUP&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[0211-进程线程-爬虫基础]]></title>
+        <id>https://foreup.github.io/post/0211-jin-cheng-xian-cheng-pa-chong-ji-chu/</id>
+        <link href="https://foreup.github.io/post/0211-jin-cheng-xian-cheng-pa-chong-ji-chu/">
+        </link>
+        <updated>2022-02-11T11:36:56.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="进程和线程">进程和线程</h1>
+<h2 id="多进程">多进程</h2>
+<h3 id="multiprocessing">multiprocessing</h3>
+<p><strong><code>multiprocessing</code></strong> 模块提供了一个 <code>Process</code> 类来代表一个进程对象.<br>
+<code>join()</code>方法可以等待子进程结束后再继续往下运行，或者说说将进程加入主进程，通常用于进程间的同步。</p>
+<pre><code class="language-python">from multiprocessing import Process
+import os
+
+# 子进程要执行的代码
+def run_proc(name):
+    print('Run child process %s (%s)...' % (name, os.getpid()))
+
+if __name__=='__main__':
+    print('Parent process %s.' % os.getpid())
+    p = Process(target=run_proc, args=('test',))
+    print('Child process will start.')
+    p.start()
+    p.join()
+    print('Child process end.')
+#结果
+Parent process 928.
+Child process will start.
+Run child process test (929)...
+Process end.
+</code></pre>
+<h2 id="多进程-2">多进程</h2>
+<p><code>threading</code>高级模块，对<code>_thread</code>进行了封装。绝大多数情况下，我们只需要使用<code>threading</code>这个高级模块。<br>
+启动一个线程就是把一个函数传入并创建<code>Thread</code>实例，然后调用<code>start()</code>开始执行：</p>
+<pre><code class="language-python">import time, threading
+
+# 新线程执行的代码:
+def loop():
+    print('thread %s is running...' % threading.current_thread().name)
+    n = 0
+    while n &lt; 5:
+        n = n + 1
+        print('thread %s &gt;&gt;&gt; %s' % (threading.current_thread().name, n))
+        time.sleep(1)
+    print('thread %s ended.' % threading.current_thread().name)
+
+print('thread %s is running...' % threading.current_thread().name)
+t = threading.Thread(target=loop, name='LoopThread')
+t.start()
+t.join()
+print('thread %s ended.' % threading.current_thread().name)
+#执行结果
+thread MainThread is running...
+thread LoopThread is running...
+thread LoopThread &gt;&gt;&gt; 1
+thread LoopThread &gt;&gt;&gt; 2
+thread LoopThread &gt;&gt;&gt; 3
+thread LoopThread &gt;&gt;&gt; 4
+thread LoopThread &gt;&gt;&gt; 5
+thread LoopThread ended.
+thread MainThread ended.
+</code></pre>
+<h3 id="lock">Lock</h3>
+<p>多进程的变量各自独立互不影响，多线程的变量相互共享，线程之间共享数据最大的危险在于多个线程同时改一个变量，把内容给改乱了。<br>
+<strong>例子：</strong></p>
+<pre><code class="language-python">import time, threading
+
+# 假定这是你的银行存款:
+balance = 0
+
+def change_it(n):
+    # 先存后取，结果应该为0:
+    global balance
+    balance = balance + n
+    balance = balance - n
+
+def run_thread(n):
+    for i in range(2000000):
+        change_it(n)
+
+t1 = threading.Thread(target=run_thread, args=(5,))
+t2 = threading.Thread(target=run_thread, args=(8,))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(balance)
+#结果
+3
+</code></pre>
+<p>t1、t2交替执行时，只要循环次数足够多，<code>balance</code>的结果就不一定是<code>0</code>了。<br>
+创建一个锁就是通过<code>threading.Lock()</code>来实现：</p>
+<pre><code class="language-python">balance = 0
+lock = threading.Lock()
+
+def run_thread(n):
+    for i in range(100000):
+        # 先要获取锁:
+        lock.acquire()
+        try:
+            # 放心地改吧:
+            change_it(n)
+        finally:
+            # 改完了一定要释放锁:
+            lock.release()
+</code></pre>
+<p>获得锁的线程用完后一定要释放锁，否则那些苦苦等待锁的线程将永远等待下去，成为死线程，所以使用<code>try....finally....</code>确保释放锁。</p>
+<h2 id="threadlocal">ThreadLocal</h2>
+<p>全局变量<code>local_school</code>就是一个<code>ThreadLocal</code>对象，每个<code>Thread</code>对它都可以读写<code>student</code>属性，但互不影响；<br>
+每个属性如<code>local_school.student</code>都是线程的局部变量，可以任意读写而互不干扰，也不用管理锁的问题，<code>ThreadLocal</code>内部会处理；<br>
+可以理解为全局变量<code>local_school</code>是一个<code>dict</code>，不但可以用<code>local_school.student</code>，还可以绑定其他变量，如<code>local_school.teacher</code>等等：</p>
+<pre><code class="language-python">import threading
+    
+# 创建全局ThreadLocal对象:
+local_school = threading.local()
+
+def process_student():
+    # 获取当前线程关联的student:
+    std = local_school.student
+    print('Hello, %s (in %s)' % (std, threading.current_thread().name))
+
+def process_thread(name):
+    # 绑定ThreadLocal的student:
+    local_school.student = name
+    process_student()
+
+t1 = threading.Thread(target= process_thread, args=('Alice',), name='Thread-A')
+t2 = threading.Thread(target= process_thread, args=('Bob',), name='Thread-B')
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+#结果：
+Hello, Alice (in Thread-A)
+Hello, Bob (in Thread-B)
+</code></pre>
+<h2 id="分布式进程">分布式进程</h2>
+<p>利用<code>managers</code>模块分装<code>queue</code>，<code>register</code>到网络上并设置<code>端口</code>与验证<code>authkey</code>，具体见下：<br>
+两个<code>.py</code>文件，<code>master.py</code>和<code>worker.py</code>;<br>
+下列代码可能在Windows下有错误，修改见 <strong><a href="https://www.liaoxuefeng.com/discuss/969955749132672/1441664361037857">廖雪峰网站评论区</a></strong></p>
+<pre><code class="language-python"># task_master.py
+
+import random, time, queue
+from multiprocessing.managers import BaseManager
+
+# 发送任务的队列:
+task_queue = queue.Queue()
+# 接收结果的队列:
+result_queue = queue.Queue()
+
+# 从BaseManager继承的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 把两个Queue都注册到网络上, callable参数关联了Queue对象:
+QueueManager.register('get_task_queue', callable=lambda: task_queue)
+QueueManager.register('get_result_queue', callable=lambda: result_queue)
+# 绑定端口5000, 设置验证码'abc':
+manager = QueueManager(address=('', 5000), authkey=b'abc')
+# 启动Queue:
+manager.start()
+# 获得通过网络访问的Queue对象:
+task = manager.get_task_queue()
+result = manager.get_result_queue()
+# 放几个任务进去:
+for i in range(10):
+    n = random.randint(0, 10000)
+    print('Put task %d...' % n)
+    task.put(n)
+# 从result队列读取结果:
+print('Try get results...')
+for i in range(10):
+    r = result.get(timeout=10)
+    print('Result: %s' % r)
+# 关闭:
+manager.shutdown()
+print('master exit.'
+</code></pre>
+<p>添加任务到<code>Queue</code>不可以直接对原始的<code>task_queue</code>进行操作，那样就绕过了<code>QueueManager</code>的封装，必须通过<code>manager.get_task_queue()</code>获得的<code>Queue</code>接口添加。</p>
+<pre><code class="language-python"># task_worker.py
+
+import time, sys, queue
+from multiprocessing.managers import BaseManager
+
+# 创建类似的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 由于这个QueueManager只从网络上获取Queue，所以注册时只提供名字:
+QueueManager.register('get_task_queue')
+QueueManager.register('get_result_queue')
+
+# 连接到服务器，也就是运行task_master.py的机器:
+server_addr = '127.0.0.1'
+print('Connect to server %s...' % server_addr)
+# 端口和验证码注意保持与task_master.py设置的完全一致:
+m = QueueManager(address=(server_addr, 5000), authkey=b'abc')
+# 从网络连接:
+m.connect()
+# 获取Queue的对象:
+task = m.get_task_queue()
+result = m.get_result_queue()
+# 从task队列取任务,并把结果写入result队列:
+for i in range(10):
+    try:
+        n = task.get(timeout=1)
+        print('run task %d * %d...' % (n, n))
+        r = '%d * %d = %d' % (n, n, n*n)
+        time.sleep(1)
+        result.put(r)
+    except Queue.Empty: #或者是queue.Empty
+        print('task queue is empty.')
+# 处理结束:
+print('worker exit.')
+</code></pre>
+<p><strong>结果</strong><br>
+先启动task_master.py服务进程：</p>
+<pre><code class="language-python">$ python3 task_master.py 
+Put task 3411...
+Put task 1605...
+Put task 1398...
+Put task 4729...
+Put task 5300...
+Put task 7471...
+Put task 68...
+Put task 4219...
+Put task 339...
+Put task 7866...
+Try get results...
+</code></pre>
+<p><code>task_master.py</code>进程发送完任务后，开始等待<code>result</code>队列的结果。现在启动<code>task_worker.py</code>进程：</p>
+<pre><code class="language-python">$ python3 task_worker.py
+Connect to server 127.0.0.1...
+run task 3411 * 3411...
+run task 1605 * 1605...
+run task 1398 * 1398...
+run task 4729 * 4729...
+run task 5300 * 5300...
+run task 7471 * 7471...
+run task 68 * 68...
+run task 4219 * 4219...
+run task 339 * 339...
+run task 7866 * 7866...
+worker exit.
+</code></pre>
+<p><code>task_worker.py</code>进程结束，在<code>task_master.py</code>进程中会继续打印出结果：</p>
+<pre><code class="language-python">Result: 3411 * 3411 = 11634921
+Result: 1605 * 1605 = 2576025
+Result: 1398 * 1398 = 1954404
+Result: 4729 * 4729 = 22363441
+Result: 5300 * 5300 = 28090000
+Result: 7471 * 7471 = 55815841
+Result: 68 * 68 = 4624
+Result: 4219 * 4219 = 17799961
+Result: 339 * 339 = 114921
+Result: 7866 * 7866 = 61873956
+</code></pre>
+<h1 id="莫烦爬虫">莫烦爬虫</h1>
+<p><strong>打开网页</strong></p>
+<pre><code class="language-python">from urllib.request import urlopen
+
+# if has Chinese, apply decode()
+html = urlopen(
+    &quot;https://mofanpy.com/static/scraping/basic-structure.html&quot;
+).read().decode('utf-8')
+print(html)
+</code></pre>
+<p><strong>BeautifulSoup</strong><br>
+利用beautifulsoup<strong>爬取百度百科</strong>词条:<br>
+重点:</p>
+<pre><code class="language-python">#注意结果的形式及匹配方式
+soup.find_all('a', {&quot;target&quot;:&quot;_blank&quot;, &quot;href&quot;:re.compile(&quot;/item/(%.+)+$&quot;)}) 
+soup.find('h1').get_text()
+#注意随机排序与获取一个例子
+sublink.append(random.sample(nexturl, 1)[0]['href'])
+</code></pre>
+<p>代码:</p>
+<pre><code class="language-python">from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import re
+import random
+
+sublink = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
+mainlink= &quot;https://baike.baidu.com&quot;
+
+for i in range(20):
+    alink = mainlink + sublink[-1]
+    html = urlopen(alink).read().decode('utf-8')
+    soup = BeautifulSoup(html, features='lxml')
+    print (soup.find('h1').get_text(), '   url:', sublink[-1])
+    nexturl = soup.find_all('a', {&quot;target&quot;:&quot;_blank&quot;, &quot;href&quot;:re.compile(&quot;/item/(%.+)+$&quot;)})
+    #print (nexturl)
+    if len(nexturl)!=0 :
+        sublink.append(random.sample(nexturl, 1)[0]['href'])
+    else :
+        sublink.pop()
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[0210-文件操作]]></title>
         <id>https://foreup.github.io/post/0210-wen-jian-cao-zuo/</id>
@@ -2211,257 +2511,6 @@ let div2 = $('#test-div ul&gt;li');
 let sort = div2.sort( (a,b) =&gt; a.innerText&gt;b.innerText? 1:-1 );
 //$('#test-div li').remove();  append()会先从文档删除节点之后再添加；
 div.append(sort);
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[0201-Promise-JQuery选择]]></title>
-        <id>https://foreup.github.io/post/0201-promise-jquery-xuan-ze/</id>
-        <link href="https://foreup.github.io/post/0201-promise-jquery-xuan-ze/">
-        </link>
-        <updated>2022-02-01T11:07:14.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="promise">Promise</h1>
-<p>最简单的Promise例子：生成一个0-2之间的随机数，如果小于1，则等待一段时间后返回成功，否则返回失败：<br>
-<code>resolve</code>和<code>reject</code>分别代表成功与失败执行的函数；</p>
-<pre><code class="language-JavaScript">function test(resolve, reject) {
-    var timeOut = Math.random() * 2;
-    log('set timeout to: ' + timeOut + ' seconds.');
-    setTimeout(function () {
-        if (timeOut &lt; 1) {
-            log('call resolve()...');
-            resolve('200 OK'); //代表成功
-        }
-        else {
-            log('call reject()...');
-            reject('timeout in ' + timeOut + ' seconds.'); //代表失败
-        }
-    }, timeOut * 1000);
-}
-</code></pre>
-<p>用一个Promise对象来执行上述函数，并根据设定的时间延迟显示结果；</p>
-<pre><code class="language-JavaScript">var p1 = new Promise(test);
-var p2 = p1.then(function (result) {
-    console.log('成功：' + result);
-}).catch(function (reason) {
-    console.log('失败：' + reason);
-});
-</code></pre>
-<p><code>Promise().then().then....catch()</code> 多任务串行执行.<br>
-<code>Promise.all([p1,p2,...])</code> 多任务并行执行<br>
-都要成功才进入then,返回结果数组.<br>
-<code>Promise.race([p1,p2,...])</code> 多任务赛跑.<br>
-then()和catch(),谁先调用算谁的,其它任务中断.</p>
-<h2 id="canvas">Canvas</h2>
-<ul>
-<li>在HTML中设定一块画布的大小与ID等属性；</li>
-<li>用JS在画图中绘画；</li>
-</ul>
-<pre><code class="language-JavaScript">var c=document.getElementById(&quot;myCanvas&quot;);
-var ctx=c.getContext(&quot;2d&quot;);
-//矩形
-ctx.fillStyle=&quot;#FF0000&quot;;
-ctx.fillRect(0,0,150,75);
-//路径
-ctx.moveTo(0,0); //线条开始坐标
-ctx.lineTo(200,100); //线条结束坐标
-ctx.stroke();
-//文本
-ctx.font=&quot;30px Arial&quot;; //字体
-ctx.fillText(&quot;Hello World&quot;,10,50); //实心字
-ctx.strokeText(&quot;Hello World&quot;,10,50); //空心字
-//画圆
-ctx.beginPath();
-ctx.arc(95,50,40,0,2*Math.PI); //x,y,r,start,stop
-ctx.stroke();
-// ****创建渐变****
-  //createLinearGradient(x,y,x1,y1) - 创建线条渐变
-  //createRadialGradient(x,y,r,x1,y1,r1) - 创建一个径向/圆渐变
-  var grd=ctx.createLinearGradient(0,0,200,0);
-  grd.addColorStop(0,&quot;red&quot;);
-  grd.addColorStop(1,&quot;white&quot;);
-  // 填充渐变
-  ctx.fillStyle=grd;
-  ctx.fillRect(10,10,150,80);
-//图像
-var img=document.getElementById(&quot;scream&quot;);
-ctx.drawImage(img,10,10);
-</code></pre>
-<h1 id="jquery选择器">JQuery选择器</h1>
-<p><strong>按ID查找</strong><br>
-<code>#abc</code>以<code>#</code>开头，返回的对象是jQuery对象；如果<code>id</code>为<code>abc</code>的<code>&lt;div&gt;</code>存在：返回的JQuery对象为<code>[&lt;div id=&quot;abc&quot;&gt;...&lt;/div&gt;]</code>；若不存在：返回<code>[]</code>。</p>
-<pre><code class="language-JavaScript">// 查找&lt;div id=&quot;abc&quot;&gt;:
-var div = $('#abc');
-</code></pre>
-<ul>
-<li>DOM与JQuery相互转化</li>
-</ul>
-<pre><code class="language-JavaScript">var div = $('#abc'); // jQuery对象
-var divDom = div.get(0); // 假设存在div，获取第1个DOM元素
-var another = $(divDom); // 重新把DOM包装为jQuery对象
-</code></pre>
-<p><strong>按tag查找</strong></p>
-<pre><code class="language-JavaScript">var ps = $('p'); // 返回所有&lt;p&gt;节点
-ps.length; // 数一数页面有多少个&lt;p&gt;节点
-</code></pre>
-<p><strong>按class查找</strong><br>
-注意在<code>class</code>名称前加<code>.</code></p>
-<pre><code class="language-JavaScript">var a = $('.red'); // 所有节点包含`class=&quot;red&quot;`都将返回
-// 例如:
-// &lt;div class=&quot;red&quot;&gt;...&lt;/div&gt;
-// &lt;p class=&quot;green red&quot;&gt;...&lt;/p&gt;
-</code></pre>
-<ul>
-<li>查找<code>class</code>同时包含<code>red</code>和<code>green</code>的节点：</li>
-</ul>
-<pre><code class="language-JavaScript">var a = $('.red.green'); // 注意没有空格！
-// 符合条件的节点：
-// &lt;div class=&quot;red green&quot;&gt;...&lt;/div&gt;
-// &lt;div class=&quot;blue green red&quot;&gt;...&lt;/div&gt;
-</code></pre>
-<p><strong>按属性查找</strong><br>
-当属性存在空格<code></code> 等特殊字符时需要用双引号<code>&quot;&quot;</code>括起来；</p>
-<pre><code class="language-JavaScript">var email = $('[name=email]'); // 找出&lt;??? name=&quot;email&quot;&gt;
-var passwordInput = $('[type=password]'); // 找出&lt;??? type=&quot;password&quot;&gt;
-var a = $('[items=&quot;A B&quot;]'); // 找出&lt;??? items=&quot;A B&quot;&gt;
-</code></pre>
-<p>属性的前缀后缀查找</p>
-<pre><code class="language-JavaScript">var icons = $('[name^=icon]'); // 找出所有name属性值以icon开头的DOM
-// 例如: name=&quot;icon-1&quot;, name=&quot;icon-2&quot;
-var names = $('[name$=with]'); // 找出所有name属性值以with结尾的DOM
-// 例如: name=&quot;startswith&quot;, name=&quot;endswith&quot;
-var icons = $('[class^=&quot;icon-&quot;]'); // 找出所有class包含至少一个以`icon-`开头的DOM
-// 例如: class=&quot;icon-clock&quot;, class=&quot;abc icon-home&quot;
-</code></pre>
-<p><strong>组合查找</strong></p>
-<pre><code class="language-JavaScript">var emailInput = $('input[name=email]'); // 不会找出&lt;div name=&quot;email&quot;&gt;, 只查找&lt;input&gt;标签
-//tag和class组合查找
-var tr = $('tr.red'); // 找出&lt;tr class=&quot;red ...&quot;&gt;...&lt;/tr&gt;
-</code></pre>
-<p><strong>多项选择器</strong><br>
-选出的元素按在HTML中的顺序排序，且不会有重复元素；<br>
-<code>&lt;p class=&quot;red green&quot;&gt;</code>不会被下面的<code>$('p.red,p.green')</code>选择两次；</p>
-<pre><code class="language-JavaScript">$('p,div'); // 把&lt;p&gt;和&lt;div&gt;都选出来
-$('p.red,p.green'); // 把&lt;p class=&quot;red&quot;&gt;和&lt;p class=&quot;green&quot;&gt;都选出来
-</code></pre>
-<p><strong>以下内容以此为例</strong></p>
-<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
-&lt;div class=&quot;testing&quot;&gt;
-    &lt;ul class=&quot;lang&quot;&gt;
-        &lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;
-        &lt;li class=&quot;lang-python&quot;&gt;Python&lt;/li&gt;
-        &lt;li class=&quot;lang-lua&quot;&gt;Lua&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre>
-<p><strong>层级选择器</strong><br>
-用<code>$('ancestor descendant')</code>来选择，层级之间用空格隔开；</p>
-<pre><code class="language-JavaScript">$('ul.lang li.lang-javascript'); // [&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-$('div.testing li.lang-javascript'); // [&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-</code></pre>
-<p>选择所有的<code>&lt;li&gt;</code>节点：</p>
-<pre><code class="language-JavaScript">$('ul.lang li');
-$('form[name=upload] input'); //选择范围限定在name属性为upload的表单里
-$('form.test p input'); // 多层选择,在form表单选择被&lt;p&gt;包含的&lt;input&gt;
-</code></pre>
-<p><strong>子选择器</strong><br>
-<code>$('parent&gt;child')</code>类似层级选择器，但必须是直系父子关系；</p>
-<pre><code class="language-JavaScript">$('ul.lang&gt;li.lang-javascript'); // 可以选出[&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-$('div.testing&gt;li.lang-javascript'); // [], 无法选出，因为&lt;div&gt;和&lt;li&gt;不构成父子关系
-</code></pre>
-<p><strong>过滤器</strong></p>
-<pre><code class="language-JavaScript">$('ul.lang li'); // 选出JavaScript、Python和Lua 3个节点
-$('ul.lang li:first-child'); // 仅选出JavaScript
-$('ul.lang li:last-child'); // 仅选出Lua
-$('ul.lang li:nth-child(2)'); // 选出第N个元素，N从1开始
-$('ul.lang li:nth-child(even)'); // 选出序号为偶数的元素
-$('ul.lang li:nth-child(odd)'); // 选出序号为奇数的元素
-</code></pre>
-<h2 id="查找和过滤">查找和过滤</h2>
-<p><strong>查找</strong></p>
-<ul>
-<li>获得一个节点<code>ul</code></li>
-<li><code>ul.find()</code>节点内查找</li>
-</ul>
-<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
-&lt;ul class=&quot;lang&quot;&gt;
-    &lt;li class=&quot;js dy&quot;&gt;JavaScript&lt;/li&gt;
-    &lt;li class=&quot;dy&quot;&gt;Python&lt;/li&gt;
-    &lt;li id=&quot;swift&quot;&gt;Swift&lt;/li&gt;
-    &lt;li class=&quot;dy&quot;&gt;Scheme&lt;/li&gt;
-    &lt;li name=&quot;haskell&quot;&gt;Haskell&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-<p><code>find()</code>查找：</p>
-<pre><code class="language-JavaScript">var ul = $('ul.lang'); // 获得&lt;ul&gt;
-var dy = ul.find('.dy'); // 获得JavaScript, Python, Scheme
-var swf = ul.find('#swift'); // 获得Swift
-var hsk = ul.find('[name=haskell]'); // 获得Haskell
-</code></pre>
-<p>向上查找，使用<code>parent()</code>：</p>
-<pre><code class="language-JavaScript">var swf = $('#swift'); // 获得Swift
-var parent = swf.parent(); // 获得Swift的上层节点&lt;ul&gt;
-var a = swf.parent('.red'); // 获得Swift的上层节点&lt;ul&gt;，同时传入过滤条件。如果ul不符合条件，返回空jQuery对象
-</code></pre>
-<p>同一层级的节点，可以使用<code>next()</code>和<code>prev()</code>方法：</p>
-<pre><code class="language-JavaScript">var swift = $('#swift');
-swift.next(); // Scheme
-swift.next('[name=haskell]'); // 空的jQuery对象，因为Swift的下一个元素Scheme不符合条件[name=haskell]
-swift.prev(); // Python
-swift.prev('.dy'); // Python，因为Python同时符合过滤器条件.dy
-</code></pre>
-<p><strong>过滤</strong><br>
-和函数的<code>map</code>、<code>filter</code>类似：<br>
-<code>filter()</code>过滤掉不符合条件的节点；</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var a = langs.filter('.dy'); // 拿到JavaScript, Python, Scheme
-</code></pre>
-<p>或者也可以传入函数，注意<code>this</code>的指向的对象为<code>DOM</code></p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-langs.filter(function () {
-    return this.innerHTML.indexOf('S') === 0; // 返回S开头的节点
-}); // 拿到Swift, Scheme
-</code></pre>
-<p><code>map()</code>把JQuery对象中的节点转化为数组或其他形式</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var arr = langs.map(function () {
-    return this.innerHTML;
-}).get(); // 用get()拿到包含string的Array：['JavaScript', 'Python', 'Swift', 'Scheme', 'Haskell']
-</code></pre>
-<p>若JQuery包含多个节点，可以用<code>first()</code>、<code>last()</code>、<code>slice()</code>返回新的JQuery对象，删除不必要节点；</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var js = langs.first(); // JavaScript，相当于$('ul.lang li:first-child')
-var haskell = langs.last(); // Haskell, 相当于$('ul.lang li:last-child')
-var sub = langs.slice(2, 4); // Swift, Scheme, 参数和数组的slice()方法一致
-</code></pre>
-<h2 id="练习">练习</h2>
-<p>对于下面表单，输入值后，用jQuery获取表单的JSON字符串，<code>key</code>和<code>value</code>分别对应每个输入的<code>name</code>和相应的<code>value</code>，例如：<code>{&quot;name&quot;:&quot;Michael&quot;,&quot;email&quot;:...}</code></p>
-<pre><code class="language-HTML">&lt;form id=&quot;test-form&quot; action=&quot;#0&quot; onsubmit=&quot;return false;&quot;&gt;
-    &lt;p&gt;&lt;label&gt;Name: &lt;input name=&quot;name&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;Email: &lt;input name=&quot;email&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;Password: &lt;input name=&quot;password&quot; type=&quot;password&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;Gender: &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;m&quot; checked&gt; Male&lt;/label&gt; &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;f&quot;&gt; Female&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;City: &lt;select name=&quot;city&quot;&gt;
-    	&lt;option value=&quot;BJ&quot; selected&gt;Beijing&lt;/option&gt;
-    	&lt;option value=&quot;SH&quot;&gt;Shanghai&lt;/option&gt;
-    	&lt;option value=&quot;CD&quot;&gt;Chengdu&lt;/option&gt;
-    	&lt;option value=&quot;XM&quot;&gt;Xiamen&lt;/option&gt;
-    &lt;/select&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;&lt;/p&gt;
-&lt;/form&gt;
-&lt;!--****JS脚本****--&gt;
-&lt;script&gt;
-json = {};  //将json初始化为对象
-// 利用和表单元素相关的特殊选择器
-// 理解filter和map的机制
-let tmp1 = $('#test-form :input').not('button').filter(function(){
-    //console.log(this.type);
-    return this.type !== 'radio' || this.checked;
-}).map(function(){
-    json[this.name] = this.value;
-    return true;
-});
-json = JSON.stringify(json);
-&lt;/script&gt;
 </code></pre>
 ]]></content>
     </entry>
