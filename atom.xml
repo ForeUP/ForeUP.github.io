@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-02-12T01:54:25.430Z</updated>
+    <updated>2022-02-12T11:50:32.336Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
@@ -10,6 +10,68 @@
     <logo>https://foreup.github.io/images/avatar.png</logo>
     <icon>https://foreup.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, ForeUP&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[0212-爬取图片-随想]]></title>
+        <id>https://foreup.github.io/post/0212-pa-qu-tu-pian-sui-xiang/</id>
+        <link href="https://foreup.github.io/post/0212-pa-qu-tu-pian-sui-xiang/">
+        </link>
+        <updated>2022-02-12T11:49:35.000Z</updated>
+        <content type="html"><![CDATA[<p>使用BeautifulSoup与requests爬取美图:<br>
+<code>r = requests.get(url, headers=headers, timeout = 30)</code>以请求头访问指定的URL；<br>
+<code>r.encoding = r.apparent_encoding</code>网页的编码方式；<br>
+<code>return r.text</code>返回网页的文字；</p>
+<pre><code class="language-python">soup = BeautifulSoup(html, 'lxml')
+    img_ul = soup.find_all('img', {&quot;class&quot;: &quot;progressive__img progressive--not-loaded&quot;})
+</code></pre>
+<p>上面代码用来选择网页的元素；</p>
+<pre><code class="language-python">with open('路径\img\%s' % (image_name), 'wb') as f: #不知为啥必须是绝对路径且不能访问未创建的文件夹
+		for chunk in r.iter_content(chunk_size=128): #将网页内容可迭代
+				f.write(chunk)
+</code></pre>
+<p>上面用来写入图片；</p>
+<pre><code class="language-python">import requests
+from bs4 import BeautifulSoup
+import os
+
+def gethtmltext(url):
+    try:
+        headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                        'Chrome/51.0.2704.63 Safari/537.36'}
+        r = requests.get(url, headers=headers, timeout = 30)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        return r.text
+    except:
+        print (&quot;错误&quot;)
+for i in range(11, 21):
+    URL = &quot;https://bing.wilii.cn/index.asp&quot;+(&quot;?page=%s&quot; % i)
+    html = gethtmltext(URL)
+    soup = BeautifulSoup(html, 'lxml')
+    img_ul = soup.find_all('img', {&quot;class&quot;: &quot;progressive__img progressive--not-loaded&quot;})
+    #print (soup) #打印网页源码
+
+    for img in img_ul:
+        url = &quot;https://bing.wilii.cn&quot;+img['src']
+        print (url)
+        r = requests.get(url, stream=True)
+        image_name = url.split('/')[-1]
+        #image_name = image_name0.split('?')[0]
+        with open('F:\MIUI_data\python_test\img\%s' % (image_name), 'wb') as f:
+            for chunk in r.iter_content(chunk_size=128):
+                f.write(chunk)
+        print('Saved %s' % image_name) 
+</code></pre>
+<h2 id="随想">随想</h2>
+<ul>
+<li>文件批量重命名脚本<br>
+<code>list</code>与<code>str</code>的相互转化；<br>
+<code>list</code>的截取；</li>
+<li>文件复制<br>
+<code>shutil.copyfile</code><br>
+<code>shutil.coytree</code></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[0211-进程线程-爬虫基础]]></title>
         <id>https://foreup.github.io/post/0211-jin-cheng-xian-cheng-pa-chong-ji-chu/</id>
@@ -2355,162 +2417,6 @@ $.fn.highlight.defaults = {
     //用户设定默认值
 $.fn.highlight.defaults.color = '#fff';
 $.fn.highlight.defaults.backgroundColor = '#000';
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[0202-jQuery事件]]></title>
-        <id>https://foreup.github.io/post/0202-jquery-shi-jian/</id>
-        <link href="https://foreup.github.io/post/0202-jquery-shi-jian/">
-        </link>
-        <updated>2022-02-02T12:05:02.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li>val()</li>
-<li>.css()</li>
-<li>addClass('hightlight') removeClass</li>
-<li>attr() removeAttr</li>
-<li>a.hide() a.show()</li>
-<li>text() html()</li>
-</ul>
-<h1 id="操作dom">操作DOM</h1>
-<h2 id="修改text与html">修改text与html</h2>
-<p>使用<code>text()</code>和<code>html()</code>, 当无参数时获取节点内容,有参数时修改节点内容;<br>
-JQuery获取的对象可以包含任意个节点, 调用<code>.text()</code>会修改对象内所有节点;(利用这点修改css)</p>
-<h2 id="修改css">修改css</h2>
-<p>使用<code>.css('name', 'value')</code>修改css属性如: <code>background-color</code>, <code>color</code>等, 是否有参数和<code>text()</code>的区别类似;</p>
-<pre><code class="language-JavaScript">var div = $('#test-div');
-div.hasClass('highlight'); // false， class是否包含highlight
-div.addClass('highlight'); // 添加highlight这个class
-div.removeClass('highlight'); // 删除highlight这个class
-</code></pre>
-<h2 id="显示隐藏dom">显示隐藏DOM</h2>
-<pre><code class="language-JavaScript">var a = $('a[target=_blank]');
-a.hide(); // 隐藏
-a.show(); // 显示
-</code></pre>
-<h2 id="获取dom信息">获取DOM信息</h2>
-<ul>
-<li>获取浏览器长宽属性</li>
-</ul>
-<pre><code class="language-JavaScript">// 浏览器可视窗口大小:
-$(window).width(); // 800
-// HTML文档大小:
-$(document).width(); // 800
-// 某个div的大小:
-var div = $('#test-div');
-div.width(); // 600
-div.width(400); // 设置CSS属性 width: 400px，是否生效要看CSS是否有效
-div.height('200px'); // 设置CSS属性 height: 200px，是否生效要看CSS是否有效
-</code></pre>
-<p><code>attr()</code>和<code>removeAttr()</code>操作DOM节点属性;</p>
-<pre><code class="language-JavaScript">// &lt;div id=&quot;test-div&quot; name=&quot;Test&quot; start=&quot;1&quot;&gt;...&lt;/div&gt;
-var div = $('#test-div');
-div.attr('data'); // undefined, 属性不存在
-div.attr('name'); // 'Test'
-div.attr('name', 'Hello'); // div的name属性变为'Hello'
-div.removeAttr('name'); // 删除name属性
-div.attr('name'); // undefined
-</code></pre>
-<ul>
-<li><code>prop()</code>与<code>attr()</code>方法:</li>
-</ul>
-<pre><code class="language-JavaScript">&lt;input id=&quot;test-radio&quot; type=&quot;radio&quot; name=&quot;test&quot; checked value=&quot;1&quot;&gt;
-</code></pre>
-<pre><code>等价于：
-</code></pre>
-<pre><code>&lt;input id=&quot;test-radio&quot; type=&quot;radio&quot; name=&quot;test&quot; checked=&quot;checked&quot; value=&quot;1&quot;&gt;
-</code></pre>
-<pre><code>所以:
-</code></pre>
-<pre><code class="language-JavaScript">var radio = $('#test-radio');
-radio.attr('checked'); // 'checked'
-radio.prop('checked'); // true
-</code></pre>
-<p><code>prop()</code>返回值更合理一些,用<code>is()</code>方法判断更好：<br>
-还有<code>selected</code>，处理时最好用<code>is(':selected')</code>;</p>
-<pre><code class="language-JavaScript">var radio = $('#test-radio');
-radio.is(':checked'); // true
-</code></pre>
-<h2 id="操作表单">操作表单</h2>
-<p>jQuery对象统一提供<code>val()</code>方法获取和设置对应的<code>value</code>属性：</p>
-<pre><code class="language-JavaScript">/*   &lt;input id=&quot;test-input&quot; name=&quot;email&quot; value=&quot;test&quot;&gt;
-    &lt;select id=&quot;test-select&quot; name=&quot;city&quot;&gt;
-        &lt;option value=&quot;BJ&quot; selected&gt;Beijing&lt;/option&gt;
-        &lt;option value=&quot;SH&quot;&gt;Shanghai&lt;/option&gt;
-        &lt;option value=&quot;SZ&quot;&gt;Shenzhen&lt;/option&gt;
-    &lt;/select&gt;
-    &lt;textarea id=&quot;test-textarea&quot;&gt;Hello&lt;/textarea&gt;   */
-var  input = $('#test-input'),
-    select = $('#test-select'),
-    textarea = $('#test-textarea');
-input.val(); // 'test'
-input.val('abc@example.com'); // 文本框的内容已变为abc@example.com
-select.val(); // 'BJ'
-select.val('SH'); // 选择框已变为Shanghai
-textarea.val(); // 'Hello'
-textarea.val('Hi'); // 文本区域已更新为'Hi'
-</code></pre>
-<h1 id="修改dom结构">修改DOM结构</h1>
-<h2 id="添加与删除dom">添加与删除DOM</h2>
-<p><strong>添加:</strong> 粗暴使用<code>html()</code>或使用<code>append()</code>添加至最后,<code>prepend()</code>将节点添加至最前;</p>
-<pre><code class="language-JavaScript">// 创建DOM对象:
-var ps = document.createElement('li');
-ps.innerHTML = '&lt;span&gt;Pascal&lt;/span&gt;';
-// 添加DOM对象:
-ul.append(ps);
-// 添加jQuery对象:
-ul.append($('#scheme'));
-// 添加函数对象:
-ul.append(function (index, html) {
-    return '&lt;li&gt;&lt;span&gt;Language - ' + index + '&lt;/span&gt;&lt;/li&gt;';
-});
-</code></pre>
-<p>如果要添加的DOM节点已经存在于HTML文档中，它会首先从文档移除，然后再添加，用<code>append()</code>，可以<strong>移动</strong>一个DOM<strong>节点</strong> ;<br>
-同级节点可以用<code>after()</code>或者<code>before()</code>确定插入位置:</p>
-<pre><code class="language-JavaScript">//先定位然后利用after()或before()插入节点;
-var js = $('#test-div&gt;ul&gt;li:first-child');
-js.after('&lt;li&gt;&lt;span&gt;Lua&lt;/span&gt;&lt;/li&gt;');
-</code></pre>
-<p><strong>删除:</strong><br>
-<code>var li = $('#test-div&gt;ul&gt;li');</code><br>
-<code>li.remove(); // 所有&lt;li&gt;全被删除</code></p>
-<h2 id="练习对html元素排序">练习对HTML元素排序</h2>
-<ul>
-<li>和0130的排序对照, 有部分相似<br>
-<strong>HTML结构:</strong></li>
-</ul>
-<pre><code class="language-HTML">&lt;div id=&quot;test-div&quot;&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;span&gt;JavaScript&lt;/span&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;span&gt;Python&lt;/span&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;span&gt;Swift&lt;/span&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre>
-<p>用了两种方法,一是获取数组后排序再添加, 二是排序jQuery对象后直接添加;</p>
-<pre><code class="language-JavaScript">let arr = ['Pascal','Lua','Ruby'];
-let div = $('#test-div ul');
-for(let x of arr){
-    div.append('&lt;li&gt;&lt;span&gt;'+x+'&lt;/span&gt;&lt;/li&gt;');
-}
-let div2 = $('#test-div ul&gt;li');
-let sort = Array.from(div2).map(x =&gt; x.innerText).sort();
-//$('#test-div li').remove();
-for(let x of sort){
-    div.append('&lt;li&gt;&lt;span&gt;'+x+'&lt;/span&gt;&lt;/li&gt;');
-}
-console.log(sort);
-</code></pre>
-<p><strong>等效于===&gt;&gt;：</strong></p>
-<pre><code class="language-JavaScript">let arr = ['Pascal','Lua','Ruby'];
-let div = $('#test-div ul');
-for(let x of arr){
-    div.append('&lt;li&gt;&lt;span&gt;'+x+'&lt;/span&gt;&lt;/li&gt;');
-}
-let div2 = $('#test-div ul&gt;li');
-let sort = div2.sort( (a,b) =&gt; a.innerText&gt;b.innerText? 1:-1 );
-//$('#test-div li').remove();  append()会先从文档删除节点之后再添加；
-div.append(sort);
 </code></pre>
 ]]></content>
     </entry>
