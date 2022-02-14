@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0128小结 | ForeUP&#39;s Blog</title>
+<title>0214-第三方模块 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0128小结 | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0214-第三方模块 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0128小结" />
-  <meta property="og:url" content="https://foreup.github.io/post/0128-xiao-jie/" />
+  <meta property="og:description" content="0214-第三方模块" />
+  <meta property="og:url" content="https://foreup.github.io/post/0214-di-san-fang-mo-kuai/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0128小结</h1>
+              <h1>0214-第三方模块</h1>
               <span class="meta">
                 Posted on
-                2022-01-28，4 min read
+                2022-02-14，2 min read
               </span>
             </div>
           
@@ -172,92 +172,92 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <p>看完了<a href="https://www.w3school.com.cn/js/index.asp"><strong>w3school JS教程</strong></a>发现教程太长，太啰嗦了，太基础了，各种重复，因此打算去**<a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021087191360">廖雪峰</a>** 那学，过几天看看效果吧，下面看看今天在<br>
-<strong>w3那总结的东西：</strong></p>
-<pre><code class="language-html">&lt;script&gt;
-myarray.foreach()
-    function myFunction(value, index, array) { txt = txt + value + &quot;&lt;br&gt;&quot;; }  //value:项目值，index：索引，array：数组本身；
-    myarray.map()    //对每个元素执行函数创建新数组，不会对没有值元素执行，不改变原来数组；   
-    numbers.reduce(function1,100)   // return total + value; total 总数（初始值/先前返回的值）,可定义一个初始值, reduceRight()
-    var over18 = numbers.filter(myFunction);  //function{ return value &gt;18 ; },创建通过测试的新数组；
-    numbers.every()    //方法检查所有数组值是否通过测试,some()检查某些数组值.
-    mynum.find()    //方法返回通过测试函数的第一个数组元素的值,findIndex()返回索引；
-    -----'日期'------
-    new Date(2018, 11, 24, 10, 33, 30);  //年、月、日、小时、分钟、秒,0为一月；
-    var d = new Date(&quot;October 13, 2014 11:13:00&quot;); //日期存储为自 1970 年 1 月 1 日 00:00:00 UTC以来的毫秒数;
-    document.getElementById(&quot;demo&quot;).innerHTML = d;  //d为日期对象，会使用 toString()自动转换为字符串；
-    d.toUTCString();  d.toDateString();   //转换为易读的日期字符串
-    ISO日期格式：&quot;2018-02-19&quot; （国际标准），严格符合JS标准
-    new Date(&quot;2019&quot;); 与 new Date(2019); 不同；
-    短日期通常使用 &quot;MM/DD/YYYY&quot; 格式；
-    var d = new Date();
-    d.getDate()   以数值返回天（1-31）  d.getUTCDate()  
-    d.getDay()    以数值获取周名（0-6）
-    d.getFullYear()   获取四位的年（yyyy）
-    d.getHours()  获取小时（0-23）
-    d.getMilliseconds()   获取毫秒（0-999）
-    d.getMinutes()    获取分（0-59）
-    d.getMonth()  获取月（0-11）
-    d.getSeconds()    获取秒（0-59）
-    d.getTime()   获取时间（从 1970 年 1 月 1 日至今的毫秒数）
-    -----'数学'------
-    Math.round(x)     返回 x 四舍五入为最接近的整数；
-    Math.pow(x, y)    返回 x 的 y 次幂；
-    Math.sqrt(x)    返回 x 的平方根；
-    Math.ceil(x)   返回 x '上舍入' 最接近的整数
-    Math.floor(x)   '下舍入'
-    Math.sin(x)    返回角 x弧度 的正弦
-&lt;/script&gt;
-&lt;script&gt;
-var add = (function () {
-  var counter = 0;
-  return function () {counter += 1; return counter;}
-})();
+          <img class="post-feature-header-image" src="https://foreup.github.io//post-images/0214-di-san-fang-mo-kuai.jpg" alt="封面图">
+          </img>
+          
+          <h2 id="pillow模块">pillow模块</h2>
+<p><strong>制作验证码</strong></p>
+<ul>
+<li>编写返回随机颜色与随机字符的函数</li>
+<li>创建图片画布</li>
+<li>创建文字</li>
+<li>创建ImageDraw.Draw对象</li>
+<li>填充随机色块底色</li>
+<li>填充文字</li>
+<li>模糊</li>
+</ul>
+<pre><code class="language-python">from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import random
 
-function myFunction(){
-  document.getElementById(&quot;demo&quot;).innerHTML = add();
-}
-&lt;/script&gt;
-</code></pre>
-<p>廖雪峰中个人认为<strong>有用的练习</strong><br>
-2.不要使用JavaScript内置的parseInt()函数，利用map和reduce操作实现一个string2int()函数</p>
-<pre><code class="language-html">&lt;script&gt;
-var s = '123456789';
-var arr = [];
-for( var a of s ){ arr.push(a) }
-console.log(arr);
-//ASCII码，数字字符的ASCII码 - '0'的ASCII码值 = 数字字符的数值
-//var brr = arr.map(function(x){ return x - '0' ;});
-var brr = arr.map(function(x){ return x * 1;});
-console.log(brr);
-//转换为整数
-var c = brr.reduce(function(x,y){ return x * 10 + y; });
-console.log(c);
-&lt;/script&gt;
-</code></pre>
-<p>3.把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字</p>
-<pre><code class="language-html">&lt;script&gt;
-var arr = ['adam', 'LISA', 'barT'];
-var l3arr = arr.map(function(x){return x[0].toUpperCase()+x.slice(1).toLowerCase();});
-console.log(l3arr);
-&lt;/script&gt;
-</code></pre>
+# 随机字母:
+def rndChar():
+    return chr(random.randint(65, 90))
+# 随机颜色1:
+def rndColor():
+    return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+# 随机颜色2:
+def rndColor2():
+    return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
 
-          <div class="toc-container"></div>
+# 240 x 60:
+width = 200 * 4
+height = 200
+image = Image.new('RGB', (width, height), (255, 255, 255))
+# 创建Font对象:
+font = ImageFont.truetype(r&quot;H:\APP_data\学习\CODE学习\Python\abc\black.ttf&quot;, 140)
+# 创建Draw对象:
+draw = ImageDraw.Draw(image)
+# 填充每个像素:
+for x in range(width):
+    for y in range(height):
+        draw.point((x, y), fill=rndColor())
+# 输出文字:
+for t in range(4):
+    draw.text((140 * t + 120, 25), rndChar(), font=font, fill=rndColor2())
+# 模糊:
+image = image.filter(ImageFilter.BLUR)
+image.save('code.jpg', 'jpeg')
+</code></pre>
+<h2 id="requests">requests</h2>
+<h2 id="chardet">chardet</h2>
+<p>根据搜索同时安装<code>chardet</code>与<code>bs4</code>并使用如下准确性更高 :</p>
+<pre><code class="language-python">from bs4 import UnicodeDammit
+ 
+data = '离离原上草，一岁一枯荣'.encode('utf-8')
+dammit = UnicodeDammit(data)
+print(dammit.unicode_markup)
+print(dammit.detector.chardet_encoding)
+# 输出
+离离原上草，一岁一枯荣
+utf-8
+</code></pre>
+<h1 id="图形界面开始">图形界面开始</h1>
+
+          <div class="toc-container"><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#pillow%E6%A8%A1%E5%9D%97">pillow模块</a></li>
+<li><a href="#requests">requests</a></li>
+<li><a href="#chardet">chardet</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%BC%80%E5%A7%8B">图形界面开始</a></li>
+</ul>
+</div>
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/0127-xue-xi-bi-ji/">
+            <a href="https://foreup.github.io/post/0213-nei-zhi-mo-kuai/">
               <span class="post-title">
-                0127学习笔记&rarr;
+                0213-内置模块&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0128-xiao-jie/" class="leancloud_visitors"
-              data-flag-title="0128小结">
+            <span id="/post/0214-di-san-fang-mo-kuai/" class="leancloud_visitors"
+              data-flag-title="0214-第三方模块">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>

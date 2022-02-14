@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-02-12T11:50:32.336Z</updated>
+    <updated>2022-02-14T11:14:05.087Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
@@ -10,6 +10,302 @@
     <logo>https://foreup.github.io/images/avatar.png</logo>
     <icon>https://foreup.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, ForeUP&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[0214-第三方模块]]></title>
+        <id>https://foreup.github.io/post/0214-di-san-fang-mo-kuai/</id>
+        <link href="https://foreup.github.io/post/0214-di-san-fang-mo-kuai/">
+        </link>
+        <updated>2022-02-14T11:13:28.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="pillow模块">pillow模块</h2>
+<p><strong>制作验证码</strong></p>
+<ul>
+<li>编写返回随机颜色与随机字符的函数</li>
+<li>创建图片画布</li>
+<li>创建文字</li>
+<li>创建ImageDraw.Draw对象</li>
+<li>填充随机色块底色</li>
+<li>填充文字</li>
+<li>模糊</li>
+</ul>
+<pre><code class="language-python">from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import random
+
+# 随机字母:
+def rndChar():
+    return chr(random.randint(65, 90))
+# 随机颜色1:
+def rndColor():
+    return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+# 随机颜色2:
+def rndColor2():
+    return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+# 240 x 60:
+width = 200 * 4
+height = 200
+image = Image.new('RGB', (width, height), (255, 255, 255))
+# 创建Font对象:
+font = ImageFont.truetype(r&quot;H:\APP_data\学习\CODE学习\Python\abc\black.ttf&quot;, 140)
+# 创建Draw对象:
+draw = ImageDraw.Draw(image)
+# 填充每个像素:
+for x in range(width):
+    for y in range(height):
+        draw.point((x, y), fill=rndColor())
+# 输出文字:
+for t in range(4):
+    draw.text((140 * t + 120, 25), rndChar(), font=font, fill=rndColor2())
+# 模糊:
+image = image.filter(ImageFilter.BLUR)
+image.save('code.jpg', 'jpeg')
+</code></pre>
+<h2 id="requests">requests</h2>
+<h2 id="chardet">chardet</h2>
+<p>根据搜索同时安装<code>chardet</code>与<code>bs4</code>并使用如下准确性更高 :</p>
+<pre><code class="language-python">from bs4 import UnicodeDammit
+ 
+data = '离离原上草，一岁一枯荣'.encode('utf-8')
+dammit = UnicodeDammit(data)
+print(dammit.unicode_markup)
+print(dammit.detector.chardet_encoding)
+# 输出
+离离原上草，一岁一枯荣
+utf-8
+</code></pre>
+<h1 id="图形界面开始">图形界面开始</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0213-内置模块]]></title>
+        <id>https://foreup.github.io/post/0213-nei-zhi-mo-kuai/</id>
+        <link href="https://foreup.github.io/post/0213-nei-zhi-mo-kuai/">
+        </link>
+        <updated>2022-02-13T10:54:09.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="collections">collections</h2>
+<p><strong>namedtuple</strong></p>
+<blockquote>
+<pre><code>&gt;&gt;&gt; from collections import namedtuple
+&gt;&gt;&gt; Point = namedtuple('Point', ['x', 'y'])
+&gt;&gt;&gt; p = Point(1, 2)
+&gt;&gt;&gt; p.x
+&gt;&gt;&gt; 1
+&gt;&gt;&gt; p.y
+&gt;&gt;&gt; 2
+</code></pre>
+</blockquote>
+<p><strong>deque</strong><br>
+支持<code>appendleft()</code>和<code>popleft()</code>;</p>
+<blockquote>
+<pre><code>&gt;&gt;&gt; from collections import deque
+&gt;&gt;&gt; q = deque(['a', 'b', 'c'])
+&gt;&gt;&gt; q.append('x')
+&gt;&gt;&gt; q.appendleft('y')
+&gt;&gt;&gt; q
+deque(['y', 'a', 'b', 'c', 'x'])
+</code></pre>
+</blockquote>
+<p><strong>defaultdict</strong></p>
+<blockquote>
+<pre><code>&gt;&gt; from collections import defaultdict
+&gt;&gt; dd = defaultdict(lambda: 'N/A')
+&gt;&gt; dd['key1'] = 'abc'
+&gt;&gt; dd['key1'] # key1存在
+   'abc'
+&gt;&gt; dd['key2'] # key2不存在，返回默认值
+   'N/A'
+</code></pre>
+</blockquote>
+<p><strong>OrderedDict</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; from collections import OrderedDict
+&gt;&gt;&gt; d = dict([('a', 1), ('b', 2), ('c', 3)])
+&gt;&gt;&gt; d # dict的Key是无序的
+{'a': 1, 'c': 3, 'b': 2}
+&gt;&gt;&gt; od = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+&gt;&gt;&gt; od # OrderedDict的Key是有序的
+OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+</code></pre>
+<p><strong>ChainMap</strong></p>
+<pre><code class="language-python">from collections import ChainMap
+import os, argparse
+
+# 构造缺省参数:
+defaults = {
+    'color': 'red',
+    'user': 'guest'
+}
+
+# 构造命令行参数:
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--user')
+parser.add_argument('-c', '--color')
+namespace = parser.parse_args()
+command_line_args = { k: v for k, v in vars(namespace).items() if v }
+
+# 组合成ChainMap:
+combined = ChainMap(command_line_args, os.environ, defaults)
+
+# 打印参数:
+print('color=%s' % combined['color'])
+print('user=%s' % combined['user'])
+</code></pre>
+<p><strong>Counter</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; from collections import Counter
+&gt;&gt;&gt; c = Counter()
+&gt;&gt;&gt; for ch in 'programming':
+...     c[ch] = c[ch] + 1
+...
+&gt;&gt;&gt; c
+Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
+&gt;&gt;&gt; c.update('hello') # 也可以一次性update
+&gt;&gt;&gt; c
+Counter({'r': 2, 'o': 2, 'g': 2, 'm': 2, 'l': 2, 'p': 1, 'a': 1, 'i': 1, 'n': 1, 'h': 1, 'e': 1})
+</code></pre>
+<h2 id="base64">base64</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import base64
+&gt;&gt;&gt; base64.b64encode(b'binary\x00string')
+b'YmluYXJ5AHN0cmluZw=='
+&gt;&gt;&gt; base64.b64decode(b'YmluYXJ5AHN0cmluZw==')
+b'binary\x00string'
+&gt;&gt;&gt; base64.b64encode(b'i\xb7\x1d\xfb\xef\xff')
+b'abcd++//'
+&gt;&gt;&gt; base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff')
+b'abcd--__'
+&gt;&gt;&gt; base64.urlsafe_b64decode('abcd--__')
+b'i\xb7\x1d\xfb\xef\xff'
+</code></pre>
+<h2 id="struct">struct</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import struct
+&gt;&gt;&gt; struct.pack('&gt;I', 10240099)
+b'\x00\x9c@c'
+</code></pre>
+<p>检查任意文件是否是位图文件，如果是，打印出图片大小和颜色数(只需检测bmp文件)：</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import base64, struct
+bmp_data = 图片的base64码
+def bmp_info(data):
+    s = struct.unpack('&lt;ccIIIIIIHH', data[:30])
+    if s[0] == b'B' and s[1] == b'M' :
+        print ('这是位图')
+        return {
+            'width': s[6],
+            'height': s[7],
+            'color': s[9]
+        }
+</code></pre>
+<p><strong>hashlib/哈希算法</strong><br>
+用户密码“加盐”存储MD5的作用与方法；</p>
+<pre><code class="language-python">import hashlib
+
+md5 = hashlib.md5()
+md5.update('how to use md5 in python hashlib?'.encode('utf-8'))
+print(md5.hexdigest())
+sha1 = hashlib.sha1()
+sha1.update('how to use sha1 in '.encode('utf-8'))
+sha1.update('python hashlib?'.encode('utf-8'))
+print(sha1.hexdigest())
+</code></pre>
+<p><strong>hmac</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; import hmac
+&gt;&gt;&gt; message = b'Hello, world!'
+&gt;&gt;&gt; key = b'secret'
+&gt;&gt;&gt; h = hmac.new(key, message, digestmod='MD5')
+&gt;&gt;&gt; # 如果消息很长，可以多次调用h.update(msg)
+&gt;&gt;&gt; h.hexdigest()
+'fa4ee7d173f2d97ee79022d1a7355bcf'
+</code></pre>
+<p><strong>itertools</strong><br>
+<code>count()</code>创建一个无限的迭代器，打印出自然数序列:</p>
+<pre><code class="language-python">&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; natuals = itertools.count(1)
+&gt;&gt;&gt; for n in natuals:
+...     print(n)
+...
+1
+2
+3
+...
+</code></pre>
+<p><code>cycle()</code>会把传入的一个序列无限重复下去：</p>
+<pre><code class="language-python">&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; cs = itertools.cycle('ABC') # 注意字符串也是序列的一种
+&gt;&gt;&gt; for c in cs:
+...     print(c)
+...
+'A'
+'B'
+'C'
+'A'
+'B'
+'C'
+...
+</code></pre>
+<p><code>repeat()</code>负责把一个元素无限重复下去，不过如果提供第二个参数就可以限定重复次数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; ns = itertools.repeat('A', 3)
+&gt;&gt;&gt; for n in ns:
+...     print(n)
+...
+A
+A
+A
+</code></pre>
+<p><code>takewhile()</code>等函数根据条件判断来截取出一个有限的序列：</p>
+<pre><code class="language-python">&gt;&gt;&gt; natuals = itertools.count(1)
+&gt;&gt;&gt; ns = itertools.takewhile(lambda x: x &lt;= 10, natuals)
+&gt;&gt;&gt; list(ns)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre>
+<p><strong>chain()</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; for c in itertools.chain('ABC', 'XYZ'):
+...     print(c)
+# 迭代效果：'A' 'B' 'C' 'X' 'Y' 'Z'
+</code></pre>
+<p><strong>groupby()</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; for key, group in itertools.groupby('AAABBBCCAAA'):
+...     print(key, list(group))
+...
+A ['A', 'A', 'A']
+B ['B', 'B', 'B']
+C ['C', 'C']
+A ['A', 'A', 'A']
+</code></pre>
+<p>忽略大小写分组:</p>
+<pre><code class="language-python">&gt;&gt;&gt; for key, group in itertools.groupby('AaaBBbcCAAa', lambda c: c.upper()):
+...     print(key, list(group))
+...
+A ['A', 'a', 'a']
+B ['B', 'B', 'b']
+C ['c', 'C']
+A ['A', 'A', 'a']
+</code></pre>
+<p><strong>contextlib</strong><br>
+<code>from contextlib import contextmanager</code> 连接上下文用来使用<code>with</code>语句:</p>
+<pre><code class="language-python">@contextmanager
+def tag(name):
+    print(&quot;&lt;%s&gt;&quot; % name)
+    yield
+    print(&quot;&lt;/%s&gt;&quot; % name)
+
+with tag(&quot;h1&quot;):
+    print(&quot;hello&quot;)
+    print(&quot;world&quot;)
+#结果
+&lt;h1&gt;
+hello
+world
+&lt;/h1&gt;
+</code></pre>
+<p>用<code>closing()</code>来把该对象变为上下文对象:</p>
+<pre><code class="language-python">from contextlib import closing
+from urllib.request import urlopen
+
+with closing(urlopen('https://www.python.org')) as page:
+    for line in page:
+        print(line)
+</code></pre>
+<p><strong>urllib</strong><br>
+<code>urllib</code>的<code>request</code>模块</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[0212-爬取图片-随想]]></title>
         <id>https://foreup.github.io/post/0212-pa-qu-tu-pian-sui-xiang/</id>
@@ -2098,325 +2394,6 @@ _.range(0, -10, -1); // [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
 <pre><code class="language-JavaScript">var arr = ['Apple', 'orange', 'banana', 'ORANGE', 'apple', 'PEAR'];
 var result = _.uniq(arr,function(x){return x.toUpperCase();});
 //result:[&quot;Apple&quot;, &quot;orange&quot;, &quot;banana&quot;, &quot;PEAR&quot;]
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[0204-jQuery特定元素拓展]]></title>
-        <id>https://foreup.github.io/post/0204-jquery-te-ding-yuan-su-tuo-zhan/</id>
-        <link href="https://foreup.github.io/post/0204-jquery-te-ding-yuan-su-tuo-zhan/">
-        </link>
-        <updated>2022-02-04T12:17:06.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="jq针对特定元素的拓展">jQ针对特定元素的拓展</h2>
-<p>假设用户调用:<code>$('#main a').external();</code></p>
-<pre><code class="language-HTML">&lt;!-- HTML结构 --&gt;
-&lt;div id=&quot;test-external&quot;&gt;
-    &lt;p&gt;如何学习&lt;a href=&quot;http://jquery.com&quot;&gt;jQuery&lt;/a&gt;？&lt;/p&gt;
-    &lt;p&gt;首先，你要学习&lt;a href=&quot;/wiki/1022910821149312&quot;&gt;JavaScript&lt;/a&gt;，并了解基本的&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTML&quot;&gt;HTML&lt;/a&gt;。&lt;/p&gt;
-&lt;/div&gt;
-</code></pre>
-<p>则JS代码为:</p>
-<pre><code class="language-JavaScript">$.fn.external = function () {
-    // return返回的each()返回结果，支持链式调用:
-    return this.filter('a').each(function () {  //filter可能需要改为find.
-        // 注意: each()内部的回调函数的this绑定为DOM本身!
-        var a = $(this);
-        var url = a.attr('href');
-        if (url &amp;&amp; (url.indexOf('http://')===0 || url.indexOf('https://')===0)) {
-            a.attr('href', '#0')
-             .removeAttr('target')
-             .append(' &lt;i class=&quot;uk-icon-external-link&quot;&gt;&lt;/i&gt;')
-             .click(function () {
-                if(confirm('你确定要前往' + url + '？')) {
-                    window.open(url);
-                }
-            });
-        }
-    });
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[0203-表单选择-动画-jQ拓展]]></title>
-        <id>https://foreup.github.io/post/0203-biao-dan-xuan-ze-dong-hua-jq-tuo-zhan/</id>
-        <link href="https://foreup.github.io/post/0203-biao-dan-xuan-ze-dong-hua-jq-tuo-zhan/">
-        </link>
-        <updated>2022-02-03T12:45:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="事件">事件</h1>
-<h3 id="鼠标事件">鼠标事件</h3>
-<ul>
-<li><code>click</code>: 鼠标单击时触发；</li>
-<li><code>dblclick</code>：鼠标双击时触发；</li>
-<li><code>mouseenter</code>：鼠标进入时触发；</li>
-<li><code>mouseleave</code>：鼠标移出时触发；</li>
-<li><code>mousemove</code>：鼠标在DOM内部移动时触发；</li>
-<li><code>hover</code>：鼠标进入和退出时触发两个函数，相当于mouseenter加上mouseleave.</li>
-</ul>
-<h3 id="键盘事件">键盘事件</h3>
-<p>仅作用在当前焦点的DOM上，通常是<code>&lt;input&gt;</code>和<code>&lt;textarea&gt;</code></p>
-<ul>
-<li><code>keydown</code>：键盘按下时触发；</li>
-<li><code>keyup</code>：键盘松开时触发；</li>
-<li><code>keypress</code>：按一次键后触发.</li>
-</ul>
-<h3 id="其他事件">其他事件</h3>
-<ul>
-<li>focus：当DOM获得焦点时触发；</li>
-<li>blur：当DOM失去焦点时触发；</li>
-<li>change：当<code>&lt;input&gt;</code>、<code>&lt;select&gt;</code>或<code>&lt;textarea&gt;</code>的内容改变时触发；</li>
-<li>submit：当<code>&lt;form&gt;</code>提交时触发；</li>
-<li>ready：当页面被载入并且DOM树完成初始化后触发.<br>
-<code>ready</code>仅作用于document对象, 在DOM完成初始化后触发，且只触发一次，适合初始化代码.<br>
-<strong>简写</strong><br>
-<code>$(function () {...})</code>的形式，牢记这是document对象的ready事件处理函数.</li>
-</ul>
-<h3 id="事件参数">事件参数</h3>
-<p>如<code>mousemove</code>和<code>keypress</code>获取鼠标位置和按键的值, 所有事件都会传入Event对象作为参数, 可以从中获取更多信息:<br>
-获取鼠标位置:</p>
-<pre><code class="language-JavaScript">$(function () {
-    $('#testMouseMoveDiv').mousemove(function (e) {
-        $('#testMouseMoveSpan').text('pageX = ' + e.pageX + ', pageY = ' + e.pageY);
-    });
-});
-</code></pre>
-<h3 id="取消绑定">取消绑定</h3>
-<p><code>off('click', function)</code>  其中<code>function</code>是函数名,匿名函数无法解绑, 可以试用<code>off()</code>解除所有绑定,<code>off('click')</code>解除所有的click事件绑定.</p>
-<pre><code class="language-JavaScript">function hello() {
-    alert('hello!');
-}
-a.click(hello); // 绑定事件
-// 10秒钟后解除绑定:
-setTimeout(function () {
-    a.off('click', hello);
-}, 10000);
-</code></pre>
-<h3 id="安全限制">安全限制</h3>
-<p><code>open()</code>: 打开新窗口, 只能由用户触发的条件执行, 无法直接使用:</p>
-<pre><code class="language-JavaScript">var button1 = $('#testPopupButton1');
-var button2 = $('#testPopupButton2');
-function popupTestWindow() {
-    window.open('/');
-}
-button1.click(function () {
-    popupTestWindow();
-});
-button2.click(function () {
-    // 不立刻执行popupTestWindow()，3秒后执行:
-    setTimeout(popupTestWindow, 3000);
-});
-</code></pre>
-<h2 id="事件练习">事件练习</h2>
-<p>编写函数，绑定事件，实现表单项目的选择与全选操作：</p>
-<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
-&lt;form id=&quot;test-form&quot; action=&quot;test&quot;&gt;
-    &lt;legend&gt;请选择想要学习的编程语言：&lt;/legend&gt;
-    &lt;fieldset&gt;
-        &lt;p&gt;&lt;label class=&quot;selectAll&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; &lt;span class=&quot;selectAll&quot;&gt;全选&lt;/span&gt;&lt;span class=&quot;deselectAll&quot;&gt;全不选&lt;/span&gt;&lt;/label&gt; &lt;a href=&quot;#0&quot; class=&quot;invertSelect&quot;&gt;反选&lt;/a&gt;&lt;/p&gt;
-        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;javascript&quot;&gt; JavaScript&lt;/label&gt;&lt;/p&gt;
-        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;python&quot;&gt; Python&lt;/label&gt;&lt;/p&gt;
-        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;ruby&quot;&gt; Ruby&lt;/label&gt;&lt;/p&gt;
-        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;haskell&quot;&gt; Haskell&lt;/label&gt;&lt;/p&gt;
-        &lt;p&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;lang&quot; value=&quot;scheme&quot;&gt; Scheme&lt;/label&gt;&lt;/p&gt;
-		&lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;&lt;/p&gt;
-    &lt;/fieldset&gt;
-&lt;/form&gt;
-&lt;!--JS函数--&gt;
-&lt;script&gt;
-$(function () {
-let
-    form = $('#test-form'),
-    langs = form.find('[name=lang]'),
-    selectAll = form.find('label.selectAll :checkbox'),
-    selectAllLabel = form.find('label.selectAll span.selectAll'),
-    deselectAllLabel = form.find('label.selectAll span.deselectAll'),
-    invertSelect = form.find('a.invertSelect');
-    langs.change();
-    selectAll.change(function() {
-        if(langs.get().every(e =&gt; e.checked)){
-            langs.prop('checked', false);
-        } 
-        else{
-            langs.prop('checked', true);
-        }
-        langs.change();
-    });
-    langs.change(function() {
-        if(langs.get().every(e =&gt; e.checked)){ 
-            selectAll.prop('checked', true);
-            selectAllLabel.hide();
-            deselectAllLabel.show();
-        }
-        else{
-            selectAll.prop('checked', false);
-            deselectAllLabel.hide();
-            selectAllLabel.show();
-        }
-    });
-    invertSelect.click(function(){
-        for(let x of langs){
-            console.log(x);
-            x.checked = !x.checked;
-        }
-        langs.change();
-    });
-});
-&lt;/script&gt;
-</code></pre>
-<h1 id="动画">动画</h1>
-<p>jQuery动画的原理是逐渐改变CSS的值, 有的动画如<code>slideUp()</code>: <code>height</code>从<code>100px</code>逐渐变为<code>0</code>没有效果, 可能是因为很多不是<code>block</code>性质的DOM元素设置<code>height</code>没用.<br>
-jQuery也没有实现对<code>background-color</code>的动画效果, 可以使用CSS3的<code>transition</code>.</p>
-<h3 id="showhide">show/hide</h3>
-<p><code>toggle()</code>根据当前状态决定是<code>show()</code>还是<code>hide()</code>: <code>toggle('slow')</code></p>
-<pre><code class="language-JavaScript">var div = $('#test-show-hide');
-div.hide(3000); // 在3秒钟内逐渐消失
-***可以设置'slow''fast'字符串;
-var div = $('#test-show-hide');
-div.show('slow'); // 在0.6秒钟内逐渐显示
-</code></pre>
-<h3 id="slideup-slidedown">slideUp / slideDown</h3>
-<p><code>show()</code>和<code>hide()</code>是从左上角逐渐展开或收缩, <code>slideUp()</code>和<code>slideDown()</code>是在垂直方向拉上或拉下；</p>
-<pre><code class="language-JavaScript">var div = $('#test-slide');
-div.slideUp(3000); // 在3秒钟内逐渐向上消失
-</code></pre>
-<h3 id="fadein-fadeout">fadeIn / fadeOut</h3>
-<p>通过不断设置DOM元素的<code>opacity</code>属性实现, <code>fadeToggle()</code>根据元素当前状态决定;</p>
-<pre><code class="language-JavaScript">var div = $('#test-fade');
-div.fadeOut('slow'); // 在0.6秒内淡出
-</code></pre>
-<h3 id="自定义动画animate">自定义动画animate()</h3>
-<pre><code class="language-JavaScript">var div = $('#test-animate');
-div.animate({
-    opacity: 0.25,
-    width: '256px',
-    height: '256px'
-}, 3000); // 在3秒钟内CSS过渡到设定值
-</code></pre>
-<p><code>animate()</code>传入一个函数，动画结束时，调用函数：<br>
-ps: 回调函数参数对于基本动画也是适用的</p>
-<pre><code class="language-JavaScript">var div = $('#test-animate');
-div.animate({
-    opacity: 0.25,
-    width: '256px',
-    height: '256px'
-}, 3000, function () {
-    console.log('动画已结束');
-    // 恢复至初始状态:
-    $(this).css('opacity', '1.0').css('width', '128px').css('height', '128px');
-});
-</code></pre>
-<h3 id="串行动画">串行动画</h3>
-<p><code>delay()</code>用来暂停动画;</p>
-<pre><code class="language-JavaScript">var div = $('#test-animates');
-// 动画效果：slideDown - 暂停 - 放大 - 暂停 - 缩小
-div.slideDown(2000)
-   .delay(1000)
-   .animate({
-       width: '256px',
-       height: '256px'
-   }, 2000)
-   .delay(1000)
-   .animate({
-       width: '128px',
-       height: '128px'
-   }, 2000);
-}
-</code></pre>
-<h3 id="练习">练习</h3>
-<p>制作remove()动画的渐隐效果:</p>
-<pre><code class="language-JavaScript">function deleteFirstTR() {
-    var tr = $('#test-table&gt;tbody&gt;tr:visible').first();
-    tr.fadeOut(1000,function(){tr.remove();});
-}
-deleteFirstTR();
-</code></pre>
-<h1 id="ajax">AJAX</h1>
-<p>**jQuery利用jsonp实现AJAX跨域访问简单示例:</p>
-<ul>
-<li>1.创建HTML文件</li>
-</ul>
-<pre><code class="language-HTML">&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;JSONP测试&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;input type=&quot;button&quot; value=&quot;刷新&quot; onclick=&quot;refreshPrice()&quot; /&gt;
-    &lt;p&gt;当前价格:&lt;/p&gt;
-    &lt;p id=&quot;current_price&quot;&gt;&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<ul>
-<li>2.引用jQuery</li>
-</ul>
-<pre><code class="language-HTML">&lt;script src=&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<ul>
-<li>3.js代码</li>
-</ul>
-<pre><code class="language-JavaScript">&quot;use strict&quot;
-function refreshPrice() {
-    let jqxhr = $.ajax('http://api.money.126.net/data/feed/0000001,1399001', {
-        method: 'GET',
-        dataType: 'jsonp',
-        jsonp: 'callback',
-        jsonpCallback: 'callbackFunction'
-    }).done((data) =&gt; {
-        let str = data['0000001'].name + ': ' +
-            data['0000001'].price + '；' +
-            data['1399001'].name + ': ' +
-            data['1399001'].price;
-        $('#current_price').slideUp('slow').text(str).slideDown('slow');
-    }).fail((xhr, status) =&gt; {
-        alert('失败: ' + xhr.status + ', 原因: ' + status);
-    });
-}
-
-$(() =&gt; {
-    refreshPrice();
-});
-</code></pre>
-<h1 id="jquery拓展">jQuery拓展</h1>
-<h3 id="编写jquery插件">编写jQuery插件</h3>
-<p>利用<code>$.fn</code>对象实现:</p>
-<pre><code class="language-JavaScript">$.fn.highlight1 = function () {
-    // this已绑定为当前jQuery对象:
-    this.css('backgroundColor', '#fffceb').css('color', '#d85030');
-    return this; //实现链式调用
-}
-</code></pre>
-<p>简单加参数:</p>
-<pre><code class="language-JavaScript">$.fn.highlight2 = function (options) {
-    // 要考虑到各种情况:
-    // options为undefined
-    // options只有部分key
-    var bgcolor = options &amp;&amp; options.backgroundColor || '#fffceb';
-    var color = options &amp;&amp; options.color || '#d85030';
-    this.css('backgroundColor', bgcolor).css('color', color);
-    return this;
-}
-</code></pre>
-<p>另一种用jQuery提供的辅助方法<code>$.extend(target, obj1, obj2, ...)</code>，把多个object对象的属性合并到第一个target对象中，遇到同名属性，总是使用靠后的对象的值，也就是越往后优先级越高：</p>
-<pre><code class="language-JavaScript">// 把默认值和用户传入的options合并到对象{}中并返回:
-var opts = $.extend({}, {
-    backgroundColor: '#00a8e6',
-    color: '#ffffff'
-}, options);
-//最终版本的highlight
-$.fn.highlight = function (options) {
-    // 合并默认值和用户设定值:
-    var opts = $.extend({}, $.fn.highlight.defaults, options);
-    this.css('backgroundColor', opts.backgroundColor).css('color', opts.color);
-    return this;
-}
-    // 设定默认值:
-$.fn.highlight.defaults = {
-    color: '#d85030',
-    backgroundColor: '#fff8de'
-}
-    //用户设定默认值
-$.fn.highlight.defaults.color = '#fff';
-$.fn.highlight.defaults.backgroundColor = '#000';
 </code></pre>
 ]]></content>
     </entry>

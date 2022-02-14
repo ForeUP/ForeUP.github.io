@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0128小结 | ForeUP&#39;s Blog</title>
+<title>0213-内置模块 | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0128小结 | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0213-内置模块 | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0128小结" />
-  <meta property="og:url" content="https://foreup.github.io/post/0128-xiao-jie/" />
+  <meta property="og:description" content="0213-内置模块" />
+  <meta property="og:url" content="https://foreup.github.io/post/0213-nei-zhi-mo-kuai/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0128小结</h1>
+              <h1>0213-内置模块</h1>
               <span class="meta">
                 Posted on
-                2022-01-28，4 min read
+                2022-02-13，6 min read
               </span>
             </div>
           
@@ -172,92 +172,257 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <p>看完了<a href="https://www.w3school.com.cn/js/index.asp"><strong>w3school JS教程</strong></a>发现教程太长，太啰嗦了，太基础了，各种重复，因此打算去**<a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021087191360">廖雪峰</a>** 那学，过几天看看效果吧，下面看看今天在<br>
-<strong>w3那总结的东西：</strong></p>
-<pre><code class="language-html">&lt;script&gt;
-myarray.foreach()
-    function myFunction(value, index, array) { txt = txt + value + &quot;&lt;br&gt;&quot;; }  //value:项目值，index：索引，array：数组本身；
-    myarray.map()    //对每个元素执行函数创建新数组，不会对没有值元素执行，不改变原来数组；   
-    numbers.reduce(function1,100)   // return total + value; total 总数（初始值/先前返回的值）,可定义一个初始值, reduceRight()
-    var over18 = numbers.filter(myFunction);  //function{ return value &gt;18 ; },创建通过测试的新数组；
-    numbers.every()    //方法检查所有数组值是否通过测试,some()检查某些数组值.
-    mynum.find()    //方法返回通过测试函数的第一个数组元素的值,findIndex()返回索引；
-    -----'日期'------
-    new Date(2018, 11, 24, 10, 33, 30);  //年、月、日、小时、分钟、秒,0为一月；
-    var d = new Date(&quot;October 13, 2014 11:13:00&quot;); //日期存储为自 1970 年 1 月 1 日 00:00:00 UTC以来的毫秒数;
-    document.getElementById(&quot;demo&quot;).innerHTML = d;  //d为日期对象，会使用 toString()自动转换为字符串；
-    d.toUTCString();  d.toDateString();   //转换为易读的日期字符串
-    ISO日期格式：&quot;2018-02-19&quot; （国际标准），严格符合JS标准
-    new Date(&quot;2019&quot;); 与 new Date(2019); 不同；
-    短日期通常使用 &quot;MM/DD/YYYY&quot; 格式；
-    var d = new Date();
-    d.getDate()   以数值返回天（1-31）  d.getUTCDate()  
-    d.getDay()    以数值获取周名（0-6）
-    d.getFullYear()   获取四位的年（yyyy）
-    d.getHours()  获取小时（0-23）
-    d.getMilliseconds()   获取毫秒（0-999）
-    d.getMinutes()    获取分（0-59）
-    d.getMonth()  获取月（0-11）
-    d.getSeconds()    获取秒（0-59）
-    d.getTime()   获取时间（从 1970 年 1 月 1 日至今的毫秒数）
-    -----'数学'------
-    Math.round(x)     返回 x 四舍五入为最接近的整数；
-    Math.pow(x, y)    返回 x 的 y 次幂；
-    Math.sqrt(x)    返回 x 的平方根；
-    Math.ceil(x)   返回 x '上舍入' 最接近的整数
-    Math.floor(x)   '下舍入'
-    Math.sin(x)    返回角 x弧度 的正弦
-&lt;/script&gt;
-&lt;script&gt;
-var add = (function () {
-  var counter = 0;
-  return function () {counter += 1; return counter;}
-})();
+          <img class="post-feature-header-image" src="https://foreup.github.io//post-images/0213-nei-zhi-mo-kuai.jpg" alt="封面图">
+          </img>
+          
+          <h2 id="collections">collections</h2>
+<p><strong>namedtuple</strong></p>
+<blockquote>
+<pre><code>&gt;&gt;&gt; from collections import namedtuple
+&gt;&gt;&gt; Point = namedtuple('Point', ['x', 'y'])
+&gt;&gt;&gt; p = Point(1, 2)
+&gt;&gt;&gt; p.x
+&gt;&gt;&gt; 1
+&gt;&gt;&gt; p.y
+&gt;&gt;&gt; 2
+</code></pre>
+</blockquote>
+<p><strong>deque</strong><br>
+支持<code>appendleft()</code>和<code>popleft()</code>;</p>
+<blockquote>
+<pre><code>&gt;&gt;&gt; from collections import deque
+&gt;&gt;&gt; q = deque(['a', 'b', 'c'])
+&gt;&gt;&gt; q.append('x')
+&gt;&gt;&gt; q.appendleft('y')
+&gt;&gt;&gt; q
+deque(['y', 'a', 'b', 'c', 'x'])
+</code></pre>
+</blockquote>
+<p><strong>defaultdict</strong></p>
+<blockquote>
+<pre><code>&gt;&gt; from collections import defaultdict
+&gt;&gt; dd = defaultdict(lambda: 'N/A')
+&gt;&gt; dd['key1'] = 'abc'
+&gt;&gt; dd['key1'] # key1存在
+   'abc'
+&gt;&gt; dd['key2'] # key2不存在，返回默认值
+   'N/A'
+</code></pre>
+</blockquote>
+<p><strong>OrderedDict</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; from collections import OrderedDict
+&gt;&gt;&gt; d = dict([('a', 1), ('b', 2), ('c', 3)])
+&gt;&gt;&gt; d # dict的Key是无序的
+{'a': 1, 'c': 3, 'b': 2}
+&gt;&gt;&gt; od = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+&gt;&gt;&gt; od # OrderedDict的Key是有序的
+OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+</code></pre>
+<p><strong>ChainMap</strong></p>
+<pre><code class="language-python">from collections import ChainMap
+import os, argparse
 
-function myFunction(){
-  document.getElementById(&quot;demo&quot;).innerHTML = add();
+# 构造缺省参数:
+defaults = {
+    'color': 'red',
+    'user': 'guest'
 }
-&lt;/script&gt;
-</code></pre>
-<p>廖雪峰中个人认为<strong>有用的练习</strong><br>
-2.不要使用JavaScript内置的parseInt()函数，利用map和reduce操作实现一个string2int()函数</p>
-<pre><code class="language-html">&lt;script&gt;
-var s = '123456789';
-var arr = [];
-for( var a of s ){ arr.push(a) }
-console.log(arr);
-//ASCII码，数字字符的ASCII码 - '0'的ASCII码值 = 数字字符的数值
-//var brr = arr.map(function(x){ return x - '0' ;});
-var brr = arr.map(function(x){ return x * 1;});
-console.log(brr);
-//转换为整数
-var c = brr.reduce(function(x,y){ return x * 10 + y; });
-console.log(c);
-&lt;/script&gt;
-</code></pre>
-<p>3.把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字</p>
-<pre><code class="language-html">&lt;script&gt;
-var arr = ['adam', 'LISA', 'barT'];
-var l3arr = arr.map(function(x){return x[0].toUpperCase()+x.slice(1).toLowerCase();});
-console.log(l3arr);
-&lt;/script&gt;
-</code></pre>
 
-          <div class="toc-container"></div>
+# 构造命令行参数:
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--user')
+parser.add_argument('-c', '--color')
+namespace = parser.parse_args()
+command_line_args = { k: v for k, v in vars(namespace).items() if v }
+
+# 组合成ChainMap:
+combined = ChainMap(command_line_args, os.environ, defaults)
+
+# 打印参数:
+print('color=%s' % combined['color'])
+print('user=%s' % combined['user'])
+</code></pre>
+<p><strong>Counter</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; from collections import Counter
+&gt;&gt;&gt; c = Counter()
+&gt;&gt;&gt; for ch in 'programming':
+...     c[ch] = c[ch] + 1
+...
+&gt;&gt;&gt; c
+Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
+&gt;&gt;&gt; c.update('hello') # 也可以一次性update
+&gt;&gt;&gt; c
+Counter({'r': 2, 'o': 2, 'g': 2, 'm': 2, 'l': 2, 'p': 1, 'a': 1, 'i': 1, 'n': 1, 'h': 1, 'e': 1})
+</code></pre>
+<h2 id="base64">base64</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import base64
+&gt;&gt;&gt; base64.b64encode(b'binary\x00string')
+b'YmluYXJ5AHN0cmluZw=='
+&gt;&gt;&gt; base64.b64decode(b'YmluYXJ5AHN0cmluZw==')
+b'binary\x00string'
+&gt;&gt;&gt; base64.b64encode(b'i\xb7\x1d\xfb\xef\xff')
+b'abcd++//'
+&gt;&gt;&gt; base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff')
+b'abcd--__'
+&gt;&gt;&gt; base64.urlsafe_b64decode('abcd--__')
+b'i\xb7\x1d\xfb\xef\xff'
+</code></pre>
+<h2 id="struct">struct</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import struct
+&gt;&gt;&gt; struct.pack('&gt;I', 10240099)
+b'\x00\x9c@c'
+</code></pre>
+<p>检查任意文件是否是位图文件，如果是，打印出图片大小和颜色数(只需检测bmp文件)：</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import base64, struct
+bmp_data = 图片的base64码
+def bmp_info(data):
+    s = struct.unpack('&lt;ccIIIIIIHH', data[:30])
+    if s[0] == b'B' and s[1] == b'M' :
+        print ('这是位图')
+        return {
+            'width': s[6],
+            'height': s[7],
+            'color': s[9]
+        }
+</code></pre>
+<p><strong>hashlib/哈希算法</strong><br>
+用户密码“加盐”存储MD5的作用与方法；</p>
+<pre><code class="language-python">import hashlib
+
+md5 = hashlib.md5()
+md5.update('how to use md5 in python hashlib?'.encode('utf-8'))
+print(md5.hexdigest())
+sha1 = hashlib.sha1()
+sha1.update('how to use sha1 in '.encode('utf-8'))
+sha1.update('python hashlib?'.encode('utf-8'))
+print(sha1.hexdigest())
+</code></pre>
+<p><strong>hmac</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; import hmac
+&gt;&gt;&gt; message = b'Hello, world!'
+&gt;&gt;&gt; key = b'secret'
+&gt;&gt;&gt; h = hmac.new(key, message, digestmod='MD5')
+&gt;&gt;&gt; # 如果消息很长，可以多次调用h.update(msg)
+&gt;&gt;&gt; h.hexdigest()
+'fa4ee7d173f2d97ee79022d1a7355bcf'
+</code></pre>
+<p><strong>itertools</strong><br>
+<code>count()</code>创建一个无限的迭代器，打印出自然数序列:</p>
+<pre><code class="language-python">&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; natuals = itertools.count(1)
+&gt;&gt;&gt; for n in natuals:
+...     print(n)
+...
+1
+2
+3
+...
+</code></pre>
+<p><code>cycle()</code>会把传入的一个序列无限重复下去：</p>
+<pre><code class="language-python">&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; cs = itertools.cycle('ABC') # 注意字符串也是序列的一种
+&gt;&gt;&gt; for c in cs:
+...     print(c)
+...
+'A'
+'B'
+'C'
+'A'
+'B'
+'C'
+...
+</code></pre>
+<p><code>repeat()</code>负责把一个元素无限重复下去，不过如果提供第二个参数就可以限定重复次数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; ns = itertools.repeat('A', 3)
+&gt;&gt;&gt; for n in ns:
+...     print(n)
+...
+A
+A
+A
+</code></pre>
+<p><code>takewhile()</code>等函数根据条件判断来截取出一个有限的序列：</p>
+<pre><code class="language-python">&gt;&gt;&gt; natuals = itertools.count(1)
+&gt;&gt;&gt; ns = itertools.takewhile(lambda x: x &lt;= 10, natuals)
+&gt;&gt;&gt; list(ns)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre>
+<p><strong>chain()</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; for c in itertools.chain('ABC', 'XYZ'):
+...     print(c)
+# 迭代效果：'A' 'B' 'C' 'X' 'Y' 'Z'
+</code></pre>
+<p><strong>groupby()</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; for key, group in itertools.groupby('AAABBBCCAAA'):
+...     print(key, list(group))
+...
+A ['A', 'A', 'A']
+B ['B', 'B', 'B']
+C ['C', 'C']
+A ['A', 'A', 'A']
+</code></pre>
+<p>忽略大小写分组:</p>
+<pre><code class="language-python">&gt;&gt;&gt; for key, group in itertools.groupby('AaaBBbcCAAa', lambda c: c.upper()):
+...     print(key, list(group))
+...
+A ['A', 'a', 'a']
+B ['B', 'B', 'b']
+C ['c', 'C']
+A ['A', 'A', 'a']
+</code></pre>
+<p><strong>contextlib</strong><br>
+<code>from contextlib import contextmanager</code> 连接上下文用来使用<code>with</code>语句:</p>
+<pre><code class="language-python">@contextmanager
+def tag(name):
+    print(&quot;&lt;%s&gt;&quot; % name)
+    yield
+    print(&quot;&lt;/%s&gt;&quot; % name)
+
+with tag(&quot;h1&quot;):
+    print(&quot;hello&quot;)
+    print(&quot;world&quot;)
+#结果
+&lt;h1&gt;
+hello
+world
+&lt;/h1&gt;
+</code></pre>
+<p>用<code>closing()</code>来把该对象变为上下文对象:</p>
+<pre><code class="language-python">from contextlib import closing
+from urllib.request import urlopen
+
+with closing(urlopen('https://www.python.org')) as page:
+    for line in page:
+        print(line)
+</code></pre>
+<p><strong>urllib</strong><br>
+<code>urllib</code>的<code>request</code>模块</p>
+
+          <div class="toc-container"><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#collections">collections</a></li>
+<li><a href="#base64">base64</a></li>
+<li><a href="#struct">struct</a></li>
+</ul>
+</li>
+</ul>
+</div>
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/0127-xue-xi-bi-ji/">
+            <a href="https://foreup.github.io/post/0212-pa-qu-tu-pian-sui-xiang/">
               <span class="post-title">
-                0127学习笔记&rarr;
+                0212-爬取图片-随想&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0128-xiao-jie/" class="leancloud_visitors"
-              data-flag-title="0128小结">
+            <span id="/post/0213-nei-zhi-mo-kuai/" class="leancloud_visitors"
+              data-flag-title="0213-内置模块">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
