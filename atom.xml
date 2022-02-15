@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foreup.github.io/</id>
     <title>ForeUP&apos;s Blog</title>
-    <updated>2022-02-14T11:14:05.087Z</updated>
+    <updated>2022-02-15T09:21:10.238Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foreup.github.io/"/>
     <link rel="self" href="https://foreup.github.io/atom.xml"/>
@@ -10,6 +10,54 @@
     <logo>https://foreup.github.io/images/avatar.png</logo>
     <icon>https://foreup.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, ForeUP&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[0215-New C++]]></title>
+        <id>https://foreup.github.io/post/0215-new-c/</id>
+        <link href="https://foreup.github.io/post/0215-new-c/">
+        </link>
+        <updated>2022-02-15T09:20:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="画树">画树</h2>
+<pre><code class="language-python">from turtle import Turtle,done,colormode,setup,title
+from random import randint,uniform
+
+title('给我一点时间，还你一棵树')
+colormode(255)      #设置画笔颜色模式，为随机生成RGB色彩做准备
+p1 = Turtle()       #实例化一个画笔
+p1.width(20)       #设置画笔宽度，初始宽度，主树干宽度
+p1.speed(100)      #设置画笔速度，具体是多少最快，查阅一下
+p1.pencolor(randint(0,254),randint(0,254),randint(0,254))      #初始画笔颜色,这是随机颜色，可以用0,0,0,表示黑色
+p1.hideturtle()    #隐藏画笔外形
+l = 150   #初始树干长度
+s = 45    #侧枝生长角度  ，这里可以改，观察生长状态
+p1.lt(90)          #默认画笔在画布正中央，方向向右，lt(90)调整为向上。
+p1.penup()         #提起画笔，以便直接调整画笔位置，移动路径画布上没有痕迹
+p1.bk(l)           #向后（向下）移动，调整树干起点
+p1.pendown()       #落下画笔，可以继续画
+p1.fd(l)           #画主树干
+plist = [p1]       #列表化画笔，便于树干分支控制
+def draw_tree(plist,l,s,level):      #参数level为分支层数，数值越大分支越多，相对画的时间也越长。
+    l = l*uniform(0.7,0.8)           #分支树干为上一个的随机比例，这里可以改
+    for p1 in plist:
+        w = p1.width()
+        p1.width(w*3/4)
+        p1.pencolor(randint(0,254),randint(0,254),randint(0,254))
+        p2 = p1.clone()
+        p1.lt(s)
+        p1.fd(l)
+        p2.rt(s)
+        p2.fd(l)
+        lst = []
+        lst.append(p1)
+        lst.append(p2)
+        if level &gt; 0:
+            draw_tree(lst,l,s,level-1)
+draw_tree(plist,l,s,5)
+
+done()
+</code></pre>
+<h1 id="开始c暂停python">开始C++，暂停Python</h1>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[0214-第三方模块]]></title>
         <id>https://foreup.github.io/post/0214-di-san-fang-mo-kuai/</id>
@@ -2278,123 +2326,6 @@ def move(x, y, step, angle=0):
 </code></pre>
 <h2 id="函数的参数">函数的参数</h2>
 <p>明天</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[0205-underscore]]></title>
-        <id>https://foreup.github.io/post/0205-underscore/</id>
-        <link href="https://foreup.github.io/post/0205-underscore/">
-        </link>
-        <updated>2022-02-05T12:19:22.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="underscore">underscore</h1>
-<h2 id="collections">Collections</h2>
-<p><strong>map/filter</strong><br>
-和<code>Array</code>的<code>map()</code>与<code>filter()</code>类似，但<code>underscore</code>的可以作用于<code>Object</code>。当作用于<code>Object</code>时，传入的函数为<code>function (value, key)</code>，第一个参数接收<code>value</code>，第二个参数接收<code>key</code>：</p>
-<pre><code class="language-JavaScript">'use strict';
-var obj = {
-    name: 'bob',
-    school: 'No.1 middle school',
-    address: 'xueyuan road'
-};
-var upper = _.map(obj, function (value, key) {
-    return (key+': '+value); //[&quot;name: bob&quot;,&quot;school: No.1 middle school&quot;,&quot;address: xueyuan road&quot;]
-});
-</code></pre>
-<p>对<code>Object</code>作<code>map()</code>操作的<strong>返回</strong>是<code>Array</code>, <code>_.map</code>换成<code>_.mapObject</code>返回为: <code>{&quot;name&quot;:&quot;name: bob&quot;,&quot;school&quot;:&quot;school: No.1 middle school&quot;,&quot;address&quot;:&quot;address: xueyuan road&quot;}</code><br>
-<strong>every / some</strong><br>
-当集合的所有元素都满足条件时，<code>_.every()</code>函数返回<code>true</code>，当集合的至少一个元素满足条件时，<code>_.some()</code>函数返回<code>true</code>：</p>
-<pre><code class="language-JavaScript">'use strict';
-var obj = {
-    name: 'bob',
-    school: 'No.1 middle school',
-    address: 'xueyuan road'
-};
-// 判断key和value是否全部是小写：
-var r1 = _.every(obj, function (value, key) {
-    return key===key.toLowerCase()&amp;&amp;value===value.toLowerCase();
-});
-var r2 = _.some(obj, function (value, key) {
-    return key===key.toLowerCase()||value===value.toLowerCase();
-});
-</code></pre>
-<p><strong>max / min</strong><br>
-直接返回集合中最大和最小的数, 若集合为<code>Object</code>时会忽略<code>key</code>只作用<code>value</code>.<br>
-<strong>groupBy</strong><br>
-<code>groupBy()</code>把集合的元素按照<code>key</code>归类，<code>key</code>由传入的函数返回：</p>
-<pre><code class="language-JavaScript">'use strict';
-var scores = [20, 81, 75, 40, 91, 59, 77, 66, 72, 88, 99];
-var groups = _.groupBy(scores, function (x) {
-    if (x &lt; 60) {
-        return 'C';
-    } else if (x &lt; 80) {
-        return 'B';
-    } else {
-        return 'A';
-    }
-});
-// 结果:
-// {
-//   A: [81, 91, 88, 99],
-//   B: [75, 77, 66, 72],
-//   C: [20, 40, 59]
-// }
-</code></pre>
-<p><strong>shuffle / sample</strong><br>
-<code>shuffle()</code>用洗牌算法随机打乱一个集合：</p>
-<pre><code class="language-JavaScript">'use strict';
-// 注意每次结果都不一样：
-_.shuffle([1, 2, 3, 4, 5, 6]); // [3, 5, 4, 6, 2, 1]
-</code></pre>
-<p><code>sample()</code>则是随机选择一个或多个元素：</p>
-<pre><code class="language-JavaScript">'use strict';
-// 注意每次结果都不一样：
-// 随机选1个：
-_.sample([1, 2, 3, 4, 5, 6]); // 2
-// 随机选3个：
-_.sample([1, 2, 3, 4, 5, 6], 3); // [6, 1, 4]
-</code></pre>
-<h2 id="arrays">Arrays</h2>
-<p><strong>flatten</strong><br>
-<code>flatten()</code>接收一个<code>Array</code>，无论这个<code>Array</code>里面嵌套了多少个<code>Array</code>，<code>flatten()</code>最后都把它们变成一个一维数组：</p>
-<pre><code class="language-JavaScript">_.flatten([1, [2], [3, [[4], [5]]]]); // [1, 2, 3, 4, 5]
-</code></pre>
-<p><strong>zip / unzip</strong><br>
-<code>zip()</code>把两个或多个数组的所有元素按索引对齐，然后按索引合并成新数组。</p>
-<pre><code class="language-JavaScript">'use strict';
-var names = ['Adam', 'Lisa', 'Bart'];
-var scores = [85, 92, 59];
-_.zip(names, scores);
-// [['Adam', 85], ['Lisa', 92], ['Bart', 59]]
-</code></pre>
-<p><code>unzip()</code>则是反过来：</p>
-<pre><code class="language-JavaScript">'use strict';
-var namesAndScores = [['Adam', 85], ['Lisa', 92], ['Bart', 59]];
-_.unzip(namesAndScores);
-// [['Adam', 'Lisa', 'Bart'], [85, 92, 59]]
-</code></pre>
-<p><strong>object</strong></p>
-<pre><code class="language-JavaScript">var names = ['Adam', 'Lisa', 'Bart'];
-var scores = [85, 92, 59];
-_.object(names, scores);
-// {Adam: 85, Lisa: 92, Bart: 59}
-</code></pre>
-<p><strong>range</strong><br>
-快速生成序列:</p>
-<pre><code class="language-JavaScript">'use strict';
-// 从0开始小于10:
-_.range(10); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-// 从1开始小于11：
-_.range(1, 11); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-// 从0开始小于30，步长5:
-_.range(0, 30, 5); // [0, 5, 10, 15, 20, 25]
-// 从0开始大于-10，步长-1:
-_.range(0, -10, -1); // [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
-</code></pre>
-<p><strong>uniq</strong></p>
-<pre><code class="language-JavaScript">var arr = ['Apple', 'orange', 'banana', 'ORANGE', 'apple', 'PEAR'];
-var result = _.uniq(arr,function(x){return x.toUpperCase();});
-//result:[&quot;Apple&quot;, &quot;orange&quot;, &quot;banana&quot;, &quot;PEAR&quot;]
-</code></pre>
 ]]></content>
     </entry>
 </feed>

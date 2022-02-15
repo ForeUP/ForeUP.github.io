@@ -10,14 +10,14 @@
 <meta name="keywords" content="">
 <meta name="description" content="欢迎访问[ForeUP&#39;s Blog]的个人博客">
 <meta name="author" content="kveln">
-<title>0201-Promise-JQuery选择 | ForeUP&#39;s Blog</title>
+<title>0215-New C++ | ForeUP&#39;s Blog</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link
   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
   rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/rss+xml" title="0201-Promise-JQuery选择 | ForeUP&#39;s Blog » Feed"
+<link rel="alternate" type="application/rss+xml" title="0215-New C++ | ForeUP&#39;s Blog » Feed"
   href="https://foreup.github.io//atom.xml">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
@@ -30,8 +30,8 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-  <meta property="og:description" content="0201-Promise-JQuery选择" />
-  <meta property="og:url" content="https://foreup.github.io/post/0201-promise-jquery-xuan-ze/" />
+  <meta property="og:description" content="0215-New C++" />
+  <meta property="og:url" content="https://foreup.github.io/post/0215-new-c/" />
   <meta property="og:locale" content="zh-CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ForeUP&#39;s Blog" />
@@ -154,10 +154,10 @@
                 <a href="https://foreup.github.io/tag/27taK8CUq/" class="tag">学习笔记</a>
                 
               </span>
-              <h1>0201-Promise-JQuery选择</h1>
+              <h1>0215-New C++</h1>
               <span class="meta">
                 Posted on
-                2022-02-01，11 min read
+                2022-02-15，2 min read
               </span>
             </div>
           
@@ -172,281 +172,73 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto post-content-container">
           
-          <img class="post-feature-header-image" src="https://picsum.photos/1200/450?random=1" alt="封面图">
+          <img class="post-feature-header-image" src="https://foreup.github.io//post-images/0215-new-c.jpg" alt="封面图">
           </img>
           
-          <h1 id="promise">Promise</h1>
-<p>最简单的Promise例子：生成一个0-2之间的随机数，如果小于1，则等待一段时间后返回成功，否则返回失败：<br>
-<code>resolve</code>和<code>reject</code>分别代表成功与失败执行的函数；</p>
-<pre><code class="language-JavaScript">function test(resolve, reject) {
-    var timeOut = Math.random() * 2;
-    log('set timeout to: ' + timeOut + ' seconds.');
-    setTimeout(function () {
-        if (timeOut &lt; 1) {
-            log('call resolve()...');
-            resolve('200 OK'); //代表成功
-        }
-        else {
-            log('call reject()...');
-            reject('timeout in ' + timeOut + ' seconds.'); //代表失败
-        }
-    }, timeOut * 1000);
-}
+          <h2 id="画树">画树</h2>
+<pre><code class="language-python">from turtle import Turtle,done,colormode,setup,title
+from random import randint,uniform
+
+title('给我一点时间，还你一棵树')
+colormode(255)      #设置画笔颜色模式，为随机生成RGB色彩做准备
+p1 = Turtle()       #实例化一个画笔
+p1.width(20)       #设置画笔宽度，初始宽度，主树干宽度
+p1.speed(100)      #设置画笔速度，具体是多少最快，查阅一下
+p1.pencolor(randint(0,254),randint(0,254),randint(0,254))      #初始画笔颜色,这是随机颜色，可以用0,0,0,表示黑色
+p1.hideturtle()    #隐藏画笔外形
+l = 150   #初始树干长度
+s = 45    #侧枝生长角度  ，这里可以改，观察生长状态
+p1.lt(90)          #默认画笔在画布正中央，方向向右，lt(90)调整为向上。
+p1.penup()         #提起画笔，以便直接调整画笔位置，移动路径画布上没有痕迹
+p1.bk(l)           #向后（向下）移动，调整树干起点
+p1.pendown()       #落下画笔，可以继续画
+p1.fd(l)           #画主树干
+plist = [p1]       #列表化画笔，便于树干分支控制
+def draw_tree(plist,l,s,level):      #参数level为分支层数，数值越大分支越多，相对画的时间也越长。
+    l = l*uniform(0.7,0.8)           #分支树干为上一个的随机比例，这里可以改
+    for p1 in plist:
+        w = p1.width()
+        p1.width(w*3/4)
+        p1.pencolor(randint(0,254),randint(0,254),randint(0,254))
+        p2 = p1.clone()
+        p1.lt(s)
+        p1.fd(l)
+        p2.rt(s)
+        p2.fd(l)
+        lst = []
+        lst.append(p1)
+        lst.append(p2)
+        if level &gt; 0:
+            draw_tree(lst,l,s,level-1)
+draw_tree(plist,l,s,5)
+
+done()
 </code></pre>
-<p>用一个Promise对象来执行上述函数，并根据设定的时间延迟显示结果；</p>
-<pre><code class="language-JavaScript">var p1 = new Promise(test);
-var p2 = p1.then(function (result) {
-    console.log('成功：' + result);
-}).catch(function (reason) {
-    console.log('失败：' + reason);
-});
-</code></pre>
-<p><code>Promise().then().then....catch()</code> 多任务串行执行.<br>
-<code>Promise.all([p1,p2,...])</code> 多任务并行执行<br>
-都要成功才进入then,返回结果数组.<br>
-<code>Promise.race([p1,p2,...])</code> 多任务赛跑.<br>
-then()和catch(),谁先调用算谁的,其它任务中断.</p>
-<h2 id="canvas">Canvas</h2>
-<ul>
-<li>在HTML中设定一块画布的大小与ID等属性；</li>
-<li>用JS在画图中绘画；</li>
-</ul>
-<pre><code class="language-JavaScript">var c=document.getElementById(&quot;myCanvas&quot;);
-var ctx=c.getContext(&quot;2d&quot;);
-//矩形
-ctx.fillStyle=&quot;#FF0000&quot;;
-ctx.fillRect(0,0,150,75);
-//路径
-ctx.moveTo(0,0); //线条开始坐标
-ctx.lineTo(200,100); //线条结束坐标
-ctx.stroke();
-//文本
-ctx.font=&quot;30px Arial&quot;; //字体
-ctx.fillText(&quot;Hello World&quot;,10,50); //实心字
-ctx.strokeText(&quot;Hello World&quot;,10,50); //空心字
-//画圆
-ctx.beginPath();
-ctx.arc(95,50,40,0,2*Math.PI); //x,y,r,start,stop
-ctx.stroke();
-// ****创建渐变****
-  //createLinearGradient(x,y,x1,y1) - 创建线条渐变
-  //createRadialGradient(x,y,r,x1,y1,r1) - 创建一个径向/圆渐变
-  var grd=ctx.createLinearGradient(0,0,200,0);
-  grd.addColorStop(0,&quot;red&quot;);
-  grd.addColorStop(1,&quot;white&quot;);
-  // 填充渐变
-  ctx.fillStyle=grd;
-  ctx.fillRect(10,10,150,80);
-//图像
-var img=document.getElementById(&quot;scream&quot;);
-ctx.drawImage(img,10,10);
-</code></pre>
-<h1 id="jquery选择器">JQuery选择器</h1>
-<p><strong>按ID查找</strong><br>
-<code>#abc</code>以<code>#</code>开头，返回的对象是jQuery对象；如果<code>id</code>为<code>abc</code>的<code>&lt;div&gt;</code>存在：返回的JQuery对象为<code>[&lt;div id=&quot;abc&quot;&gt;...&lt;/div&gt;]</code>；若不存在：返回<code>[]</code>。</p>
-<pre><code class="language-JavaScript">// 查找&lt;div id=&quot;abc&quot;&gt;:
-var div = $('#abc');
-</code></pre>
-<ul>
-<li>DOM与JQuery相互转化</li>
-</ul>
-<pre><code class="language-JavaScript">var div = $('#abc'); // jQuery对象
-var divDom = div.get(0); // 假设存在div，获取第1个DOM元素
-var another = $(divDom); // 重新把DOM包装为jQuery对象
-</code></pre>
-<p><strong>按tag查找</strong></p>
-<pre><code class="language-JavaScript">var ps = $('p'); // 返回所有&lt;p&gt;节点
-ps.length; // 数一数页面有多少个&lt;p&gt;节点
-</code></pre>
-<p><strong>按class查找</strong><br>
-注意在<code>class</code>名称前加<code>.</code></p>
-<pre><code class="language-JavaScript">var a = $('.red'); // 所有节点包含`class=&quot;red&quot;`都将返回
-// 例如:
-// &lt;div class=&quot;red&quot;&gt;...&lt;/div&gt;
-// &lt;p class=&quot;green red&quot;&gt;...&lt;/p&gt;
-</code></pre>
-<ul>
-<li>查找<code>class</code>同时包含<code>red</code>和<code>green</code>的节点：</li>
-</ul>
-<pre><code class="language-JavaScript">var a = $('.red.green'); // 注意没有空格！
-// 符合条件的节点：
-// &lt;div class=&quot;red green&quot;&gt;...&lt;/div&gt;
-// &lt;div class=&quot;blue green red&quot;&gt;...&lt;/div&gt;
-</code></pre>
-<p><strong>按属性查找</strong><br>
-当属性存在空格<code></code> 等特殊字符时需要用双引号<code>&quot;&quot;</code>括起来；</p>
-<pre><code class="language-JavaScript">var email = $('[name=email]'); // 找出&lt;??? name=&quot;email&quot;&gt;
-var passwordInput = $('[type=password]'); // 找出&lt;??? type=&quot;password&quot;&gt;
-var a = $('[items=&quot;A B&quot;]'); // 找出&lt;??? items=&quot;A B&quot;&gt;
-</code></pre>
-<p>属性的前缀后缀查找</p>
-<pre><code class="language-JavaScript">var icons = $('[name^=icon]'); // 找出所有name属性值以icon开头的DOM
-// 例如: name=&quot;icon-1&quot;, name=&quot;icon-2&quot;
-var names = $('[name$=with]'); // 找出所有name属性值以with结尾的DOM
-// 例如: name=&quot;startswith&quot;, name=&quot;endswith&quot;
-var icons = $('[class^=&quot;icon-&quot;]'); // 找出所有class包含至少一个以`icon-`开头的DOM
-// 例如: class=&quot;icon-clock&quot;, class=&quot;abc icon-home&quot;
-</code></pre>
-<p><strong>组合查找</strong></p>
-<pre><code class="language-JavaScript">var emailInput = $('input[name=email]'); // 不会找出&lt;div name=&quot;email&quot;&gt;, 只查找&lt;input&gt;标签
-//tag和class组合查找
-var tr = $('tr.red'); // 找出&lt;tr class=&quot;red ...&quot;&gt;...&lt;/tr&gt;
-</code></pre>
-<p><strong>多项选择器</strong><br>
-选出的元素按在HTML中的顺序排序，且不会有重复元素；<br>
-<code>&lt;p class=&quot;red green&quot;&gt;</code>不会被下面的<code>$('p.red,p.green')</code>选择两次；</p>
-<pre><code class="language-JavaScript">$('p,div'); // 把&lt;p&gt;和&lt;div&gt;都选出来
-$('p.red,p.green'); // 把&lt;p class=&quot;red&quot;&gt;和&lt;p class=&quot;green&quot;&gt;都选出来
-</code></pre>
-<p><strong>以下内容以此为例</strong></p>
-<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
-&lt;div class=&quot;testing&quot;&gt;
-    &lt;ul class=&quot;lang&quot;&gt;
-        &lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;
-        &lt;li class=&quot;lang-python&quot;&gt;Python&lt;/li&gt;
-        &lt;li class=&quot;lang-lua&quot;&gt;Lua&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre>
-<p><strong>层级选择器</strong><br>
-用<code>$('ancestor descendant')</code>来选择，层级之间用空格隔开；</p>
-<pre><code class="language-JavaScript">$('ul.lang li.lang-javascript'); // [&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-$('div.testing li.lang-javascript'); // [&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-</code></pre>
-<p>选择所有的<code>&lt;li&gt;</code>节点：</p>
-<pre><code class="language-JavaScript">$('ul.lang li');
-$('form[name=upload] input'); //选择范围限定在name属性为upload的表单里
-$('form.test p input'); // 多层选择,在form表单选择被&lt;p&gt;包含的&lt;input&gt;
-</code></pre>
-<p><strong>子选择器</strong><br>
-<code>$('parent&gt;child')</code>类似层级选择器，但必须是直系父子关系；</p>
-<pre><code class="language-JavaScript">$('ul.lang&gt;li.lang-javascript'); // 可以选出[&lt;li class=&quot;lang-javascript&quot;&gt;JavaScript&lt;/li&gt;]
-$('div.testing&gt;li.lang-javascript'); // [], 无法选出，因为&lt;div&gt;和&lt;li&gt;不构成父子关系
-</code></pre>
-<p><strong>过滤器</strong></p>
-<pre><code class="language-JavaScript">$('ul.lang li'); // 选出JavaScript、Python和Lua 3个节点
-$('ul.lang li:first-child'); // 仅选出JavaScript
-$('ul.lang li:last-child'); // 仅选出Lua
-$('ul.lang li:nth-child(2)'); // 选出第N个元素，N从1开始
-$('ul.lang li:nth-child(even)'); // 选出序号为偶数的元素
-$('ul.lang li:nth-child(odd)'); // 选出序号为奇数的元素
-</code></pre>
-<h2 id="查找和过滤">查找和过滤</h2>
-<p><strong>查找</strong></p>
-<ul>
-<li>获得一个节点<code>ul</code></li>
-<li><code>ul.find()</code>节点内查找</li>
-</ul>
-<pre><code class="language-html">&lt;!-- HTML结构 --&gt;
-&lt;ul class=&quot;lang&quot;&gt;
-    &lt;li class=&quot;js dy&quot;&gt;JavaScript&lt;/li&gt;
-    &lt;li class=&quot;dy&quot;&gt;Python&lt;/li&gt;
-    &lt;li id=&quot;swift&quot;&gt;Swift&lt;/li&gt;
-    &lt;li class=&quot;dy&quot;&gt;Scheme&lt;/li&gt;
-    &lt;li name=&quot;haskell&quot;&gt;Haskell&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-<p><code>find()</code>查找：</p>
-<pre><code class="language-JavaScript">var ul = $('ul.lang'); // 获得&lt;ul&gt;
-var dy = ul.find('.dy'); // 获得JavaScript, Python, Scheme
-var swf = ul.find('#swift'); // 获得Swift
-var hsk = ul.find('[name=haskell]'); // 获得Haskell
-</code></pre>
-<p>向上查找，使用<code>parent()</code>：</p>
-<pre><code class="language-JavaScript">var swf = $('#swift'); // 获得Swift
-var parent = swf.parent(); // 获得Swift的上层节点&lt;ul&gt;
-var a = swf.parent('.red'); // 获得Swift的上层节点&lt;ul&gt;，同时传入过滤条件。如果ul不符合条件，返回空jQuery对象
-</code></pre>
-<p>同一层级的节点，可以使用<code>next()</code>和<code>prev()</code>方法：</p>
-<pre><code class="language-JavaScript">var swift = $('#swift');
-swift.next(); // Scheme
-swift.next('[name=haskell]'); // 空的jQuery对象，因为Swift的下一个元素Scheme不符合条件[name=haskell]
-swift.prev(); // Python
-swift.prev('.dy'); // Python，因为Python同时符合过滤器条件.dy
-</code></pre>
-<p><strong>过滤</strong><br>
-和函数的<code>map</code>、<code>filter</code>类似：<br>
-<code>filter()</code>过滤掉不符合条件的节点；</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var a = langs.filter('.dy'); // 拿到JavaScript, Python, Scheme
-</code></pre>
-<p>或者也可以传入函数，注意<code>this</code>的指向的对象为<code>DOM</code></p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-langs.filter(function () {
-    return this.innerHTML.indexOf('S') === 0; // 返回S开头的节点
-}); // 拿到Swift, Scheme
-</code></pre>
-<p><code>map()</code>把JQuery对象中的节点转化为数组或其他形式</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var arr = langs.map(function () {
-    return this.innerHTML;
-}).get(); // 用get()拿到包含string的Array：['JavaScript', 'Python', 'Swift', 'Scheme', 'Haskell']
-</code></pre>
-<p>若JQuery包含多个节点，可以用<code>first()</code>、<code>last()</code>、<code>slice()</code>返回新的JQuery对象，删除不必要节点；</p>
-<pre><code class="language-JavaScript">var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
-var js = langs.first(); // JavaScript，相当于$('ul.lang li:first-child')
-var haskell = langs.last(); // Haskell, 相当于$('ul.lang li:last-child')
-var sub = langs.slice(2, 4); // Swift, Scheme, 参数和数组的slice()方法一致
-</code></pre>
-<h2 id="练习">练习</h2>
-<p>对于下面表单，输入值后，用jQuery获取表单的JSON字符串，<code>key</code>和<code>value</code>分别对应每个输入的<code>name</code>和相应的<code>value</code>，例如：<code>{&quot;name&quot;:&quot;Michael&quot;,&quot;email&quot;:...}</code></p>
-<pre><code class="language-HTML">&lt;form id=&quot;test-form&quot; action=&quot;#0&quot; onsubmit=&quot;return false;&quot;&gt;
-    &lt;p&gt;&lt;label&gt;Name: &lt;input name=&quot;name&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;Email: &lt;input name=&quot;email&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;Password: &lt;input name=&quot;password&quot; type=&quot;password&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;Gender: &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;m&quot; checked&gt; Male&lt;/label&gt; &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;f&quot;&gt; Female&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;label&gt;City: &lt;select name=&quot;city&quot;&gt;
-    	&lt;option value=&quot;BJ&quot; selected&gt;Beijing&lt;/option&gt;
-    	&lt;option value=&quot;SH&quot;&gt;Shanghai&lt;/option&gt;
-    	&lt;option value=&quot;CD&quot;&gt;Chengdu&lt;/option&gt;
-    	&lt;option value=&quot;XM&quot;&gt;Xiamen&lt;/option&gt;
-    &lt;/select&gt;&lt;/label&gt;&lt;/p&gt;
-    &lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;&lt;/p&gt;
-&lt;/form&gt;
-&lt;!--****JS脚本****--&gt;
-&lt;script&gt;
-json = {};  //将json初始化为对象
-// 利用和表单元素相关的特殊选择器
-// 理解filter和map的机制
-let tmp1 = $('#test-form :input').not('button').filter(function(){
-    //console.log(this.type);
-    return this.type !== 'radio' || this.checked;
-}).map(function(){
-    json[this.name] = this.value;
-    return true;
-});
-json = JSON.stringify(json);
-&lt;/script&gt;
-</code></pre>
+<h1 id="开始c暂停python">开始C++，暂停Python</h1>
 
           <div class="toc-container"><ul class="markdownIt-TOC">
-<li><a href="#promise">Promise</a>
+<li>
 <ul>
-<li><a href="#canvas">Canvas</a></li>
+<li><a href="#%E7%94%BB%E6%A0%91">画树</a></li>
 </ul>
 </li>
-<li><a href="#jquery%E9%80%89%E6%8B%A9%E5%99%A8">JQuery选择器</a>
-<ul>
-<li><a href="#%E6%9F%A5%E6%89%BE%E5%92%8C%E8%BF%87%E6%BB%A4">查找和过滤</a></li>
-<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
-</ul>
-</li>
+<li><a href="#%E5%BC%80%E5%A7%8Bc%E6%9A%82%E5%81%9Cpython">开始C++，暂停Python</a></li>
 </ul>
 </div>
           
           <hr />
           <p class="next-post">下一篇：
-            <a href="https://foreup.github.io/post/0131-dom-wen-jian-ajax/">
+            <a href="https://foreup.github.io/post/0214-di-san-fang-mo-kuai/">
               <span class="post-title">
-                0131-DOM-文件-AJAX&rarr;
+                0214-第三方模块&rarr;
               </span>
             </a>
           </p>
           
           <div class="comment" style="text-align: center;">
             
-            <span id="/post/0201-promise-jquery-xuan-ze/" class="leancloud_visitors"
-              data-flag-title="0201-Promise-JQuery选择">
+            <span id="/post/0215-new-c/" class="leancloud_visitors"
+              data-flag-title="0215-New C++">
               <em class="post-meta-item-text">阅读量 </em>
               <i class="leancloud-visitors-count">loading...</i>
             </span>
